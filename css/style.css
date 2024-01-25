@@ -1,0 +1,50 @@
+body {
+  text-align: center; /* Centrare il testo nella pagina */
+  background-color: #f5f5f5 !important;
+}
+
+h1 {
+  font-size: 3em; /* Grandezza del titolo */
+  text-align: center;
+  font-family: "DM Sans", sans-serif;
+  color: #363636 !important;
+}
+
+ul {
+  display: inline-block;
+  list-style-type: none; /* Rimuovere i marker dall'elenco */
+  padding: 0 !important; /* Rimuovere il padding di default */
+  height: fit-content;
+  text-align: left;
+}
+
+li {
+  display: block; /* Elementi dell'elenco in linea */
+  font-family: "Heebo", sans-serif;
+  margin-bottom: 5px; /* Spazio tra gli elementi */
+}
+
+a {
+  display: block !important;
+  text-decoration: none !important;
+  color: #a0a0a0 !important; /* Colore più chiaro del nero per i link */
+}
+a:hover,
+a:active {
+  color: #000000 !important; /* Colore nero scuro per hover e active */
+}
+
+.container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.col {
+  text-align: center;
+}
