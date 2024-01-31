@@ -1,0 +1,145 @@
+/* Aggiungi questo all'inizio del tuo foglio di stile CSS */
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400&family=Dosis:wght@200;400&family=Heebo:wght@100;400&family=Playfair+Display:ital@0;1&display=swap");
+
+body {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  background-color: #f2f1ed !important;
+  overflow-y: hidden;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 75%;
+  flex-grow: 1;
+}
+
+.description {
+  padding: 2rem;
+  width: 250px;
+  position: relative;
+}
+
+.opera-description {
+  position: relative;
+}
+
+ul {
+  list-style-type: none; /* Rimuovere i marker dall'elenco */
+  height: fit-content;
+  text-align: left;
+  width: inherit;
+}
+
+li {
+  font-size: small;
+}
+
+a {
+  display: block !important;
+  text-decoration: none !important;
+  color: #a0a0a0 !important; /* Colore più chiaro del nero per i link */
+}
+a:hover {
+  color: #000000 !important; /* Colore nero scuro per hover e active */
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  row-gap: 5%;
+  width: fit-content;
+  height: 100%;
+  padding: 10px;
+}
+
+.sidebar-header {
+  padding: 2rem;
+  height: fit-content;
+  width: 132px;
+}
+
+.sidebar-header img {
+  width: 100%; /* L'immagine riempirà la larghezza dell'intestazione */
+  height: auto; /* Mantiene il rapporto di aspetto originale dell'immagine */
+  display: block; /* Rimuove eventuali spazi sottostanti */
+}
+
+.main-content {
+  height: 100%;
+  overflow: hidden;
+  padding: 100px;
+  width: 100%;
+  display: flex; /* Usa flexbox per centrale l'immagine all'interno del div. */
+  justify-content: center; /* Centra l'immagine orizzontalmente all'interno del div. */
+  align-items: center; /* Centra l'immagine verticalmente all'interno del div. */
+}
+
+.sidebar ul li a:active,
+.sidebar ul li a.visited {
+  color: black;
+}
+
+.image-slider {
+  position: relative;
+  width: 100%; /* 100% del contenitore genitore */
+  height: 100%; /* Lo stesso, occupa l'intera altezza disponibile */
+  background-size: contain; /* Cambia 'cover' in 'contain' per visualizzare l'intera immagine */
+  background-repeat: no-repeat; /* Assicurati che l'immagine non si ripeta */
+  background-position: center; /* Centra l'immagine nello sfondo */
+  transition: background-image 0.3s ease-in-out; /* Opzionale: transizione fluida per il cambio immagine */
+}
+
+.image-slider .arrow {
+  position: absolute;
+  top: 50%;
+  width: 50%; /* Ogni freccia copre metà dell'immagine */
+  height: 100%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.3; /* Leggermente visibile; cambia a piacere */
+  transition: opacity 0.2s ease-in-out;
+}
+
+.image-slider .arrow svg {
+  fill: rgb(37, 37, 37); /* Colore della freccia. */
+  pointer-events: none; /* Assicurati che gli eventi del mouse siano gestiti dal div e non dagli SVG. */
+}
+
+.image-slider .arrow:hover {
+  opacity: 1;
+}
+
+.arrow.prev {
+  left: 0;
+  justify-content: flex-start;
+  padding-left: 20px; /* Distanza della freccia dal bordo sinistro. */
+}
+.arrow.next {
+  right: 0;
+  justify-content: flex-end;
+  padding-right: 20px; /* Distanza della freccia dal bordo destro. */
+}
+
+@media screen and (max-width: 1070px) {
+  /* Regole CSS da applicare quando la larghezza è inferiore a 1000px */
+  .sidebar {
+    row-gap: 20px;
+  }
+
+  .sidebar-header {
+    padding-bottom: 0;
+  }
+
+  .main-content {
+    position: relative;
+    padding: 50px;
+  }
+}

@@ -1,6 +1,9 @@
+/* Aggiungi questo all'inizio del tuo foglio di stile CSS */
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400&family=Dosis:wght@200;400&family=Heebo:wght@100;400&family=Playfair+Display:ital@0;1&display=swap");
+
 body {
   text-align: center; /* Centrare il testo nella pagina */
-  background-color: #f5f5f5 !important;
+  background-color: #f2f1ed !important;
 }
 
 h1 {
@@ -47,4 +50,15 @@ a:active {
 
 .col {
   text-align: center;
+}
+
+.header {
+  width: 100%;
+  height: fit-content;
+}
+
+.header img {
+  width: 100%; /* L'immagine riempirà la larghezza dell'intestazione */
+  height: auto; /* Mantiene il rapporto di aspetto originale dell'immagine */
+  display: block; /* Rimuove eventuali spazi sottostanti */
 }
