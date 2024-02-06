@@ -1,6 +1,7 @@
-/* Aggiungi questo all'inizio del tuo foglio di stile CSS */
+/* Importa font da Google Fonts */
 @import url("https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400&family=Dosis:wght@200;400&family=Heebo:wght@100;400&family=Playfair+Display:ital@0;1&display=swap");
 
+/* Impostazioni globali per il body */
 body {
   display: flex;
   margin: 0;
@@ -10,6 +11,7 @@ body {
   overflow-y: hidden;
 }
 
+/* Contenuto principale */
 .content {
   display: flex;
   flex-direction: column;
@@ -18,36 +20,41 @@ body {
   flex-grow: 1;
 }
 
+/* Descrizione */
 .description {
   padding: 2rem;
   width: 250px;
   position: relative;
 }
 
-.opera-description {
-  position: relative;
-}
-
+/* Ul */
 ul {
-  list-style-type: none; /* Rimuovere i marker dall'elenco */
+  list-style-type: none; /* Rimuove i marker dall'elenco */
   height: fit-content;
   text-align: left;
   width: inherit;
 }
 
-li {
-  font-size: small;
-}
-
+/* Link */
 a {
   display: block !important;
   text-decoration: none !important;
   color: #a0a0a0 !important; /* Colore più chiaro del nero per i link */
 }
+
+/* Stato hover link */
 a:hover {
-  color: #000000 !important; /* Colore nero scuro per hover e active */
+  color: #000000 !important; /* Colore nero scuro per hover */
+  font-weight: 400;
 }
 
+/* Stato active link */
+a:active {
+  color: #000000 !important; /* Colore nero scuro per active */
+  font-weight: bolder;
+}
+
+/* Sidebar */
 .sidebar {
   display: flex;
   flex-direction: column;
@@ -57,6 +64,7 @@ a:hover {
   padding: 10px;
 }
 
+/* Intestazione della sidebar */
 .sidebar-header {
   padding: 2rem;
   height: fit-content;
@@ -69,6 +77,7 @@ a:hover {
   display: block; /* Rimuove eventuali spazi sottostanti */
 }
 
+/* Contenuto principale */
 .main-content {
   height: 100%;
   overflow: hidden;
@@ -79,11 +88,7 @@ a:hover {
   align-items: center; /* Centra l'immagine verticalmente all'interno del div. */
 }
 
-.sidebar ul li a:active,
-.sidebar ul li a.visited {
-  color: black;
-}
-
+/* Slider immagini */
 .image-slider {
   position: relative;
   width: 100%; /* 100% del contenitore genitore */
@@ -92,8 +97,10 @@ a:hover {
   background-repeat: no-repeat; /* Assicurati che l'immagine non si ripeta */
   background-position: center; /* Centra l'immagine nello sfondo */
   transition: background-image 0.3s ease-in-out; /* Opzionale: transizione fluida per il cambio immagine */
+  animation: zoomInAnimation 1s ease-out forwards;
 }
 
+/* Freccia slider */
 .image-slider .arrow {
   position: absolute;
   top: 50%;
@@ -113,25 +120,53 @@ a:hover {
   pointer-events: none; /* Assicurati che gli eventi del mouse siano gestiti dal div e non dagli SVG. */
 }
 
+/* Stato hover freccia slider */
 .image-slider .arrow:hover {
   opacity: 1;
 }
 
+/* Posizionamento freccia precedente */
 .arrow.prev {
   left: 0;
   justify-content: flex-start;
   padding-left: 20px; /* Distanza della freccia dal bordo sinistro. */
 }
+
+/* Posizionamento freccia successiva */
 .arrow.next {
   right: 0;
   justify-content: flex-end;
   padding-right: 20px; /* Distanza della freccia dal bordo destro. */
 }
 
+/* Animazione fade out */
+.fade-out {
+  animation: fadeOutEffect 1s forwards; /* 1 secondo di durata e 'forwards' per mantenere lo stato finale dell'animazione */
+}
+
+@keyframes fadeOutEffect {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+/* Definizione delle keyframes per l'animazione */
+@keyframes zoomInAnimation {
+  from {
+    transform: scale(0.97); /* Inizia dall'immagine senza modifica di scala */
+  }
+  to {
+    transform: scale(1); /* Finisce con l'immagine ingrandita */
+  }
+}
+
+/* Media query per schermi di dimensioni ridotte */
 @media screen and (max-width: 1070px) {
-  /* Regole CSS da applicare quando la larghezza è inferiore a 1000px */
   .sidebar {
-    row-gap: 20px;
+    row-gap: 10px;
   }
 
   .sidebar-header {

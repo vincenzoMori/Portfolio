@@ -8,6 +8,9 @@ const images = [
     '../assets/img/seventh.webp',
     '../assets/img/eighth.webp',
 ];
+
+//fai un json in cui contieni path dell'immagine, descrizione, titolo, autore ecc
+
 let currentImageIdx = 0;
 
 function changeImage(direction) {
@@ -20,7 +23,8 @@ function changeImage(direction) {
         currentImageIdx = 0;
     }
 
-    const imageSlider = document.getElementById('image-slider');
+    const imageSlider = document.getElementsByClassName('image-slider').item(0);
+
     imageSlider.style.backgroundImage = `url('${images[currentImageIdx]}')`;
 }
 
