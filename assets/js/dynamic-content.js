@@ -4,12 +4,13 @@ document.addEventListener('DOMContentLoaded', function () {
         var queryParams = new URLSearchParams(window.location.search);
         return queryParams.get(param);
     }
+    var contentToLoad = getQueryParam('content');
 
-    var contentToLoad = getQueryParam('content'); // Ottieni il valore del parametro 'content'.
+    // Mappa dei valori, il primo è il valore del parametro, il secondo è il file da caricare.
     var contentMap = {
-        'cat1': '../pages/cat1.html', // Mappa dei valori, il primo è il valore del parametro, il secondo è il file da caricare.
-        'cat2': '../pages/cat2.html',
-        'cat3': '../pages/cat3.html',
+        'cat1': '../pages/dynamic-content.html',
+        'cat2': '../pages/dynamic-content.html',
+        'cat3': '../pages/dynamic-content.html',
         'about': '../pages/about.html',
         'exhibitions': '../pages/exhibitions.html',
         'contact': '../pages/contact.html'
@@ -27,11 +28,13 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     } else {
         console.log("Contenuto non trovato per il parametro: ", contentToLoad);
-        console.log("Caricamento del contenuto predefinito");
-        $('#main-content').load(contentMap['cat1'], function (response, status, xhr) {
-            if (status == "error") {
-                console.log("Qualcosa è andato storto nel caricamento del contenuto: ", xhr.status, xhr.statusText);
-            }
-        });
+        // Se non è stato trovato alcun contenuto, carica la pagina di errore 404
+        $('#main-content').load('../pages/404.html');
+    }
+
+    // Aggiungi la classe active al link corrente
+    var currentLink = document.querySelector(`a[href$='${contentToLoad}']`);
+    if (currentLink) {
+        currentLink.classList.add('active');
     }
 });

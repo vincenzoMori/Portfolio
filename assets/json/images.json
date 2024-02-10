@@ -1,0 +1,72 @@
+{
+  "cat1": [
+    {
+      "imgPath": "../assets/images/cat1/eighth.webp",
+      "author": "zelinda",
+      "title": "Titolo ottava immagine",
+      "description": "Descrizione ottava immagine",
+      "year": "2020",
+      "technique": "Oil on canvas"
+    },
+    {
+      "imgPath": "../assets/images/cat1/fifth.webp",
+      "author": "zelinda",
+      "title": "Titolo quinta immagine",
+      "description": "Descrizione quinta immagine",
+      "year": "2020",
+      "technique": "Oil on canvas"
+    },
+    {
+      "imgPath": "../assets/images/cat1/first.webp",
+      "author": "zelinda",
+      "title": "Titolo prima immagine",
+      "description": "Descrizione prima immagine",
+      "year": "2020",
+      "technique": "Oil on canvas"
+    },
+    {
+      "imgPath": "../assets/images/cat1/seventh.webp",
+      "author": "zelinda",
+      "title": "Titolo settima immagine",
+      "description": "Descrizione settima immagine",
+      "year": "2020",
+      "technique": "Oil on canvas"
+    }
+  ],
+  "cat2": [
+    {
+      "imgPath": "../assets/images/cat2/fourth.webp",
+      "author": "zelinda",
+      "title": "Titolo quarta immagine",
+      "description": "Descrizione quarta immagine",
+      "year": "2020",
+      "technique": "Oil on canvas"
+    },
+    {
+      "imgPath": "../assets/images/cat2/sixth.webp",
+      "author": "zelinda",
+      "title": "Titolo sesta immagine",
+      "description": "Descrizione sesta immagine",
+      "year": "2020",
+      "technique": "Oil on canvas"
+    }
+  ],
+  "cat3": [
+    {
+      "imgPath": "../assets/images/cat3/second.webp",
+      "author": "zelinda",
+      "title": "Titolo seconda immagine",
+      "description": "Descrizione seconda immagine",
+      "year": "2020",
+      "technique": "Oil on canvas"
+    },
+    {
+      "imgPath": "../assets/images/cat3/third.webp",
+      "author": "zelinda",
+      "title": "Titolo terza immagine",
+      "description": "Descrizione terza immagine",
+      "year": "2020",
+      "technique": "Oil on canvas"
+    }
+  ]
+}

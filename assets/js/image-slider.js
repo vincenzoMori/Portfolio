@@ -1,32 +1,49 @@
-const images = [
-    '../assets/img/first.webp',
-    '../assets/img/second.webp',
-    '../assets/img/third.webp',
-    '../assets/img/fourth.webp',
-    '../assets/img/fifth.webp',
-    '../assets/img/sixth.webp',
-    '../assets/img/seventh.webp',
-    '../assets/img/eighth.webp',
-];
+// Funzione per ottenere il valore di un parametro di query dall'URL.
+document.addEventListener('DOMContentLoaded', function () {
 
-//fai un json in cui contieni path dell'immagine, descrizione, titolo, autore ecc
+    let currentImageIdx = 0;
+    let images = [];
 
-let currentImageIdx = 0;
-
-function changeImage(direction) {
-    console.log(direction);
-    currentImageIdx += direction;
-
-    if (currentImageIdx < 0) {
-        currentImageIdx = images.length - 1;
-    } else if (currentImageIdx > images.length - 1) {
-        currentImageIdx = 0;
+    function getQueryParam(param) {
+        var queryParams = new URLSearchParams(window.location.search);
+        return queryParams.get(param);
     }
 
-    const imageSlider = document.getElementsByClassName('image-slider').item(0);
+    //Effettuo i contorlli e settaggio per la navigazione tra le immagini solo per le pagine di categoria
+    if (getQueryParam('content') != 'cat1' && getQueryParam('content') != 'cat2' && getQueryParam('content') != 'cat3') {
+        return;
+    } else {
+        window.changeImage = function (direction) {
+            currentImageIdx += direction;
 
-    imageSlider.style.backgroundImage = `url('${images[currentImageIdx]}')`;
-}
+            if (currentImageIdx < 0) {
+                currentImageIdx = images.length - 1;
+            } else if (currentImageIdx > images.length - 1) {
+                currentImageIdx = 0;
+            }
 
-// Rendiamo le funzioni accessibili globalmente
-window.changeImage = changeImage;
+            setImageInfo();
+        }
+
+        function setImageInfo() {
+            let imageSlider = document.getElementsByClassName('image-slider').item(0);
+            imageSlider.style.backgroundImage = `url('${images[currentImageIdx].imgPath}')`;
+            let imageDescription = document.getElementsByClassName('opera-description').item(0);
+            imageDescription.innerHTML = images[currentImageIdx].description;
+            let imageTitle = document.getElementsByClassName('opera-title').item(0);
+            imageTitle.innerHTML = images[currentImageIdx].title;
+        }
+
+        var categorySelected = getQueryParam('content'); // Ottieni il valore del parametro 'content'.
+
+        //Effettuo la get da images.json
+        fetch('../assets/json/images.json')
+            .then(response => response.json())
+            .then(data => {
+                images = data[categorySelected]; // Ottengo le immagini in base alla categoria selezionata
+                setImageInfo();
+            });
+    }
+
+
+})

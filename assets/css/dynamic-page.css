@@ -20,8 +20,8 @@ body {
   flex-grow: 1;
 }
 
-/* Descrizione */
-.description {
+/* Dettagli opera */
+.details {
   padding: 2rem;
   width: 250px;
   position: relative;
@@ -37,7 +37,6 @@ ul {
 
 /* Link */
 a {
-  display: block !important;
   text-decoration: none !important;
   color: #a0a0a0 !important; /* Colore più chiaro del nero per i link */
 }
@@ -48,10 +47,16 @@ a:hover {
   font-weight: 400;
 }
 
-/* Stato active link */
+/* Stato click link */
 a:active {
-  color: #000000 !important; /* Colore nero scuro per active */
-  font-weight: bolder;
+  color: #000000 !important; /* Colore nero scuro per e active */
+  font-weight: 550;
+}
+
+/* Stato active link */
+.active {
+  color: #000000 !important ; /* Colore nero scuro per active */
+  font-weight: 550;
 }
 
 /* Sidebar */
@@ -97,7 +102,7 @@ a:active {
   background-repeat: no-repeat; /* Assicurati che l'immagine non si ripeta */
   background-position: center; /* Centra l'immagine nello sfondo */
   transition: background-image 0.3s ease-in-out; /* Opzionale: transizione fluida per il cambio immagine */
-  animation: zoomInAnimation 1s ease-out forwards;
+  animation: pulse 1.5s forwards ease-in-out;
 }
 
 /* Freccia slider */
@@ -144,6 +149,12 @@ a:active {
   animation: fadeOutEffect 1s forwards; /* 1 secondo di durata e 'forwards' per mantenere lo stato finale dell'animazione */
 }
 
+/* Stato di visibilità del paragrafo 'torna alla home' */
+.back-home {
+  display: none;
+}
+
+/* Definizione delle keyframes per l'animazione */
 @keyframes fadeOutEffect {
   from {
     opacity: 1;
@@ -154,12 +165,15 @@ a:active {
 }
 
 /* Definizione delle keyframes per l'animazione */
-@keyframes zoomInAnimation {
-  from {
-    transform: scale(0.97); /* Inizia dall'immagine senza modifica di scala */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
   }
-  to {
-    transform: scale(1); /* Finisce con l'immagine ingrandita */
+  50% {
+    transform: scale(0.97);
+  }
+  100% {
+    transform: scale(1);
   }
 }
 
