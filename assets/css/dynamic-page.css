@@ -25,6 +25,26 @@ body {
   padding: 2rem;
   width: 250px;
   position: relative;
+  line-height: 0.4rem;
+}
+
+/* Titolo opera */
+.opera-title {
+  font-size: 12px;
+  margin-bottom: 1.3rem !important;
+}
+
+/* Descrizione opera */
+.opera-description {
+  font-size: 10px;
+  margin-top: 10px;
+  margin-bottom: 0px;
+}
+
+/* Info opera */
+.opera-info {
+  font-size: 10px;
+  margin-top: 10px;
 }
 
 /* Ul */
@@ -102,7 +122,7 @@ a:active {
   background-repeat: no-repeat; /* Assicurati che l'immagine non si ripeta */
   background-position: center; /* Centra l'immagine nello sfondo */
   transition: background-image 0.3s ease-in-out; /* Opzionale: transizione fluida per il cambio immagine */
-  animation: pulse 1.5s forwards ease-in-out;
+  animation: pulse 1.2s forwards ease-in-out;
 }
 
 /* Freccia slider */
@@ -170,7 +190,7 @@ a:active {
     transform: scale(1);
   }
   50% {
-    transform: scale(0.97);
+    transform: scale(0.989);
   }
   100% {
     transform: scale(1);

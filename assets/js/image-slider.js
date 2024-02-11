@@ -28,10 +28,12 @@ document.addEventListener('DOMContentLoaded', function () {
         function setImageInfo() {
             let imageSlider = document.getElementsByClassName('image-slider').item(0);
             imageSlider.style.backgroundImage = `url('${images[currentImageIdx].imgPath}')`;
-            let imageDescription = document.getElementsByClassName('opera-description').item(0);
-            imageDescription.innerHTML = images[currentImageIdx].description;
             let imageTitle = document.getElementsByClassName('opera-title').item(0);
             imageTitle.innerHTML = images[currentImageIdx].title;
+            let imageDescription = document.getElementsByClassName('opera-description').item(0);
+            imageDescription.innerHTML = images[currentImageIdx].description;
+            let imageinfo = document.getElementsByClassName('opera-info').item(0);
+            imageinfo.innerHTML = images[currentImageIdx].info;
         }
 
         var categorySelected = getQueryParam('content'); // Ottieni il valore del parametro 'content'.
