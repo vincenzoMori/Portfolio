@@ -106,7 +106,7 @@ a:active {
 .main-content {
   height: 100%;
   overflow: hidden;
-  padding: 100px;
+  padding: 60px;
   width: 100%;
   display: flex; /* Usa flexbox per centrale l'immagine all'interno del div. */
   justify-content: center; /* Centra l'immagine orizzontalmente all'interno del div. */
@@ -160,13 +160,13 @@ a:active {
 /* Div freccia sinistra */
 .freccia-sx {
   position: relative;
-  left: -50px;
+  left: -60px;
 }
 
 /* Div freccia destra */
 .freccia-dx {
   position: relative;
-  right: -50px;
+  right: -60px;
 }
 
 /* Posizionamento freccia successiva */
