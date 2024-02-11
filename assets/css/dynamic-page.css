@@ -157,6 +157,18 @@ a:active {
   padding-left: 20px; /* Distanza della freccia dal bordo sinistro. */
 }
 
+/* Div freccia sinistra */
+.freccia-sx {
+  position: relative;
+  left: -50px;
+}
+
+/* Div freccia destra */
+.freccia-dx {
+  position: relative;
+  right: -50px;
+}
+
 /* Posizionamento freccia successiva */
 .arrow.next {
   right: 0;
@@ -210,5 +222,13 @@ a:active {
   .main-content {
     position: relative;
     padding: 50px;
+  }
+
+  .freccia-dx {
+    right: -70px;
+  }
+
+  .freccia-sx {
+    left: -70px;
   }
 }
