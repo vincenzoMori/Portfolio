@@ -21,11 +21,30 @@ document.addEventListener('DOMContentLoaded', function () {
             } else if (currentImageIdx > images.length - 1) {
                 currentImageIdx = 0;
             }
-
             setImageInfo();
         }
 
+        var categorySelected = getQueryParam('content'); // Ottieni il valore del parametro 'content'.
+        //Effettuo la get da images.json
+        fetch('../assets/json/images.json')
+            .then(response => response.json())
+            .then(data => {
+                images = data[categorySelected]; // Ottengo le immagini in base alla categoria selezionata
+                checkImage();
+                setImageInfo();
+            });
+
+        function checkImage() {
+            var operaQueryParam = getQueryParam('opera');
+            if (operaQueryParam) {
+                var operaTitle = operaQueryParam.replace(/_/g, ' ');
+                var operaIndex = images.findIndex(image => image.title == operaTitle);
+                if (operaIndex !== -1) currentImageIdx = operaIndex;
+            }
+        }
+
         function setImageInfo() {
+            console.log('setImageInfo')
             let imageSlider = document.getElementsByClassName('image-slider').item(0);
             imageSlider.style.backgroundImage = `url('${images[currentImageIdx].imgPath}')`;
             let imageTitle = document.getElementsByClassName('opera-title').item(0);
@@ -34,18 +53,7 @@ document.addEventListener('DOMContentLoaded', function () {
             imageDescription.innerHTML = images[currentImageIdx].description;
             let imageinfo = document.getElementsByClassName('opera-info').item(0);
             imageinfo.innerHTML = images[currentImageIdx].info;
+            history.pushState({}, null, `?content=${getQueryParam('content')}&opera=${images[currentImageIdx].title.replace(/ /g, '_')}`);
         }
-
-        var categorySelected = getQueryParam('content'); // Ottieni il valore del parametro 'content'.
-
-        //Effettuo la get da images.json
-        fetch('../assets/json/images.json')
-            .then(response => response.json())
-            .then(data => {
-                images = data[categorySelected]; // Ottengo le immagini in base alla categoria selezionata
-                setImageInfo();
-            });
     }
-
-
 })
