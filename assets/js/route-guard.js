@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
         '/index.html',
         '/pages/dynamic-page.html',
         '/Portfolio/index.html',
+        '/Portfolio/pages/dynamic-page.html',
     ];
 
     // Get the current pathname and query string of the URL
