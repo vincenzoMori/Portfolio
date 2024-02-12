@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (currentPathname === '/pages/dynamic-page.html') {
             $('#main-content').load('../pages/404.html');
         } else {
-            window.location.href = '../pages/404.html';
+            window.location.href = './pages/404.html';
             // Make the <a> tag with class "back-home" visible using the display CSS property with the Web APIs
             document.getElementsByClassName('back-home').item(0).style.setProperty('display', 'block', 'important');
         }
