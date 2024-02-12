@@ -21,9 +21,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Check if the user is on one of the allowed pages
     let isAllowed = allowedPaths.includes(currentPathname);
-    console.log('isAllowed:', isAllowed)
-    console.log('currentPathname:', currentPathname)
-    console.log('currentSearchParams:', currentSearchParams)
 
     //If on '/Portfolio/', redirect to '/Portfolio/index.html'
     if (currentPathname === '/Portfolio/') {
