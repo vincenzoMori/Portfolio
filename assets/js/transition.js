@@ -7,7 +7,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
     function handleClick(e, target) {
         e.preventDefault(); // Prevent default navigation action
         let newLocation = target.href; // Get the new URL to visit
-        console.log(newLocation);
 
         document.body.classList.add('fade-out'); // Add the class that triggers the animation
 
