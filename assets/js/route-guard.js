@@ -2,7 +2,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // List of allowed paths
     const allowedPaths = [
         '/index.html',
-        '/pages/dynamic-page.html'
+        '/pages/dynamic-page.html',
+        '/Portfolio/index.html',
     ];
 
     // Get the current pathname and query string of the URL
