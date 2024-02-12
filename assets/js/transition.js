@@ -1,17 +1,20 @@
 document.addEventListener('DOMContentLoaded', (event) => {
     console.log('DOM fully loaded and parsed');
-    const links = document.querySelectorAll('li a'); // Seleziona tutti i link dentro gli elementi <li>
-    const image = document.querySelector('.sidebar-header a'); // Seleziona l'immagine del logo
+
+    const links = document.querySelectorAll('li a'); // Select all links inside <li> elements
+    const image = document.querySelector('.sidebar-header a'); // Select the logo image
 
     function handleClick(e, target) {
-        e.preventDefault(); // Previene l'azione di navigazione di default
-        let newLocation = target.href; // Ottiene il nuovo URL da visitare
-        console.log(newLocation)
-        document.body.classList.add('fade-out'); // Aggiunge la classe che avvia l'animazione
-        // Attende che l'animazione sia completa prima di cambiare la pagina
+        e.preventDefault(); // Prevent default navigation action
+        let newLocation = target.href; // Get the new URL to visit
+        console.log(newLocation);
+
+        document.body.classList.add('fade-out'); // Add the class that triggers the animation
+
+        // Wait for the animation to complete before changing the page
         document.body.addEventListener('animationend', () => {
             window.location.href = newLocation;
-        }, { once: true }); // Usiamo { once: true } per assicurarci che l'event listener sia rimosso dopo l'uso
+        }, { once: true }); // Use { once: true } to ensure the event listener is removed after use
     }
 
     if (!image) {

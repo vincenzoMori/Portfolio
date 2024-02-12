@@ -12,7 +12,6 @@
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body>
@@ -28,10 +27,16 @@
                 <h4 class="opera-title"></h4>
                 <p class="opera-description"></p>
                 <p class="opera-info"></p>
+                <button id="fullscreen-btn" onclick="displayImageFullScreen()">FULLSCREEN IMAGE</button>
             </div>
         </div>
     </div>
     <div class="main-content" id="main-content"></div>
+    <div id="overlay" style="display:none;">
+        <span id="close-btn" onclick="closeImageFullScreen()">&times;</span>
+        <img id="fullscreen-img" style="max-width:100%;max-height:100%;" onclick="stopPropagation(event)">
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="../assets/js/route-guard.js"></script>
     <script src="../assets/js/menu.js"></script>
     <script src="../assets/js/dynamic-content.js"></script>

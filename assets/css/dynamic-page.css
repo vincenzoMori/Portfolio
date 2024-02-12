@@ -1,7 +1,7 @@
-/* Importa font da Google Fonts */
+/* Import Google Fonts */
 @import url("https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400&family=Dosis:wght@200;400&family=Heebo:wght@100;400&family=Playfair+Display:ital@0;1&display=swap");
 
-/* Impostazioni globali per il body */
+/* Global settings */
 body {
   display: flex;
   margin: 0;
@@ -11,7 +11,7 @@ body {
   overflow-y: hidden;
 }
 
-/* Contenuto principale */
+/* Main content */
 .content {
   display: flex;
   flex-direction: column;
@@ -20,7 +20,7 @@ body {
   flex-grow: 1;
 }
 
-/* Dettagli opera */
+/* Art details */
 .details {
   padding: 2rem;
   width: 250px;
@@ -28,28 +28,28 @@ body {
   line-height: 0.4rem;
 }
 
-/* Titolo opera */
+/* Art title */
 .opera-title {
   font-size: 12px;
   margin-bottom: 1.3rem !important;
 }
 
-/* Descrizione opera */
+/* Art description */
 .opera-description {
   font-size: 10px;
   margin-top: 10px;
   margin-bottom: 0px;
 }
 
-/* Info opera */
+/* Art info */
 .opera-info {
   font-size: 10px;
   margin-top: 10px;
 }
 
-/* Ul */
+/* Unordered list */
 ul {
-  list-style-type: none; /* Rimuove i marker dall'elenco */
+  list-style-type: none; /* Remove bullet points */
   height: fit-content;
   text-align: left;
   width: inherit;
@@ -58,24 +58,24 @@ ul {
 /* Link */
 a {
   text-decoration: none !important;
-  color: #a0a0a0 !important; /* Colore più chiaro del nero per i link */
+  color: #a0a0a0 !important; /* Lighter color than black for links */
 }
 
-/* Stato hover link */
+/* Link hover state */
 a:hover {
-  color: #000000 !important; /* Colore nero scuro per hover */
+  color: #000000 !important; /* Darker color for hover */
   font-weight: 400;
 }
 
-/* Stato click link */
+/* Link active state */
 a:active {
-  color: #000000 !important; /* Colore nero scuro per e active */
+  color: #000000 !important; /* Darker color for active */
   font-weight: 550;
 }
 
-/* Stato active link */
+/* Active link state */
 .active {
-  color: #000000 !important ; /* Colore nero scuro per active */
+  color: #000000 !important ; /* Darker color for active */
   font-weight: 550;
 }
 
@@ -89,104 +89,148 @@ a:active {
   padding: 10px;
 }
 
-/* Intestazione della sidebar */
+/* Sidebar header */
 .sidebar-header {
   padding: 2rem;
   height: fit-content;
   width: 132px;
 }
 
+/* Sidebar header image */
 .sidebar-header img {
-  width: 100%; /* L'immagine riempirà la larghezza dell'intestazione */
-  height: auto; /* Mantiene il rapporto di aspetto originale dell'immagine */
-  display: block; /* Rimuove eventuali spazi sottostanti */
+  width: 100%; /* Image fills the width of the header */
+  height: auto; /* Maintains the original aspect ratio of the image */
+  display: block; /* Removes any space below */
 }
 
-/* Contenuto principale */
+/* Main content */
 .main-content {
   height: 100%;
   overflow: hidden;
   padding: 60px;
   width: 100%;
-  display: flex; /* Usa flexbox per centrale l'immagine all'interno del div. */
-  justify-content: center; /* Centra l'immagine orizzontalmente all'interno del div. */
-  align-items: center; /* Centra l'immagine verticalmente all'interno del div. */
+  display: flex; /* Use flexbox to center the image within the div */
+  justify-content: center; /* Horizontally center the image within the div */
+  align-items: center; /* Vertically center the image within the div */
 }
 
-/* Slider immagini */
+/* Image slider */
 .image-slider {
   position: relative;
-  width: 100%; /* 100% del contenitore genitore */
-  height: 100%; /* Lo stesso, occupa l'intera altezza disponibile */
-  background-size: contain; /* Cambia 'cover' in 'contain' per visualizzare l'intera immagine */
-  background-repeat: no-repeat; /* Assicurati che l'immagine non si ripeta */
-  background-position: center; /* Centra l'immagine nello sfondo */
-  transition: background-image 0.3s ease-in-out; /* Opzionale: transizione fluida per il cambio immagine */
+  width: 100%; /* 100% of the parent container */
+  height: 100%; /* Occupies the entire available height */
+  background-size: contain; /* Change 'cover' to 'contain' to display the entire image */
+  background-repeat: no-repeat; /* Ensure the image does not repeat */
+  background-position: center; /* Center the image in the background */
+  transition: background-image 0.3s ease-in-out; /* Optional: smooth transition for image change */
   animation: pulse 1.2s forwards ease-in-out;
 }
 
-/* Freccia slider */
+/* Slider arrow */
 .image-slider .arrow {
   position: absolute;
   top: 50%;
-  width: 50%; /* Ogni freccia copre metà dell'immagine */
+  width: 50%; /* Each arrow covers half of the image */
   height: 100%;
   transform: translateY(-50%);
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  opacity: 0.3; /* Leggermente visibile; cambia a piacere */
+  opacity: 0.3; /* Slightly visible; change as desired */
   transition: opacity 0.2s ease-in-out;
 }
 
 .image-slider .arrow svg {
-  fill: rgb(37, 37, 37); /* Colore della freccia. */
-  pointer-events: none; /* Assicurati che gli eventi del mouse siano gestiti dal div e non dagli SVG. */
+  fill: rgb(37, 37, 37); /* Arrow color */
+  pointer-events: none; /* Ensure mouse events are handled by the div and not the SVG */
 }
 
-/* Stato hover freccia slider */
+/* Slider arrow hover state */
 .image-slider .arrow:hover {
   opacity: 1;
 }
 
-/* Posizionamento freccia precedente */
+/* Previous arrow position */
 .arrow.prev {
   left: 0;
   justify-content: flex-start;
-  padding-left: 20px; /* Distanza della freccia dal bordo sinistro. */
+  padding-left: 20px; /* Distance of the arrow from the left edge */
 }
 
-/* Div freccia sinistra */
+/* Left arrow div */
 .freccia-sx {
   position: relative;
   left: -60px;
 }
 
-/* Div freccia destra */
+/* Right arrow div */
 .freccia-dx {
   position: relative;
   right: -60px;
 }
 
-/* Posizionamento freccia successiva */
+/* Next arrow position */
 .arrow.next {
   right: 0;
   justify-content: flex-end;
-  padding-right: 20px; /* Distanza della freccia dal bordo destro. */
+  padding-right: 20px; /* Distance of the arrow from the right edge */
 }
 
-/* Animazione fade out */
+/* Fade out animation */
 .fade-out {
-  animation: fadeOutEffect 1s forwards; /* 1 secondo di durata e 'forwards' per mantenere lo stato finale dell'animazione */
+  animation: fadeOutEffect 1s forwards; /* 1 second duration and 'forwards' to maintain the final state of the animation */
 }
 
-/* Stato di visibilità del paragrafo 'torna alla home' */
+/* Visibility state of the 'back to home' paragraph */
 .back-home {
   display: none;
 }
 
-/* Definizione delle keyframes per l'animazione */
+/* Fullscreen button */
+#fullscreen-btn {
+  display: none;
+  border: none;
+  font-family: inherit;
+  font-size: 8px;
+  margin: 0;
+  padding: 0;
+  width: 90px;
+  line-height: normal;
+  text-align: left;
+}
+
+/* Fullscreen button hover state */
+#fullscreen-btn:hover {
+  color: blue;
+}
+
+/* Fullscreen overlay*/
+#overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  /* Ensure it is above other elements on the page */
+}
+
+/* Close overlay button */
+#close-btn {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 25px;
+  color: #fff;
+  cursor: pointer;
+}
+
+/* Define keyframes for the animation */
 @keyframes fadeOutEffect {
   from {
     opacity: 1;
@@ -196,7 +240,7 @@ a:active {
   }
 }
 
-/* Definizione delle keyframes per l'animazione */
+/* Define keyframes for the animation */
 @keyframes pulse {
   0% {
     transform: scale(1);
@@ -209,14 +253,10 @@ a:active {
   }
 }
 
-/* Media query per schermi di dimensioni ridotte */
+/* Media query for smaller screens */
 @media screen and (max-width: 1070px) {
   .sidebar {
-    row-gap: 10px;
-  }
-
-  .sidebar-header {
-    padding-bottom: 0;
+    row-gap: 0px;
   }
 
   .main-content {
@@ -230,5 +270,31 @@ a:active {
 
   .freccia-sx {
     left: -70px;
+  }
+
+  .sidebar-header img {
+    width: 50%;
+  }
+
+  li {
+    font-size: small;
+  }
+
+  .opera-title {
+    font-size: 8px;
+    margin-bottom: 0.3rem !important;
+  }
+
+  .opera-description {
+    font-size: 7px;
+  }
+
+  .opera-info {
+    font-size: 6.5px;
+    margin-bottom: 5px;
+  }
+
+  #fullscreen-btn {
+    font-size: 6px;
   }
 }
