@@ -1,8 +1,16 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Reload the page if the user clicks the back button and clear the cache
+    window.onpageshow = function (event) {
+        if (event.persisted) {
+            window.location.reload();
+        }
+    };
+
     // List of allowed paths
     const allowedPaths = [
         '/index.html',
         '/pages/dynamic-page.html',
+        '/Portfolio/',
         '/Portfolio/index.html',
         '/Portfolio/pages/dynamic-page.html',
     ];
@@ -16,6 +24,11 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('isAllowed:', isAllowed)
     console.log('currentPathname:', currentPathname)
     console.log('currentSearchParams:', currentSearchParams)
+
+    //If on '/Portfolio/', redirect to '/Portfolio/index.html'
+    if (currentPathname === '/Portfolio/') {
+        window.location.href = '/Portfolio/index.html';
+    }
 
     // If on 'dynamic-page.html', check for allowed query parameters
     if (currentPathname === './pages/dynamic-page.html') {
