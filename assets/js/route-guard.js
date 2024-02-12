@@ -11,9 +11,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Check if the user is on one of the allowed pages
     let isAllowed = allowedPaths.includes(currentPathname);
+    console.log('isAllowed:', isAllowed)
+    console.log('currentPathname:', currentPathname)
+    console.log('currentSearchParams:', currentSearchParams)
 
     // If on 'dynamic-page.html', check for allowed query parameters
-    if (currentPathname === '/pages/dynamic-page.html') {
+    if (currentPathname === './pages/dynamic-page.html') {
         const allowedContents = ['cat1', 'cat2', 'cat3', 'about', 'exhibitions', 'contact'];
         const currentContent = currentSearchParams.get('content');
         isAllowed = isAllowed && allowedContents.includes(currentContent);
@@ -21,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Redirect to 404 page if the URL is not allowed and we are on 'dynamic-page.html'
     if (!isAllowed) {
-        if (currentPathname === '/pages/dynamic-page.html') {
+        if (currentPathname === './pages/dynamic-page.html') {
             $('#main-content').load('../pages/404.html');
         } else {
             window.location.href = './pages/404.html';
