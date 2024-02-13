@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (currentPathname === prefixPath + '/pages/dynamic-page.html') {
             load404Page();
         } else {
-            redirectTo('../pages/404.html');
+            redirectTo(prefixPath + '/pages/404.html');
             makeBackHomeLinkVisible();
         }
     }
