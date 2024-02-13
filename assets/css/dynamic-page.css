@@ -84,7 +84,7 @@ a:active {
   display: flex;
   flex-direction: column;
   row-gap: 5%;
-  width: fit-content;
+  width: 30%;
   height: 100%;
   padding: 10px;
 }
@@ -180,6 +180,10 @@ a:active {
 /* Fade out animation */
 .fade-out {
   animation: fadeOutEffect 1s forwards; /* 1 second duration and 'forwards' to maintain the final state of the animation */
+}
+
+#not-found {
+  text-align: right;
 }
 
 /* Visibility state of the 'back to home' paragraph */

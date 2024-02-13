@@ -1,3 +1,15 @@
+// Set the production flag
+var PROD = false;
+
+// List of allowed paths
+var allowedPaths = [
+    '/index.html',
+    '/pages/dynamic-page.html',
+    '/Portfolio/',
+    '/Portfolio/index.html',
+    '/Portfolio/pages/dynamic-page.html',
+];
+
 document.addEventListener('DOMContentLoaded', () => {
     // Reload the page if the user clicks the back button and clear the cache
     window.onpageshow = function (event) {
@@ -6,15 +18,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // List of allowed paths
-    const allowedPaths = [
-        '/index.html',
-        '/pages/dynamic-page.html',
-        '/Portfolio/',
-        '/Portfolio/index.html',
-        '/Portfolio/pages/dynamic-page.html',
-    ];
-
     // Get the current pathname and query string of the URL
     const currentPathname = window.location.pathname;
     const currentSearchParams = new URLSearchParams(window.location.search);
@@ -22,43 +25,67 @@ document.addEventListener('DOMContentLoaded', () => {
     // Check if the user is on one of the allowed pages
     let isAllowed = allowedPaths.includes(currentPathname);
 
+    // Set the PROD flag based on the current hostname
+    PROD = currentPathname.includes('Portfolio');
     console.log(currentPathname)
 
-    // If on '/Portfolio/', redirect to '/Portfolio/index.html'
-    if (currentPathname === '/Portfolio/') {
-        console.log('Portfolio test')
-        window.location.href = '/Portfolio/index.html';
-        return
+
+    // Set the prefix path based on the PROD flag
+    const prefixPath = PROD ? '/Portfolio' : '';
+    console.log(prefixPath)
+
+    // Redirect to the appropriate page based on the current pathname
+    switch (currentPathname) {
+        case prefixPath + '/':
+            console.log('Redirecting to index.html')
+            redirectTo(prefixPath + '/index.html');
+            break;
+        case prefixPath + '/pages/about.html':
+            console.log('Redirecting to the dynamic about page')
+            redirectTo(prefixPath + '/pages/dynamic-page.html?content=about');
+            break;
+        case prefixPath + '/pages/dynamic-page.html':
+            const allowedContents = ['cat1', 'cat2', 'cat3', 'about', 'exhibitions', 'contact'];
+            const currentContent = currentSearchParams.get('content');
+            isAllowed = isAllowed && allowedContents.includes(currentContent);
+            break;
+        case prefixPath + '/pages/contact.html':
+            console.log('Redirecting to the dynamic contact page')
+            redirectTo(prefixPath + '/pages/dynamic-page.html?content=contact');
+            break;
+        case prefixPath + '/pages/exhibitions.html':
+            console.log('Redirecting to the dynamic exhibitions page')
+            redirectTo(prefixPath + '/pages/dynamic-page.html?content=exhibitions');
+            break;
     }
 
-    // If on './pages/about.html', redirect to './dynamic-page.html?content=about'
-    if (currentPathname === '/pages/about.html') {
-        console.log('Pages about test')
-        window.location.href = './dynamic-page.html?content=about';
-        return
-    }
-
-
-    // If on 'dynamic-page.html', check for allowed query parameters
-    if (currentPathname === './pages/dynamic-page.html') {
-        console.log('dynamic-page test')
-        const allowedContents = ['cat1', 'cat2', 'cat3', 'about', 'exhibitions', 'contact'];
-        const currentContent = currentSearchParams.get('content');
-        isAllowed = isAllowed && allowedContents.includes(currentContent);
-    }
-
-    console.log(isAllowed)
-    // Redirect to 404 page if the URL is not allowed and we are on 'dynamic-page.html'
+    // Redirect to the 404 page if the URL is not allowed and we are on 'dynamic-page.html'
     if (!isAllowed) {
-        if (currentPathname === './pages/dynamic-page.html') {
-            console.log('if 1')
-            $('#main-content').load('../pages/404.html');
+        if (currentPathname === prefixPath + '/pages/dynamic-page.html') {
+            load404Page();
         } else {
-            console.log('else 1')
-            window.location.href = '../pages/404.html';
-            // Make the <a> tag with class "back-home" visible using the display CSS property with the Web APIs
-            console.log(document.getElementsByClassName('back-home'))
-            document.getElementsByClassName('back-home').item(0).style.setProperty('display', 'block', 'important');
+            redirectTo('../pages/404.html');
+            makeBackHomeLinkVisible();
         }
+    }
+
+    // Function to redirect to a new page
+    function redirectTo(url) {
+        console.log('Redirecting to: ' + url);
+        window.location.href = url;
+        isAllowed = true;
+    }
+
+    // Function to load the 404 page
+    function load404Page() {
+        console.log('Loading 404 page');
+        $('#main-content').load('../pages/404.html');
+    }
+
+    // Function to make the back-home link visible
+    function makeBackHomeLinkVisible() {
+        console.log('Making back-home link visible');
+        const backHomeLink = document.getElementsByClassName('back-home').item(0);
+        backHomeLink.style.setProperty('display', 'block', 'important');
     }
 });
