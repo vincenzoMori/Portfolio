@@ -1,0 +1,6 @@
+#content-to-load {
+  height: 100%;
+  overflow: scroll;
+  overflow-x: hidden;
+  padding-right: 50px;
+}

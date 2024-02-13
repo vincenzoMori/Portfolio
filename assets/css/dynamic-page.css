@@ -8,7 +8,6 @@ body {
   padding: 0;
   height: 100vh;
   background-color: #f2f1ed !important;
-  overflow-y: hidden;
 }
 
 /* Main content */
@@ -84,9 +83,10 @@ a:active {
   display: flex;
   flex-direction: column;
   row-gap: 5%;
-  width: 30%;
+  width: 22%;
   height: 100%;
   padding: 10px;
+  overflow: hidden;
 }
 
 /* Sidebar header */
@@ -105,13 +105,11 @@ a:active {
 
 /* Main content */
 .main-content {
+  margin-left: auto;
   height: 100%;
   overflow: hidden;
-  padding: 60px;
+  padding: 60px 0 60px 60px;
   width: 100%;
-  display: flex; /* Use flexbox to center the image within the div */
-  justify-content: center; /* Horizontally center the image within the div */
-  align-items: center; /* Vertically center the image within the div */
 }
 
 /* Image slider */
@@ -273,7 +271,7 @@ a:active {
 
   .main-content {
     position: relative;
-    padding: 50px;
+    padding: 50px 0 50px 50px;
   }
 
   .freccia-dx {
