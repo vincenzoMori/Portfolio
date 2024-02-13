@@ -115,7 +115,7 @@ a:active {
 /* Image slider */
 .image-slider {
   position: relative;
-  width: 100%; /* 100% of the parent container */
+  width: 90%; /* 100% of the parent container */
   height: 100%; /* Occupies the entire available height */
   background-size: contain; /* Change 'cover' to 'contain' to display the entire image */
   background-repeat: no-repeat; /* Ensure the image does not repeat */
