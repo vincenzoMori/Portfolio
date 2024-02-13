@@ -58,7 +58,6 @@ document.addEventListener('DOMContentLoaded', () => {
             load404Page();
         } else {
             redirectTo(prefixPath + '/pages/404.html');
-            makeBackHomeLinkVisible();
         }
     }
 
@@ -71,11 +70,5 @@ document.addEventListener('DOMContentLoaded', () => {
     // Function to load the 404 page
     function load404Page() {
         $('#main-content').load('../pages/404.html');
-    }
-
-    // Function to make the back-home link visible
-    function makeBackHomeLinkVisible() {
-        const backHomeLink = document.getElementsByClassName('back-home').item(0);
-        backHomeLink.style.setProperty('display', 'block', 'important');
     }
 });
