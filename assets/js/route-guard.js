@@ -27,21 +27,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Set the PROD flag based on the current hostname
     PROD = currentPathname.includes('Portfolio');
-    console.log(currentPathname)
-
 
     // Set the prefix path based on the PROD flag
     const prefixPath = PROD ? '/Portfolio' : '';
-    console.log(prefixPath)
 
     // Redirect to the appropriate page based on the current pathname
     switch (currentPathname) {
         case prefixPath + '/':
-            console.log('Redirecting to index.html')
             redirectTo(prefixPath + '/index.html');
             break;
         case prefixPath + '/pages/about.html':
-            console.log('Redirecting to the dynamic about page')
             redirectTo(prefixPath + '/pages/dynamic-page.html?content=about');
             break;
         case prefixPath + '/pages/dynamic-page.html':
@@ -50,11 +45,9 @@ document.addEventListener('DOMContentLoaded', () => {
             isAllowed = isAllowed && allowedContents.includes(currentContent);
             break;
         case prefixPath + '/pages/contact.html':
-            console.log('Redirecting to the dynamic contact page')
             redirectTo(prefixPath + '/pages/dynamic-page.html?content=contact');
             break;
         case prefixPath + '/pages/exhibitions.html':
-            console.log('Redirecting to the dynamic exhibitions page')
             redirectTo(prefixPath + '/pages/dynamic-page.html?content=exhibitions');
             break;
     }
@@ -71,20 +64,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Function to redirect to a new page
     function redirectTo(url) {
-        console.log('Redirecting to: ' + url);
         window.location.href = url;
         isAllowed = true;
     }
 
     // Function to load the 404 page
     function load404Page() {
-        console.log('Loading 404 page');
         $('#main-content').load('../pages/404.html');
     }
 
     // Function to make the back-home link visible
     function makeBackHomeLinkVisible() {
-        console.log('Making back-home link visible');
         const backHomeLink = document.getElementsByClassName('back-home').item(0);
         backHomeLink.style.setProperty('display', 'block', 'important');
     }
