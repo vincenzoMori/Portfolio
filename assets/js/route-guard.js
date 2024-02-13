@@ -24,23 +24,38 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // If on '/Portfolio/', redirect to '/Portfolio/index.html'
     if (currentPathname === '/Portfolio/') {
+        console.log('Portfolio test')
         window.location.href = '/Portfolio/index.html';
+        return
     }
+
+    // If on './pages/about.html', redirect to './dynamic-page.html?content=about'
+    if (currentPathname === '/pages/about.html') {
+        console.log('Pages about test')
+        window.location.href = './dynamic-page.html?content=about';
+        return
+    }
+
 
     // If on 'dynamic-page.html', check for allowed query parameters
     if (currentPathname === './pages/dynamic-page.html') {
+        console.log('dynamic-page test')
         const allowedContents = ['cat1', 'cat2', 'cat3', 'about', 'exhibitions', 'contact'];
         const currentContent = currentSearchParams.get('content');
         isAllowed = isAllowed && allowedContents.includes(currentContent);
     }
 
+    console.log(isAllowed)
     // Redirect to 404 page if the URL is not allowed and we are on 'dynamic-page.html'
     if (!isAllowed) {
         if (currentPathname === './pages/dynamic-page.html') {
+            console.log('if 1')
             $('#main-content').load('../pages/404.html');
         } else {
-            window.location.href = './pages/404.html';
+            console.log('else 1')
+            window.location.href = '../pages/404.html';
             // Make the <a> tag with class "back-home" visible using the display CSS property with the Web APIs
+            console.log(document.getElementsByClassName('back-home'))
             document.getElementsByClassName('back-home').item(0).style.setProperty('display', 'block', 'important');
         }
     }
