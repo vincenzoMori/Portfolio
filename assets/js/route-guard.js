@@ -5,9 +5,9 @@ var PROD = false;
 var allowedPaths = [
     '/index.html',
     '/pages/dynamic-page.html',
-    '/Portfolio/',
-    '/Portfolio/index.html',
-    '/Portfolio/pages/dynamic-page.html',
+    '/portfolio/',
+    '/portfolio/index.html',
+    '/portfolio/pages/dynamic-page.html',
 ];
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -23,10 +23,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const currentSearchParams = new URLSearchParams(window.location.search);
 
     // Check if the user is on one of the allowed pages
-    let isAllowed = allowedPaths.includes(currentPathname);
+    let isAllowed = allowedPaths.includes(currentPathname.toLowerCase());
 
     // Set the PROD flag based on the current hostname
-    PROD = currentPathname.includes('Portfolio');
+    PROD = currentPathname.toLowerCase().includes('portfolio');
+    console.log('PROD:', PROD)
 
     // Set the prefix path based on the PROD flag
     const prefixPath = PROD ? '/Portfolio' : '';

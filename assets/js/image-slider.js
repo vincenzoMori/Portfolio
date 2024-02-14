@@ -47,8 +47,8 @@ document.addEventListener('DOMContentLoaded', function () {
     function setImageInfo() {
         try {
             currentImage = images[currentImageIdx]
-            let imageSlider = document.getElementsByClassName('image-slider').item(0);
-            imageSlider.style.backgroundImage = `url('${currentImage.imgPath}')`;
+            let slide_show = document.getElementById('slide-show');
+            slide_show.style.backgroundImage = `url('${currentImage.imgPath}')`;
             let imageTitle = document.getElementsByClassName('opera-title').item(0);
             imageTitle.innerHTML = images[currentImageIdx].title;
             let imageDescription = document.getElementsByClassName('opera-description').item(0);

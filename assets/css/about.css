@@ -1,15 +1,15 @@
-#content-to-load {
+#about {
   height: 100%;
   overflow: auto;
   overflow-x: hidden;
   padding-right: 50px;
 }
 
-#content-to-load::-webkit-scrollbar {
+#about::-webkit-scrollbar {
   width: 10px;
 }
 
-#content-to-load::-webkit-scrollbar-thumb {
+#about::-webkit-scrollbar-thumb {
   border-radius: 20px; /* roundness of the scroll thumb */
   border: 3px solid white; /* creates padding around scroll thumb */
 }
