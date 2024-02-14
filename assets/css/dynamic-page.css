@@ -145,6 +145,7 @@ a:active {
   justify-content: center;
   opacity: 0.3; /* Slightly visible; change as desired */
   transition: opacity 0.2s ease-in-out;
+  z-index: 1;
 }
 
 .image-slider .arrow svg {
