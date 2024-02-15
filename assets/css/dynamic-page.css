@@ -196,18 +196,28 @@ a:active {
   display: none;
 }
 
-/* Fullscreen button */
-#fullscreen-btn {
+#icons {
   display: none;
-  width: fit-content;
-  line-height: normal;
-  cursor: pointer;
-  margin-left: 0.5px;
+  gap: 15px;
+  width: 100%;
+  /* margin-top: 10px; */
 }
 
-/* Fullscreen button hover state */
-#fullscreen-btn:hover {
+.already-liked {
+  cursor: default !important;
+  animation: none !important;
+}
+
+#icons *:hover {
+  cursor: pointer;
   animation: pulseOut 0.5s forwards ease-in-out;
+}
+
+/* Fullscreen button */
+#fullscreen-btn {
+  width: fit-content;
+  line-height: normal;
+  margin-left: 0.5px;
 }
 
 /* Fullscreen overlay*/
@@ -303,7 +313,7 @@ a:active {
     margin-bottom: 5px;
   }
 
-  #fullscreen-btn {
+  #icons {
     font-size: 9.5px;
   }
 }
