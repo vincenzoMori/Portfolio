@@ -21,22 +21,20 @@ body {
 
 /* Art details */
 .details {
-  padding: 2rem;
-  width: 250px;
+  padding: 2rem 0 2rem 2rem;
   position: relative;
-  line-height: 0.4rem;
+  line-height: 1rem;
 }
 
 /* Art title */
 .opera-title {
   font-size: 12px;
-  margin-bottom: 1.3rem !important;
+  margin-bottom: 1rem !important;
 }
 
 /* Art description */
 .opera-description {
   font-size: 10px;
-  margin-top: 10px;
   margin-bottom: 0px;
 }
 
@@ -82,7 +80,7 @@ a:active {
 .sidebar {
   display: flex;
   flex-direction: column;
-  row-gap: 5%;
+  row-gap: 2%;
   width: 22%;
   height: 100%;
   padding: 10px;
