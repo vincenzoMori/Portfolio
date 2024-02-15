@@ -27,7 +27,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Set the PROD flag based on the current hostname
     PROD = currentPathname.toLowerCase().includes('portfolio');
-    console.log('PROD:', PROD)
 
     // Set the prefix path based on the PROD flag
     const prefixPath = PROD ? '/Portfolio' : '';

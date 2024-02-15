@@ -1,83 +1,116 @@
 let currentImageIdx = 0;
 let images = [];
-let currentImage = '';
 let imageOpened = false;
 
-document.addEventListener('DOMContentLoaded', function () {
+let prevBlobUrl = '';
+let currBlobUrl = '';
+let nextBlobUrl = '';
 
+document.addEventListener('DOMContentLoaded', function () {
     function getQueryParam(param) {
-        var queryParams = new URLSearchParams(window.location.search);
+        const queryParams = new URLSearchParams(window.location.search);
         return queryParams.get(param);
     }
 
-    function changeImage(direction) {
-        currentImageIdx += direction;
-
-        if (currentImageIdx < 0) {
-            currentImageIdx = images.length - 1;
-        } else if (currentImageIdx > images.length - 1) {
-            currentImageIdx = 0;
-        }
-        setImageInfo();
+    async function changeImage(direction) {
+        setCurrentIndex(direction);
+        await loadImages(currentImageIdx, direction);
     }
 
     window.handleArrowKeyPress = function (event) {
-        if (event.key === "ArrowRight" || event.keyCode === 39) {
-            if (imageOpened) return;
-            changeImage(1);
-        } else if (event.key === "ArrowLeft" || event.keyCode === 37) {
-            if (imageOpened) return;
-            changeImage(-1);
-        } else if (event.key === "Escape" || event.keyCode === 27) {
-            if (!imageOpened) return;
+        // Use of guard clause to immediately return if the image is open or not
+        if (imageOpened && event.key === 'Escape') {
             closeImageFullScreen();
+            return;
         }
 
+        // If the image is open and the user presses any key other than Escape, do nothing.
+        if (imageOpened) return;
+
+        // Navigation between images if the image is not open (imageOpened is false)
+        if (event.key === 'ArrowRight') {
+            changeImage(1);
+        } else if (event.key === 'ArrowLeft') {
+            changeImage(-1);
+        }
     }
 
     function checkImage() {
-        var operaQueryParam = getQueryParam('opera');
+        const operaQueryParam = getQueryParam('opera');
         if (operaQueryParam) {
-            var operaTitle = operaQueryParam.replace(/_/g, ' ');
-            var operaIndex = images.findIndex(image => image.title == operaTitle);
+            const operaTitle = operaQueryParam.replace(/_/g, ' ');
+            const operaIndex = images.findIndex(image => image.title.toLowerCase() === operaTitle.toLowerCase());
             if (operaIndex !== -1) currentImageIdx = operaIndex;
         }
     }
 
     function setImageInfo() {
         try {
-            currentImage = images[currentImageIdx]
-            let slide_show = document.getElementById('slide-show');
-            slide_show.style.backgroundImage = `url('${currentImage.imgPath}')`;
-            let imageTitle = document.getElementsByClassName('opera-title').item(0);
+            const slide_show = document.getElementById('slide-show');
+            slide_show.style.backgroundImage = `url('${currBlobUrl}')`;
+            const imageTitle = document.getElementsByClassName('opera-title').item(0);
             imageTitle.innerHTML = images[currentImageIdx].title;
-            let imageDescription = document.getElementsByClassName('opera-description').item(0);
+            const imageDescription = document.getElementsByClassName('opera-description').item(0);
             imageDescription.innerHTML = images[currentImageIdx].description;
-            let imageinfo = document.getElementsByClassName('opera-info').item(0);
+            const imageinfo = document.getElementsByClassName('opera-info').item(0);
             imageinfo.innerHTML = images[currentImageIdx].info;
             history.pushState({}, null, `?content=${getQueryParam('content')}&opera=${images[currentImageIdx].title.replace(/ /g, '_')}`);
-            let btn = document.getElementById('fullscreen-btn');
+            const btn = document.getElementById('fullscreen-btn');
             btn.style.display = 'block'
         } catch {
-            // Reload the page
             location.reload();
         }
     }
 
     function fetchImages() {
-        var categorySelected = getQueryParam('content'); // Get the value of the 'content' parameter.
-        // Fetch images.json
+        const categorySelected = getQueryParam('content');
         fetch('../assets/json/images.json')
             .then(response => response.json())
             .then(data => {
-                images = data[categorySelected]; // Get the images based on the selected category
-                checkImage();
-                setImageInfo();
+                images = data[categorySelected];; // Get the images based on the selected category
+                checkImage();  // Check if the image is selected from the URL
+                loadImages(currentImageIdx, 0);
             });
     }
 
-    // Execute the image slider controls and setup only for category pages
-    if (getQueryParam('content') != 'cat1' && getQueryParam('content') != 'cat2' && getQueryParam('content') != 'cat3') {
+    async function loadImages(index, direction = 0) {
+        if (direction === 0) {
+            const [currBlobUrlInternal, nextBlobUrlInternal, prevBlobUrlInternal] = await Promise.all([
+                loadImageBlob(index),
+                loadImageBlob(index + 1 > images.length - 1 ? 0 : index + 1),
+                loadImageBlob(index === 0 ? images.length - 1 : index - 1)
+            ]);
+            currBlobUrl = currBlobUrlInternal;
+            nextBlobUrl = nextBlobUrlInternal;
+            prevBlobUrl = prevBlobUrlInternal;
+        }
+        if (direction === 1) {
+            URL.revokeObjectURL(prevBlobUrl);
+            prevBlobUrl = currBlobUrl;
+            currBlobUrl = nextBlobUrl;
+            nextBlobUrl = await loadImageBlob(index + 1 > images.length - 1 ? 0 : index + 1);
+        }
+        if (direction === -1) {
+            URL.revokeObjectURL(nextBlobUrl);
+            nextBlobUrl = currBlobUrl;
+            currBlobUrl = prevBlobUrl;
+            prevBlobUrl = await loadImageBlob(index - 1 < 0 ? images.length - 1 : index - 1);
+        }
+        setImageInfo();
+    }
+
+    function setCurrentIndex(index) {
+        currentImageIdx = (currentImageIdx + index + images.length) % images.length;
+    }
+
+    async function loadImageBlob(index) {
+        const image = images[index];
+        const response = await fetch(image.imgPath);
+        const blob = await response.blob();
+        return URL.createObjectURL(blob);
+    }
+
+    if (getQueryParam('content') !== 'cat1' && getQueryParam('content') !== 'cat2' && getQueryParam('content') !== 'cat3') {
         return;
     } else {
         window.changeImage = changeImage;
@@ -87,14 +120,11 @@ document.addEventListener('DOMContentLoaded', function () {
     document.addEventListener('keydown', handleArrowKeyPress);
 });
 
-
 // Function to display the image in full screen
 window.displayImageFullScreen = function () {
     imageOpened = true;
-    var imagePath = currentImage.imgPath;
-    document.getElementById('fullscreen-img').src = imagePath;
+    document.getElementById('fullscreen-img').src = currBlobUrl;
     document.getElementById('overlay').style.display = 'flex';
-
     // Add event listener for ESC key press only when the overlay is visible
     document.addEventListener('keydown', handleArrowKeyPress);
 }
@@ -106,8 +136,6 @@ window.closeImageFullScreen = function (event) {
         event.stopPropagation();
     }
     document.getElementById('overlay').style.display = 'none';
-
-    // Remove event listener for ESC key press when the overlay is closed
     document.removeEventListener('overlay', handleArrowKeyPress);
 }
 
@@ -122,4 +150,3 @@ document.getElementById('overlay').addEventListener('click', function (event) {
         closeImageFullScreen();
     }
 });
-
