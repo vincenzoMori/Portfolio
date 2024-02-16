@@ -1,18 +1,29 @@
 const currentPathname = window.location.pathname;
-let path = currentPathname === '/Portfolio/index.html' ? './pages/dynamic-page.html?' : '../pages/dynamic-page.html?'
+let basePath = currentPathname === '/Portfolio/index.html' ? './pages/dynamic-page.html?' : '../pages/dynamic-page.html?'
 
-var linksHtml = `
-        <ul>
-            <li><a href="${path}content=cat1" class="dynamic-load">2010 - 2015</a></li>
-            <li><a href="${path}content=cat2" class="dynamic-load">2016 - 2020</a></li>
-            <li><a href="${path}content=cat3" class="dynamic-load">2021 - now</a></li>
-            <br>
-            <li><a href="${path}content=about" class="dynamic-load">about</a></li>
-            <li><a href="${path}content=exhibitions" class="dynamic-load">exhibitions</a></li>
-            <li><a href="${path}content=contact" class="dynamic-load">contact</a></li>
-        </ul>
-    `;
+const links = [
+    { href: 'cat1', text: '2010 - 2015' },
+    { href: 'cat2', text: '2016 - 2020' },
+    { href: 'cat3', text: '2021 - now' },
+    { href: 'spacer', text: ''},
+    { href: 'about', text: 'about' },
+    { href: 'exhibitions', text: 'exhibitions' },
+    { href: 'contact', text: 'contact' }
+];
+
 var menuContainer = document.getElementById('menu-container');
 if (menuContainer) {
-    menuContainer.innerHTML = linksHtml;
+    links.forEach(link => {
+        if (link.href === 'spacer') {
+            var spacer = document.createElement('div');
+            spacer.classList.add('spacer');
+            menuContainer.appendChild(spacer);
+            return;
+        }
+        var a = document.createElement('a');
+        a.href = basePath + 'content=' + link.href;
+        a.classList.add('bigLink');
+        a.innerHTML = link.text;
+        menuContainer.appendChild(a);
+    });
 }
