@@ -56,10 +56,10 @@ a:active {
 
 @keyframes fadeInAnimation {
   0% {
-      opacity: 0;
+    opacity: 0;
   }
   100% {
-      opacity: 1;
+    opacity: 1;
   }
 }
 
@@ -79,7 +79,6 @@ a:active {
   margin-bottom: 40px;
 }
 
-
 /* Animation for fade-out effect */
 .fade-out {
   animation: fadeOutEffect 1s forwards; /* 1 second duration and 'forwards' to keep the final state of the animation */
@@ -98,14 +97,14 @@ a:active {
 }
 
 /* ---------------- LINK ---------------- */
-.bigLink{
+.bigLink {
   font-family: "Heebo", sans-serif;
   font-size: 18px;
   margin-bottom: 5px;
   text-decoration: none !important;
 }
 
-.bigLink:hover{
+.bigLink:hover {
   font-weight: 400;
   color: #000000 !important;
   transition: 0.4s;
@@ -114,7 +113,7 @@ a:active {
 /* ---------------- IMAGES ---------------- */
 
 .logo {
-  width: 120px;
+  width: 90px;
 }
 
 /* Animation for fade-out effect */
@@ -126,4 +125,3 @@ a:active {
     opacity: 0;
   }
 }
-
