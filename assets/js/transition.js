@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', (event) => {
     console.log('DOM fully loaded and parsed');
 
-    const links = document.querySelectorAll('li a'); // Select all links inside <li> elements
+    const links = document.querySelectorAll('a'); // Select all links inside <li> elements
     const image = document.querySelector('.sidebar-header a'); // Select the logo image
 
     function handleClick(e, target) {

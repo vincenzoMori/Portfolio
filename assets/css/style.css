@@ -8,14 +8,6 @@ body {
   overflow: hidden;
 }
 
-/* Style for the h1 element */
-h1 {
-  font-size: 3em; /* Title size */
-  text-align: center;
-  font-family: "DM Sans", sans-serif;
-  color: #363636 !important;
-}
-
 /* Style for the ul element */
 ul {
   display: inline-block;
@@ -40,12 +32,6 @@ a {
   color: #a0a0a0 !important; /* Lighter color than black for links */
 }
 
-/* Style for the a element on hover */
-a:hover {
-  color: #000000 !important; /* Dark black color on hover */
-  font-weight: 400;
-}
-
 /* Style for the a element on active */
 a:active {
   color: #000000 !important; /* Dark black color on active */
@@ -64,6 +50,19 @@ a:active {
   flex-direction: column;
 }
 
+.fade-in {
+  animation: fadeInAnimation ease 1s forwards;
+}
+
+@keyframes fadeInAnimation {
+  0% {
+      opacity: 0;
+  }
+  100% {
+      opacity: 1;
+  }
+}
+
 /* Style for the col class */
 .col {
   display: flex;
@@ -77,18 +76,45 @@ a:active {
 .header {
   width: 100%;
   height: fit-content;
+  margin-bottom: 40px;
 }
 
-/* Style for the header img element */
-.header img {
-  width: 100%; /* The image will fill the width of the header */
-  height: auto; /* Maintain the original aspect ratio of the image */
-  display: block; /* Remove any underlying spaces */
-}
 
 /* Animation for fade-out effect */
 .fade-out {
   animation: fadeOutEffect 1s forwards; /* 1 second duration and 'forwards' to keep the final state of the animation */
+}
+
+.spacer {
+  height: 20px;
+}
+
+.centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100svh;
+}
+
+/* ---------------- LINK ---------------- */
+.bigLink{
+  font-family: "Heebo", sans-serif;
+  font-size: 18px;
+  margin-bottom: 5px;
+  text-decoration: none !important;
+}
+
+.bigLink:hover{
+  font-weight: 400;
+  color: #000000 !important;
+  transition: 0.4s;
+}
+
+/* ---------------- IMAGES ---------------- */
+
+.logo {
+  width: 120px;
 }
 
 /* Animation for fade-out effect */
@@ -101,70 +127,3 @@ a:active {
   }
 }
 
-/* Animation for small effect */
-@keyframes smallEffect {
-  from {
-    width: 100%;
-  }
-  to {
-    width: 50%;
-  }
-}
-
-/* Animation for big effect */
-@keyframes bigEffect {
-  from {
-    width: 50%;
-  }
-  to {
-    width: 100%;
-  }
-}
-
-/* Animation for font small effect */
-@keyframes fontSmallEffect {
-  from {
-    font-size: large;
-  }
-  to {
-    font-size: 8px;
-  }
-}
-
-/* Animation for font big effect */
-@keyframes fontBigEffect {
-  from {
-    font-size: small;
-  }
-  to {
-    font-size: large;
-  }
-}
-
-/* Media query for small screens */
-@media screen and (max-width: 950px) {
-  li {
-    animation: fontSmallEffect 1s forwards !important;
-  }
-
-  .header {
-    animation: smallEffect 1s forwards;
-    height: fit-content;
-  }
-  .main-content {
-    position: relative;
-    padding: 50px;
-  }
-}
-
-/* Media query for large screens */
-@media screen and (min-width: 900px) {
-  li {
-    animation: fontBigEffect 1s forwards !important;
-  }
-
-  .header {
-    animation: bigEffect 1s forwards;
-    height: fit-content;
-  }
-}

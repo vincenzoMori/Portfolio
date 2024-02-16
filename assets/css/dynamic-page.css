@@ -19,28 +19,29 @@ body {
   flex-grow: 1;
 }
 
-/* Art details */
-.details {
+.sidebar-content {
   padding: 2rem 0 2rem 2rem;
-  position: relative;
-  line-height: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
 }
 
 /* Art title */
 .opera-title {
-  font-size: 12px;
+  font-size: 16px;
   margin-bottom: 1rem !important;
 }
 
 /* Art description */
 .opera-description {
-  font-size: 10px;
+  font-size: 12px;
   margin-bottom: 0px;
 }
 
 /* Art info */
 .opera-info {
-  font-size: 10px;
+  font-size: 12px;
   margin-top: 10px;
 }
 
@@ -79,12 +80,12 @@ a:active {
 /* Sidebar */
 .sidebar {
   display: flex;
-  flex-direction: column;
-  row-gap: 2%;
+  flex-direction: column; 
   width: 22%;
   height: 100%;
   padding: 10px;
   overflow: hidden;
+  max-width: 350px;
 }
 
 /* Sidebar header */
@@ -103,10 +104,11 @@ a:active {
 
 /* Main content */
 .main-content {
-  margin-left: auto;
+  display: flex;
+  justify-content: center;
   height: 100%;
   overflow: hidden;
-  padding: 60px 0 60px 60px;
+  padding: 60px 0 60px 0;
   width: 100%;
 }
 
@@ -172,7 +174,7 @@ a:active {
 /* Right arrow div */
 .freccia-dx {
   position: relative;
-  right: -50px;
+  right: -48px;
 }
 
 /* Next arrow position */
@@ -198,9 +200,10 @@ a:active {
 
 #icons {
   display: none;
-  gap: 15px;
+  gap: 20px;
   width: 100%;
-  /* margin-top: 10px; */
+  font-size: 22px;
+  margin-top: 20px;
 }
 
 .already-liked {
@@ -238,9 +241,9 @@ a:active {
 /* Close overlay button */
 #close-btn {
   position: absolute;
-  top: 15px;
-  right: 20px;
-  font-size: 25px;
+  top: 30px;
+  right: 30px;
+  font-size: 30px;
   color: #fff;
   cursor: pointer;
 }
@@ -280,40 +283,3 @@ a:active {
   }
 }
 
-/* Media query for smaller screens */
-@media screen and (max-width: 1070px) {
-  .sidebar {
-    row-gap: 0px;
-  }
-
-  .main-content {
-    position: relative;
-    padding: 50px 0 50px 50px;
-  }
-
-  .sidebar-header img {
-    width: 50%;
-  }
-
-  li {
-    font-size: small;
-  }
-
-  .opera-title {
-    font-size: 8px;
-    margin-bottom: 0.3rem !important;
-  }
-
-  .opera-description {
-    font-size: 7px;
-  }
-
-  .opera-info {
-    font-size: 6.5px;
-    margin-bottom: 5px;
-  }
-
-  #icons {
-    font-size: 9.5px;
-  }
-}
