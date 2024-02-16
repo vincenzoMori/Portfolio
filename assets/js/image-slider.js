@@ -137,7 +137,7 @@ window.likeImage = function () {
     const urlToFetch = `https://script.google.com/macros/s/AKfycbziqrcmvUjG4LgAYZCF5aUI8G5oL8zBB_QCsnW0vRXC7Ry91dPrzmfSKtQ7KkSEHJYo/exec?id=${currentImage.id}&titolo=${currentImage.title}`;
 
     // Fetch request to the server for liking the image
-    fetch(urlToFetch, { mode: 'cors' })
+    fetch(urlToFetch)
         .then(response => {
             if (!response.ok) {
                 // If the request failed, remove the image from local storage
