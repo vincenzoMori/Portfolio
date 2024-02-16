@@ -117,10 +117,6 @@ a:active {
   width: 120px;
 }
 
-.centerText {
-  text-align: center;
-}
-
 /* Animation for fade-out effect */
 @keyframes fadeOutEffect {
   from {
