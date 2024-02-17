@@ -1,36 +1,47 @@
 /* Import Google Fonts */
 @import url("https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400&family=Dosis:wght@200;400&family=Heebo:wght@100;400&family=Playfair+Display:ital@0;1&display=swap");
 
-/* Global settings */
-body {
-  display: flex;
-  margin: 0;
-  padding: 0;
-  height: 100vh;
-  background-color: #f2f1ed !important;
-}
-
-/* Main content */
-.content {
+.sidebar {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  height: 75%;
-  flex-grow: 1;
+  width: 22%;
+  height: 100%;
+  padding: 10px;
+  overflow: hidden;
+  max-width: 350px;
+}
+
+.sidebar-header {
+  padding: 2rem;
+  height: fit-content;
+  width: 132px;
+}
+
+.sidebar-header img {
+  width: 100%; /* Image fills the width of the header */
+  height: auto; /* Maintains the original aspect ratio of the image */
+  display: block; /* Removes any space below */
 }
 
 .sidebar-content {
-  padding: 2rem 0 2rem 2rem;
+  padding: 0 0 2rem 2rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   height: 100%;
 }
 
+.opera-number {
+  font-size: 12px;
+  font-weight: 100;
+  font-family: monospace;
+  color: black;
+}
+
 /* Art title */
 .opera-title {
   font-size: 16px;
-  margin-bottom: 1rem !important;
+  margin-bottom: 5px !important;
 }
 
 /* Art description */
@@ -42,64 +53,26 @@ body {
 /* Art info */
 .opera-info {
   font-size: 12px;
-  margin-top: 10px;
+  margin-top: 0px;
 }
 
-/* Unordered list */
-ul {
-  list-style-type: none; /* Remove bullet points */
-  height: fit-content;
-  text-align: left;
-  width: inherit;
+#icons {
+  display: none;
+  gap: 20px;
+  width: 100%;
+  font-size: 22px;
+  margin-top: 20px;
 }
 
-/* Link */
-a {
-  text-decoration: none !important;
-  color: #a0a0a0 !important; /* Lighter color than black for links */
+#icons *:hover {
+  cursor: pointer;
+  animation: pulseOut 0.5s forwards ease-in-out;
 }
 
-/* Link hover state */
-a:hover {
-  color: #000000 !important; /* Darker color for hover */
-  font-weight: 400;
-}
-
-/* Link active state */
-a:active {
-  color: #000000 !important; /* Darker color for active */
-  font-weight: 550;
-}
-
-/* Active link state */
-.active {
-  color: #000000 !important ; /* Darker color for active */
-  font-weight: 550;
-}
-
-/* Sidebar */
-.sidebar {
-  display: flex;
-  flex-direction: column; 
-  width: 22%;
-  height: 100%;
-  padding: 10px;
-  overflow: hidden;
-  max-width: 350px;
-}
-
-/* Sidebar header */
-.sidebar-header {
-  padding: 2rem;
-  height: fit-content;
-  width: 132px;
-}
-
-/* Sidebar header image */
-.sidebar-header img {
-  width: 100%; /* Image fills the width of the header */
-  height: auto; /* Maintains the original aspect ratio of the image */
-  display: block; /* Removes any space below */
+#fullscreen-btn {
+  width: fit-content;
+  line-height: normal;
+  margin-left: 0.5px;
 }
 
 /* Main content */
@@ -184,11 +157,6 @@ a:active {
   padding-right: 20px; /* Distance of the arrow from the right edge */
 }
 
-/* Fade out animation */
-.fade-out {
-  animation: fadeOutEffect 1s forwards; /* 1 second duration and 'forwards' to maintain the final state of the animation */
-}
-
 #not-found {
   text-align: right;
 }
@@ -198,29 +166,9 @@ a:active {
   display: none;
 }
 
-#icons {
-  display: none;
-  gap: 20px;
-  width: 100%;
-  font-size: 22px;
-  margin-top: 20px;
-}
-
 .already-liked {
   cursor: default !important;
   animation: none !important;
-}
-
-#icons *:hover {
-  cursor: pointer;
-  animation: pulseOut 0.5s forwards ease-in-out;
-}
-
-/* Fullscreen button */
-#fullscreen-btn {
-  width: fit-content;
-  line-height: normal;
-  margin-left: 0.5px;
 }
 
 /* Fullscreen overlay*/
@@ -249,16 +197,6 @@ a:active {
 }
 
 /* Define keyframes for the animation */
-@keyframes fadeOutEffect {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-  }
-}
-
-/* Define keyframes for the animation */
 @keyframes pulseIn {
   0% {
     transform: scale(1);
@@ -282,4 +220,3 @@ a:active {
     transform: scale(1);
   }
 }
-

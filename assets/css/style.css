@@ -6,70 +6,11 @@ body {
   text-align: center; /* Center the text on the page */
   background-color: #f2f1ed !important;
   overflow: hidden;
-}
-
-/* Style for the ul element */
-ul {
-  display: inline-block;
-  list-style-type: none; /* Remove the bullet points from the list */
-  padding: 0 !important; /* Remove default padding */
-  height: fit-content;
-  text-align: left;
-}
-
-/* Style for the li element */
-li {
-  display: block; /* Inline list items */
-  font-family: "Heebo", sans-serif;
-  margin-bottom: 5px; /* Space between items */
-  font-size: large;
-}
-
-/* Style for the a element */
-a {
-  display: block !important;
-  text-decoration: none !important;
-  color: #a0a0a0 !important; /* Lighter color than black for links */
-}
-
-/* Style for the a element on active */
-a:active {
-  color: #000000 !important; /* Dark black color on active */
-  font-weight: 550;
-}
-
-/* Style for the container class */
-.container {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  height: 100svh;
+  margin: 0;
+  padding: 0;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-}
-
-.fade-in {
-  animation: fadeInAnimation ease 1s forwards;
-}
-
-@keyframes fadeInAnimation {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-/* Style for the col class */
-.col {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
+  /* border: solid 12px #cebd78; */
 }
 
 /* Style for the header class */
@@ -77,11 +18,6 @@ a:active {
   width: 100%;
   height: fit-content;
   margin-bottom: 40px;
-}
-
-/* Animation for fade-out effect */
-.fade-out {
-  animation: fadeOutEffect 1s forwards; /* 1 second duration and 'forwards' to keep the final state of the animation */
 }
 
 .spacer {
@@ -96,24 +32,54 @@ a:active {
   height: 100svh;
 }
 
-/* ---------------- LINK ---------------- */
-.bigLink {
-  font-family: "Heebo", sans-serif;
-  font-size: 18px;
-  margin-bottom: 5px;
-  text-decoration: none !important;
+#menu-container {
+  display: flex;
+  flex-direction: column;
+  row-gap: 0px;
 }
 
-.bigLink:hover {
-  font-weight: 400;
+/* ---------------- LINK ---------------- */
+.category {
+  font-family: "Heebo", sans-serif;
+  font-size: 18px;
+  text-decoration: none !important;
+  color: #a0a0a0 !important; /* Lighter color than black for links */
+}
+
+.category:hover {
+  font-weight: bold;
   color: #000000 !important;
-  transition: 0.4s;
+}
+
+.category:active {
+  color: #000000 !important;
+  font-weight: bold;
+  font-size: 17px;
+}
+
+/* Active link state */
+.active {
+  color: #000000 !important ; /* Darker color for active */
+  font-weight: bold;
 }
 
 /* ---------------- IMAGES ---------------- */
 
 .logo {
   width: 90px;
+}
+
+@keyframes fadeInAnimation {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.fade-in {
+  animation: fadeInAnimation ease 1s forwards;
 }
 
 /* Animation for fade-out effect */
@@ -124,4 +90,9 @@ a:active {
   to {
     opacity: 0;
   }
+}
+
+/* Animation for fade-out effect */
+.fade-out {
+  animation: fadeOutEffect 1s forwards; /* 1 second duration and 'forwards' to keep the final state of the animation */
 }

@@ -70,6 +70,8 @@ document.addEventListener('DOMContentLoaded', function () {
         try {
             const slide_show = document.getElementById('slide-show');
             slide_show.style.backgroundImage = `url('${currBlobUrl}')`;
+            const operaNumber = document.getElementsByClassName('opera-number').item(0);
+            operaNumber.innerHTML = `${currentImageIdx + 1} / ${images.length}`;
             const imageTitle = document.getElementsByClassName('opera-title').item(0);
             imageTitle.innerHTML = images[currentImageIdx].title;
             const imageDescription = document.getElementsByClassName('opera-description').item(0);
@@ -152,6 +154,18 @@ window.likeImage = function () {
             updateLikeButton(false); // Revert the like button to its original state
             console.error('Error while liking the image:', error);
         });
+}
+
+window.shareImage = function () {
+    const currentImage = images[currentImageIdx];
+    const shareData = {
+        title: currentImage.title,
+        text: currentImage.description,
+        url: window.location.href,
+    };
+    navigator.share(shareData)
+        .then(() => console.log('Shared successfully'))
+        .catch((error) => console.error('Error sharing:', error));
 }
 
 function isLiked(id) {
