@@ -1,8 +1,10 @@
 {
-  "cat1": [
+  "video_art": [],
+  "installations": [],
+  "paintings": [
     {
       "id": 0,
-      "imgPath": "../assets/images/cat1/eighth.jpg",
+      "imgPath": "../assets/media/paintings/eighth.jpg",
       "author": "zelinda",
       "title": "Titolo ottava immagine",
       "description": "Descrizione ottava immagine",
@@ -11,7 +13,7 @@
     },
     {
       "id": 1,
-      "imgPath": "../assets/images/cat1/fifth.webp",
+      "imgPath": "../assets/media/paintings/fifth.webp",
       "author": "zelinda",
       "title": "Titolo quinta immagine",
       "description": "Descrizione quinta immagine",
@@ -20,7 +22,7 @@
     },
     {
       "id": 2,
-      "imgPath": "../assets/images/cat1/first.webp",
+      "imgPath": "../assets/media/paintings/first.webp",
       "author": "zelinda",
       "title": "Titolo prima immagine",
       "description": "Descrizione prima immagine",
@@ -29,18 +31,16 @@
     },
     {
       "id": 3,
-      "imgPath": "../assets/images/cat1/seventh.webp",
+      "imgPath": "../assets/media/paintings/seventh.webp",
       "author": "zelinda",
       "title": "Titolo settima immagine",
       "description": "Descrizione settima immagine",
       "year": "2020",
       "info": "Oil on canvas"
-    }
-  ],
-  "cat2": [
+    },
     {
       "id": 4,
-      "imgPath": "../assets/images/cat2/fourth.webp",
+      "imgPath": "../assets/media/paintings/fourth.webp",
       "author": "zelinda",
       "title": "Titolo quarta immagine",
       "description": "Descrizione quarta immagine",
@@ -49,18 +49,16 @@
     },
     {
       "id": 5,
-      "imgPath": "../assets/images/cat2/sixth.webp",
+      "imgPath": "../assets/media/paintings/sixth.webp",
       "author": "zelinda",
       "title": "Titolo sesta immagine",
       "description": "Descrizione sesta immagine",
       "year": "2020",
       "info": "Oil on canvas"
-    }
-  ],
-  "cat3": [
+    },
     {
       "id": 6,
-      "imgPath": "../assets/images/cat3/second.webp",
+      "imgPath": "../assets/media/paintings/second.webp",
       "author": "zelinda",
       "title": "Titolo seconda immagine",
       "description": "Descrizione seconda immagine",
@@ -69,7 +67,7 @@
     },
     {
       "id": 7,
-      "imgPath": "../assets/images/cat3/third.webp",
+      "imgPath": "../assets/media/paintings/third.webp",
       "author": "zelinda",
       "title": "Titolo terza immagine",
       "description": "Descrizione terza immagine",

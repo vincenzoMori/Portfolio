@@ -1,9 +1,7 @@
-/* Set the background color of the body */
 body {
   background-color: #f2f1ed !important;
 }
 
-/* Styles for the 404 container */
 .c404 {
   width: 100%;
   height: 100%;
@@ -15,12 +13,10 @@ body {
   line-height: 2px;
 }
 
-/* Styles for the "not-found" element */
 #not-found {
   font-family: "Heebo", sans-serif;
 }
 
-/* Styles for the "back-home" link */
 .back-home {
   text-decoration: none !important;
   font-family: "Heebo", sans-serif;
@@ -28,7 +24,6 @@ body {
   font-size: small;
 }
 
-/* Styles for the "back-home" link on hover */
 .back-home:hover {
   font-weight: bold;
 }

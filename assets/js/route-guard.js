@@ -37,18 +37,27 @@ document.addEventListener('DOMContentLoaded', () => {
             redirectTo(prefixPath + '/index.html');
             break;
         case prefixPath + '/pages/about.html':
-            redirectTo(prefixPath + '/pages/dynamic-page.html?content=about');
+            redirectTo(prefixPath + '/pages/dynamic-page.html?category=about');
             break;
         case prefixPath + '/pages/dynamic-page.html':
-            const allowedContents = ['cat1', 'cat2', 'cat3', 'about', 'exhibitions', 'contact'];
-            const currentContent = currentSearchParams.get('content');
-            isAllowed = isAllowed && allowedContents.includes(currentContent);
+            const allowedCategories = ['works', 'press', 'about', 'exhibitions', 'contacts'];
+            const allowedSubcategories = ['video_art', 'installations', 'paintings'];
+            const currentCategory = currentSearchParams.get('category');
+            const currentSubcategory = currentSearchParams.get('subcategory');
+            if (currentCategory === 'works' && !currentSubcategory) {
+                redirectTo(prefixPath + '/pages/dynamic-page.html?category=works&subcategory=video_art'); // Redirect to the first subcategory
+                return
+            }
+            isAllowed = isAllowed && allowedCategories.includes(currentCategory) && allowedSubcategories.includes(currentSubcategory);
             break;
         case prefixPath + '/pages/contact.html':
-            redirectTo(prefixPath + '/pages/dynamic-page.html?content=contact');
+            redirectTo(prefixPath + '/pages/dynamic-page.html?category=contacts');
             break;
         case prefixPath + '/pages/exhibitions.html':
-            redirectTo(prefixPath + '/pages/dynamic-page.html?content=exhibitions');
+            redirectTo(prefixPath + '/pages/dynamic-page.html?category=exhibitions');
+            break;
+        case prefixPath + '/pages/press.html':
+            redirectTo(prefixPath + '/pages/dynamic-page.html?category=press');
             break;
     }
 

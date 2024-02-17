@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function () {
         return queryParams.get(param);
     }
 
-    if (getQueryParam('content') !== 'cat1' && getQueryParam('content') !== 'cat2' && getQueryParam('content') !== 'cat3') {
+    if (getQueryParam('subcategory') !== 'paintings') {
         return;
     } else {
         window.changeImage = changeImage;
@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function fetchImages() {
-        const categorySelected = getQueryParam('content');
+        const categorySelected = getQueryParam('subcategory');
         fetch('../assets/json/images.json')
             .then(response => response.json())
             .then(data => {
@@ -78,10 +78,11 @@ document.addEventListener('DOMContentLoaded', function () {
             imageDescription.innerHTML = images[currentImageIdx].description;
             const imageinfo = document.getElementsByClassName('opera-info').item(0);
             imageinfo.innerHTML = images[currentImageIdx].info;
-            history.pushState({}, null, `?content=${getQueryParam('content')}&opera=${images[currentImageIdx].title.replace(/ /g, '_')}`);
+            history.pushState({}, null, `?category=${getQueryParam('category')}&subcategory=${getQueryParam('subcategory')}&opera=${images[currentImageIdx].title.replace(/ /g, '_')}`);
             checkLikeBtn();
         } catch {
-            location.reload();
+            console.log('Error while setting image info')
+            $('#main-content').load('../pages/404.html');
         }
     }
 

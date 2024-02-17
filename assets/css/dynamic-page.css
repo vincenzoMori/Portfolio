@@ -75,7 +75,6 @@
   margin-left: 0.5px;
 }
 
-/* Main content */
 .main-content {
   display: flex;
   justify-content: center;
@@ -85,7 +84,6 @@
   width: 100%;
 }
 
-/* Image slider */
 .image-slider {
   display: flex;
   justify-content: center;
@@ -94,7 +92,6 @@
   height: 100%; /* Occupies the entire available height */
 }
 
-/* Image slider container */
 #slide-show {
   background-size: contain; /* Change 'cover' to 'contain' to display the entire image */
   background-repeat: no-repeat; /* Ensure the image does not repeat */
@@ -105,7 +102,6 @@
   animation: pulseIn 1.2s forwards ease-in-out;
 }
 
-/* Slider arrow */
 .image-slider .arrow {
   position: absolute;
   top: 50%;
@@ -131,26 +127,22 @@
   opacity: 1;
 }
 
-/* Previous arrow position */
 .arrow.prev {
   left: 0;
   justify-content: flex-start;
   padding-left: 20px; /* Distance of the arrow from the left edge */
 }
 
-/* Left arrow div */
 .freccia-sx {
   position: relative;
   left: -50px;
 }
 
-/* Right arrow div */
 .freccia-dx {
   position: relative;
   right: -48px;
 }
 
-/* Next arrow position */
 .arrow.next {
   right: 0;
   justify-content: flex-end;
@@ -196,7 +188,6 @@
   cursor: pointer;
 }
 
-/* Define keyframes for the animation */
 @keyframes pulseIn {
   0% {
     transform: scale(1);
