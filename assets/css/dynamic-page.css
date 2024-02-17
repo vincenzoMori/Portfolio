@@ -75,6 +75,11 @@
   margin-left: 0.5px;
 }
 
+#share-btn {
+  position: relative;
+  top: -2.5px;
+}
+
 .main-content {
   display: flex;
   justify-content: center;
