@@ -5,7 +5,7 @@ const links = [
     { href: 'cat1', text: '2010 - 2015' },
     { href: 'cat2', text: '2016 - 2020' },
     { href: 'cat3', text: '2021 - now' },
-    { href: 'spacer', text: ''},
+    { href: 'spacer', text: '' },
     { href: 'about', text: 'about' },
     { href: 'exhibitions', text: 'exhibitions' },
     { href: 'contact', text: 'contact' }
@@ -22,7 +22,7 @@ if (menuContainer) {
         }
         var a = document.createElement('a');
         a.href = basePath + 'content=' + link.href;
-        a.classList.add('bigLink');
+        a.classList.add('category');
         a.innerHTML = link.text;
         menuContainer.appendChild(a);
     });
