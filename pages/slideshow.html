@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>slideshow</title>
+</head>
+<body>
+    <div class="image-slider">
+        <div class="arrow prev" onclick="changeImage(-1)">
+            <!-- Freccia verso sinistra -->
+            <div class="freccia-sx">
+                <svg viewBox="0 0 24 24" width="50" height="50">
+                    <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L11.83 12z" />
+                </svg>
+            </div>
+        </div>
+        <div id="slide-show"></div>
+        <div class="arrow next" onclick="changeImage(1)">
+            <!-- Freccia verso destra -->
+            <div class="freccia-dx">
+                <svg viewBox="0 0 24 24" width="50" height="50">
+                    <path d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L12.17 12z" />
+                </svg>
+            </div>
+        </div>
+    </div>
+    <script src="../assets/js/image-slider.js"></script>
+</body>
+</html>
+

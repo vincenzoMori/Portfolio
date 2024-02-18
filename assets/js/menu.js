@@ -1,7 +1,6 @@
 const currentPathname = window.location.pathname;
 let basePath = currentPathname === '/Portfolio/index.html' ? './pages/dynamic-page.html?' : '../pages/dynamic-page.html?'
 
-
 var menuContainer = document.getElementById('menu-container');
 if (menuContainer) {
     routes.forEach(route => {
@@ -15,6 +14,7 @@ if (menuContainer) {
         a.href = basePath + 'category=' + route.href;
         a.classList.add('category');
         a.innerHTML = route.text;
+        menuContainer.appendChild(a);
         if (route.subcategories && currentPathname.includes('dynamic-page.html')) {
             var subMenu = document.createElement('div');
             subMenu.classList.add('subMenu');
@@ -25,8 +25,18 @@ if (menuContainer) {
                 subA.innerHTML = subcategory.text;
                 subMenu.appendChild(subA);
             });
-            a.appendChild(subMenu);
+            menuContainer.appendChild(subMenu);
         }
-        menuContainer.appendChild(a);
+    });
+}
+
+// funzione per aggiungere la classe active al link selezionato
+function setActive(element) {
+    var links = document.querySelectorAll('.category, .subcategory');
+    links.forEach(link => {
+        link.classList.remove('active');
+        if (link.href === element.href) {
+            link.classList.add('active');
+        }
     });
 }
