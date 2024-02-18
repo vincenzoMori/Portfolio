@@ -30,7 +30,7 @@ function loadPage() {
     } else {
         //altrimenti carico la pagina 404
         console.log("Content not found 1");
-        //$('#main-content').load('../pages/404.html');
+        $('#main-content').load('../pages/404.html');
     }
 }
 
@@ -90,7 +90,7 @@ function loadContent(contentUrl, params) {
 
     } else {
         console.log("Content not found 2");
-       // $('#main-content').load('../pages/404.html');
+       $('#main-content').load('../pages/404.html');
     }
 
 
