@@ -97,7 +97,8 @@ function loadContent(contentUrl, params) {
     //setto l'active class
     if (params && params.subcategory) {
         var subcategoryLink = document.querySelector('.subcategory[href*="' + params.subcategory + '"]');
-        setActive(subcategoryLink);
+        var categoryLink = document.querySelector('.category[href*="' + params.category + '"]');
+        setActive(categoryLink, subcategoryLink);
     } else {
         var categoryLink = document.querySelector('.category[href*="' + params.category + '"]');
         setActive(categoryLink);

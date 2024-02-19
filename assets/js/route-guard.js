@@ -11,7 +11,6 @@ var allowedPaths = [
 ];
 
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('route-guard.js loaded');
     // Reload the page if the user clicks the back button and clear the cache
     window.onpageshow = function (event) {
         if (event.persisted) {
