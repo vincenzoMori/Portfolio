@@ -44,11 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const allowedSubcategories = ['video_art', 'installations', 'paintings'];
             const currentCategory = currentSearchParams.get('category');
             const currentSubcategory = currentSearchParams.get('subcategory');
-            if (currentCategory === 'works' && !currentSubcategory) {
-                redirectTo(prefixPath + '/pages/dynamic-page.html?category=works&subcategory=video_art'); // Redirect to the first subcategory
-                return
-            }
-            isAllowed = isAllowed && allowedCategories.includes(currentCategory) && allowedSubcategories.includes(currentSubcategory);
+            isAllowed = allowedCategories.includes(currentCategory) || allowedSubcategories.includes(currentSubcategory);
             break;
         case prefixPath + '/pages/contact.html':
             redirectTo(prefixPath + '/pages/dynamic-page.html?category=contacts');
@@ -60,6 +56,8 @@ document.addEventListener('DOMContentLoaded', () => {
             redirectTo(prefixPath + '/pages/dynamic-page.html?category=press');
             break;
     }
+
+    console.log('isAllowed', isAllowed);
 
     // Redirect to the 404 page if the URL is not allowed and we are on 'dynamic-page.html'
     if (!isAllowed) {
