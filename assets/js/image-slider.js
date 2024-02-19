@@ -1,16 +1,13 @@
 
-let currentImageIdx = 0;
-let images = [];
-let imageOpened = false;
+var currentImageIdx = 0;
+var images = [];
+var imageOpened = false;
 
-let prevBlobUrl = '';
-let currBlobUrl = '';
-let nextBlobUrl = '';
+var prevBlobUrl = '';
+var currBlobUrl = '';
+var nextBlobUrl = '';
 
-if (!window.loadSlideShow) {
-    window.loadSlideShow = true
-    init();
-}
+init();
 
 function init() {
     if (getQueryParam('subcategory') !== 'paintings') {
@@ -38,7 +35,12 @@ function init() {
         }
     }
 
-    document.addEventListener('keydown', handleArrowKeyPress);
+    // Event listener for arrow key press
+    // Check if the event listener is already added to avoid adding it multiple times
+    if (!window.hasEventListener) {
+        document.addEventListener('keyup', handleArrowKeyPress);
+        window.hasEventListener = true;
+    }
 }
 
 
@@ -48,14 +50,13 @@ function fetchImages() {
         .then(response => response.json())
         .then(data => {
             images = data[categorySelected];; // Get the images based on the selected category
-            showButtons();
             checkImage();  // Check if the image is selected from the URL
             loadImages(currentImageIdx, 0);
         });
 }
 
 function checkImage() {
-    const operaQueryParam = getQueryParam('opera');
+    const operaQueryParam = getQueryParam('opera') || window.opera;
     if (operaQueryParam) {
         const operaTitle = operaQueryParam.replace(/_/g, ' ');
         const operaIndex = images.findIndex(image => image.title.toLowerCase() === operaTitle.toLowerCase());
@@ -64,6 +65,7 @@ function checkImage() {
 }
 
 async function loadImages(index, direction = 0) {
+    window.currentImageIdx = index;
     if (direction === 0) {
         const [currBlobUrlInternal, nextBlobUrlInternal, prevBlobUrlInternal] = await Promise.all([
             loadImageBlob(index),
@@ -204,18 +206,11 @@ function updateLikedImages(id, add) {
     localStorage.setItem(storageKey, JSON.stringify(likedImages));
 }
 
-function showButtons() {
-    let buttons = document.getElementById('icons');
-    buttons.style.display = 'flex';
-}
-
 // Function to display the image in full screen
 window.displayImageFullScreen = function () {
     imageOpened = true;
     document.getElementById('fullscreen-img').src = currBlobUrl;
     document.getElementById('overlay').style.display = 'flex';
-    // Add event listener for ESC key press only when the overlay is visible
-    document.addEventListener('keydown', handleArrowKeyPress);
 }
 
 // Function to close the full screen image overlay

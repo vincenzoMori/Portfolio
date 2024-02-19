@@ -31,6 +31,10 @@
   height: 100%;
 }
 
+#details {
+  opacity: 0;
+}
+
 .opera-number {
   font-size: 12px;
   font-weight: 100;
@@ -57,7 +61,7 @@
 }
 
 #icons {
-  display: none;
+  display: flex;
   gap: 20px;
   width: 100%;
   font-size: 22px;

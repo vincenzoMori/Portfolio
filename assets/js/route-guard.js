@@ -57,8 +57,6 @@ document.addEventListener('DOMContentLoaded', () => {
             break;
     }
 
-    console.log('isAllowed', isAllowed);
-
     // Redirect to the 404 page if the URL is not allowed and we are on 'dynamic-page.html'
     if (!isAllowed) {
         if (currentPathname === prefixPath + '/pages/dynamic-page.html') {

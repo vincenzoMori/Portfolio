@@ -32,7 +32,6 @@ if (menuContainer) {
 
 // funzione per aggiungere la classe active al link selezionato
 function setActive(...elements) {
-    console.log("elements: " , elements);
     var links = document.querySelectorAll('.category, .subcategory');
     links.forEach(link => {
         link.classList.remove('active');
