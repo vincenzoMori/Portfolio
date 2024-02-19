@@ -1,52 +1,94 @@
-// Function to get the value of a query parameter from the URL.
-function getQueryParam(param) {
-    var queryParams = new URLSearchParams(window.location.search);
-    return queryParams.get(param);
+function getQueryParam(param, url = null) {
+    const searchParams = url ? new URL(url).searchParams : new URLSearchParams(window.location.search);
+    return searchParams.get(param);
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-    var categoryToLoad = getQueryParam('category');
-    var subcategoryToLoad = getQueryParam('subcategory');
+function getFileFromParams(categoryToLoad, subcategoryToLoad = null) {
+    const categoryIndex = routes.findIndex(item => item.href === categoryToLoad);
 
-    // Map of values, where the key is the parameter value and the value is the file to load.
-    var switchMap = {
-        'works/paintings': '../pages/dynamic-content.html',
-        // 'works/video_art': '../pages/dynamic-content.html', // TODO: Uncomment this line when the video art page is ready
-        // 'works/installations': '../pages/dynamic-content.html', // TODO: Uncomment this line when the installations page is ready
-        'press': '../pages/press.html',
-        'about': '../pages/about.html',
-        'exhibitions': '../pages/exhibitions.html',
-        'contacts': '../pages/contact.html'
+    if (categoryIndex !== -1) {
+        const category = routes[categoryIndex];
+        const subcategories = category.subcategories;
+
+        if (subcategories && !subcategoryToLoad) {
+            subcategoryToLoad = subcategories[0].href;
+        }
+
+        const contentUrl = subcategories && subcategoryToLoad
+            ? subcategories.find(subcategory => subcategory.href === subcategoryToLoad).file
+            : category.file;
+
+        const details = document.getElementById('details');
+        details.style.display = contentUrl && contentUrl.includes('slideshow.html') ? 'block' : 'none';
+        details.style.animationDelay = '0s';
+
+        return {
+            url: contentUrl,
+            category: categoryToLoad,
+            subcategory: subcategoryToLoad
+        };
+    }
+
+    return null;
+}
+
+function loadContent(contentUrl, params) {
+    const mainContent = $('#main-content');
+    const errorCallback = (xhr, status, error) => {
+        console.log("Something went wrong while loading the category: ", status, error);
     };
 
-    // Select the content to load based on the URL parameter.
-    var contentUrl = switchMap[
-        subcategoryToLoad ? categoryToLoad + '/' + subcategoryToLoad : categoryToLoad
-    ];
-
     if (contentUrl) {
-        // Load the dynamic content.
-        $('#main-content').load(contentUrl, function (response, status, xhr) {
-            if (status == "error") {
-                console.log("Something went wrong while loading the category: ", xhr.status, xhr.statusText);
+        mainContent.load(contentUrl, function (response, status, xhr) {
+            if (status === "error") {
+                errorCallback(xhr, status, xhr.statusText);
             }
         });
     } else {
-        console.log("Content not found for parameter: ", categoryToLoad);
-        // If no content is found, load the 404 error page.
+        mainContent.load('../pages/404.html');
+    }
+
+    const categoryLink = document.querySelector('.category[href*="' + params.category + '"]');
+    const subcategoryLink = params.subcategory
+        ? document.querySelector('.subcategory[href*="' + params.subcategory + '"]')
+        : null;
+
+    setActive(categoryLink, subcategoryLink);
+
+    const newUrl = window.location.pathname + '?category=' + params.category +
+        (params.subcategory ? '&subcategory=' + params.subcategory : '');
+
+    window.opera = getQueryParam('opera');
+    window.history.pushState({}, '', newUrl);
+}
+
+function loadPage() {
+    const categoryToLoad = getQueryParam('category');
+    const subcategoryToLoad = getQueryParam('subcategory');
+    const contentUrl = getFileFromParams(categoryToLoad, subcategoryToLoad);
+
+    if (contentUrl) {
+        loadContent(contentUrl.url, { category: contentUrl.category, subcategory: contentUrl.subcategory });
+    } else {
         $('#main-content').load('../pages/404.html');
     }
+}
 
-    // Add the 'active' class to the current link.
-    var currentLink = document.querySelector(`a[href$='${categoryToLoad}']`);
-    if (currentLink) {
-        currentLink.classList.add('active');
-    }
+document.addEventListener('DOMContentLoaded', function () {
+    const menuLinks = document.querySelectorAll('.category, .subcategory');
 
-    // Add the 'active' class to the current subcategory link.
-    var subcategoryToLoad = getQueryParam('subcategory');
-    var currentSubcategoryLink = document.querySelector(`a[href$='${subcategoryToLoad}']`);
-    if (currentSubcategoryLink) {
-        currentSubcategoryLink.classList.add('active');
-    }
+    menuLinks.forEach(link => {
+        link.addEventListener('click', function (event) {
+            event.preventDefault();
+            var linkClicked = event.target.href;
+            var category = getQueryParam('category', linkClicked);
+            var subcategory = getQueryParam('subcategory', linkClicked);
+            var contentUrl = getFileFromParams(category, subcategory);
+            category = contentUrl.category;
+            subcategory = contentUrl.subcategory;
+            loadContent(contentUrl.url, { category, subcategory });
+        });
+    });
 });
+
+loadPage();

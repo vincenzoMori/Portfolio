@@ -1,106 +1,19 @@
-let currentImageIdx = 0;
-let images = [];
-let imageOpened = false;
+var currentImageIdx = 0;
+var images = [];
+var imageOpened = false;
 
-let prevBlobUrl = '';
-let currBlobUrl = '';
-let nextBlobUrl = '';
+var prevBlobUrl = '';
+var currBlobUrl = '';
+var nextBlobUrl = '';
 
-document.addEventListener('DOMContentLoaded', function () {
-    function getQueryParam(param) {
-        const queryParams = new URLSearchParams(window.location.search);
-        return queryParams.get(param);
-    }
+init();
 
+function init() {
     if (getQueryParam('subcategory') !== 'paintings') {
         return;
     } else {
         window.changeImage = changeImage;
         fetchImages();
-    }
-
-    function fetchImages() {
-        const categorySelected = getQueryParam('subcategory');
-        fetch('../assets/json/images.json')
-            .then(response => response.json())
-            .then(data => {
-                images = data[categorySelected];; // Get the images based on the selected category
-                showButtons();
-                checkImage();  // Check if the image is selected from the URL
-                loadImages(currentImageIdx, 0);
-            });
-    }
-
-    function checkImage() {
-        const operaQueryParam = getQueryParam('opera');
-        if (operaQueryParam) {
-            const operaTitle = operaQueryParam.replace(/_/g, ' ');
-            const operaIndex = images.findIndex(image => image.title.toLowerCase() === operaTitle.toLowerCase());
-            if (operaIndex !== -1) currentImageIdx = operaIndex;
-        }
-    }
-
-    async function loadImages(index, direction = 0) {
-        if (direction === 0) {
-            const [currBlobUrlInternal, nextBlobUrlInternal, prevBlobUrlInternal] = await Promise.all([
-                loadImageBlob(index),
-                loadImageBlob(index + 1 > images.length - 1 ? 0 : index + 1),
-                loadImageBlob(index === 0 ? images.length - 1 : index - 1)
-            ]);
-            currBlobUrl = currBlobUrlInternal;
-            nextBlobUrl = nextBlobUrlInternal;
-            prevBlobUrl = prevBlobUrlInternal;
-        }
-        if (direction === 1) {
-            URL.revokeObjectURL(prevBlobUrl);
-            prevBlobUrl = currBlobUrl;
-            currBlobUrl = nextBlobUrl;
-            nextBlobUrl = await loadImageBlob(index + 1 > images.length - 1 ? 0 : index + 1);
-        }
-        if (direction === -1) {
-            URL.revokeObjectURL(nextBlobUrl);
-            nextBlobUrl = currBlobUrl;
-            currBlobUrl = prevBlobUrl;
-            prevBlobUrl = await loadImageBlob(index - 1 < 0 ? images.length - 1 : index - 1);
-        }
-        setImageInfo();
-    }
-
-    function setImageInfo() {
-        try {
-            const slide_show = document.getElementById('slide-show');
-            slide_show.style.backgroundImage = `url('${currBlobUrl}')`;
-            const operaNumber = document.getElementsByClassName('opera-number').item(0);
-            operaNumber.innerHTML = `${currentImageIdx + 1} / ${images.length}`;
-            const imageTitle = document.getElementsByClassName('opera-title').item(0);
-            imageTitle.innerHTML = images[currentImageIdx].title;
-            const imageDescription = document.getElementsByClassName('opera-description').item(0);
-            imageDescription.innerHTML = images[currentImageIdx].description;
-            const imageinfo = document.getElementsByClassName('opera-info').item(0);
-            imageinfo.innerHTML = images[currentImageIdx].info;
-            history.pushState({}, null, `?category=${getQueryParam('category')}&subcategory=${getQueryParam('subcategory')}&opera=${images[currentImageIdx].title.replace(/ /g, '_')}`);
-            checkLikeBtn();
-        } catch {
-            console.log('Error while setting image info')
-            $('#main-content').load('../pages/404.html');
-        }
-    }
-
-    async function changeImage(direction) {
-        setCurrentIndex(direction);
-        await loadImages(currentImageIdx, direction);
-    }
-
-
-    function setCurrentIndex(index) {
-        currentImageIdx = (currentImageIdx + index + images.length) % images.length;
-    }
-
-    async function loadImageBlob(index) {
-        const image = images[index];
-        const response = await fetch(image.imgPath);
-        const blob = await response.blob();
-        return URL.createObjectURL(blob);
     }
 
     window.handleArrowKeyPress = function (event) {
@@ -121,8 +34,98 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    document.addEventListener('keydown', handleArrowKeyPress);
-});
+    // Event listener for arrow key press
+    // Check if the event listener is already added to avoid adding it multiple times
+    if (!window.hasEventListener) {
+        document.addEventListener('keyup', handleArrowKeyPress);
+        window.hasEventListener = true;
+    }
+}
+
+
+function fetchImages() {
+    const categorySelected = getQueryParam('subcategory');
+    fetch('../assets/json/images.json')
+        .then(response => response.json())
+        .then(data => {
+            images = data[categorySelected];; // Get the images based on the selected category
+            checkImage();  // Check if the image is selected from the URL
+            loadImages(currentImageIdx, 0);
+        });
+}
+
+function checkImage() {
+    const operaQueryParam = getQueryParam('opera') || window.opera;
+    if (operaQueryParam) {
+        const operaTitle = operaQueryParam.replace(/_/g, ' ');
+        const operaIndex = images.findIndex(image => image.title.toLowerCase() === operaTitle.toLowerCase());
+        if (operaIndex !== -1) currentImageIdx = operaIndex;
+    }
+}
+
+async function loadImages(index, direction = 0) {
+    window.currentImageIdx = index;
+    if (direction === 0) {
+        const [currBlobUrlInternal, nextBlobUrlInternal, prevBlobUrlInternal] = await Promise.all([
+            loadImageBlob(index),
+            loadImageBlob(index + 1 > images.length - 1 ? 0 : index + 1),
+            loadImageBlob(index === 0 ? images.length - 1 : index - 1)
+        ]);
+        currBlobUrl = currBlobUrlInternal;
+        nextBlobUrl = nextBlobUrlInternal;
+        prevBlobUrl = prevBlobUrlInternal;
+    }
+    if (direction === 1) {
+        URL.revokeObjectURL(prevBlobUrl);
+        prevBlobUrl = currBlobUrl;
+        currBlobUrl = nextBlobUrl;
+        nextBlobUrl = await loadImageBlob(index + 1 > images.length - 1 ? 0 : index + 1);
+    }
+    if (direction === -1) {
+        URL.revokeObjectURL(nextBlobUrl);
+        nextBlobUrl = currBlobUrl;
+        currBlobUrl = prevBlobUrl;
+        prevBlobUrl = await loadImageBlob(index - 1 < 0 ? images.length - 1 : index - 1);
+    }
+    setImageInfo();
+}
+
+function setImageInfo() {
+    try {
+        const slide_show = document.getElementById('slide-show');
+        slide_show.style.backgroundImage = `url('${currBlobUrl}')`;
+        const operaNumber = document.getElementsByClassName('opera-number').item(0);
+        operaNumber.innerHTML = `${currentImageIdx + 1} / ${images.length}`;
+        const imageTitle = document.getElementsByClassName('opera-title').item(0);
+        imageTitle.innerHTML = images[currentImageIdx].title;
+        const imageDescription = document.getElementsByClassName('opera-description').item(0);
+        imageDescription.innerHTML = images[currentImageIdx].description;
+        const imageinfo = document.getElementsByClassName('opera-info').item(0);
+        imageinfo.innerHTML = images[currentImageIdx].info;
+        history.pushState({}, null, `?category=${getQueryParam('category')}&subcategory=${getQueryParam('subcategory')}&opera=${images[currentImageIdx].title.replace(/ /g, '_')}`);
+        checkLikeBtn();
+    } catch {
+        console.log('Error while setting image info')
+        $('#main-content').load('../pages/404.html');
+    }
+}
+
+async function changeImage(direction) {
+    setCurrentIndex(direction);
+    await loadImages(currentImageIdx, direction);
+}
+
+
+function setCurrentIndex(index) {
+    currentImageIdx = (currentImageIdx + index + images.length) % images.length;
+}
+
+async function loadImageBlob(index) {
+    const image = images[index];
+    const response = await fetch(image.imgPath);
+    const blob = await response.blob();
+    return URL.createObjectURL(blob);
+}
 
 // Function to like an image
 window.likeImage = function () {
@@ -202,18 +205,11 @@ function updateLikedImages(id, add) {
     localStorage.setItem(storageKey, JSON.stringify(likedImages));
 }
 
-function showButtons() {
-    let buttons = document.getElementById('icons');
-    buttons.style.display = 'flex';
-}
-
 // Function to display the image in full screen
 window.displayImageFullScreen = function () {
     imageOpened = true;
     document.getElementById('fullscreen-img').src = currBlobUrl;
     document.getElementById('overlay').style.display = 'flex';
-    // Add event listener for ESC key press only when the overlay is visible
-    document.addEventListener('keydown', handleArrowKeyPress);
 }
 
 // Function to close the full screen image overlay

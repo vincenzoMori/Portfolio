@@ -19,14 +19,14 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // Get the current pathname and query string of the URL
-    const currentPathname = window.location.pathname;
+    const currentPathname = window.location.pathname.toLowerCase();
     const currentSearchParams = new URLSearchParams(window.location.search);
 
     // Check if the user is on one of the allowed pages
-    let isAllowed = allowedPaths.includes(currentPathname.toLowerCase());
+    let isAllowed = allowedPaths.includes(currentPathname);
 
     // Set the PROD flag based on the current hostname
-    PROD = currentPathname.toLowerCase().includes('portfolio');
+    PROD = currentPathname.includes('portfolio');
 
     // Set the prefix path based on the PROD flag
     const prefixPath = PROD ? '/Portfolio' : '';
@@ -44,11 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const allowedSubcategories = ['video_art', 'installations', 'paintings'];
             const currentCategory = currentSearchParams.get('category');
             const currentSubcategory = currentSearchParams.get('subcategory');
-            if (currentCategory === 'works' && !currentSubcategory) {
-                redirectTo(prefixPath + '/pages/dynamic-page.html?category=works&subcategory=video_art'); // Redirect to the first subcategory
-                return
-            }
-            isAllowed = isAllowed && allowedCategories.includes(currentCategory) && allowedSubcategories.includes(currentSubcategory);
+            isAllowed = allowedCategories.includes(currentCategory) || allowedSubcategories.includes(currentSubcategory);
             break;
         case prefixPath + '/pages/contact.html':
             redirectTo(prefixPath + '/pages/dynamic-page.html?category=contacts');

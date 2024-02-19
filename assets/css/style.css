@@ -39,6 +39,7 @@ body {
 .category {
   font-family: "Heebo", sans-serif;
   font-size: 18px;
+  opacity: 0;
   text-decoration: none !important;
   color: #a0a0a0 !important; /* Lighter color than black for links */
 }
@@ -46,6 +47,7 @@ body {
 .category:hover {
   font-weight: bold;
   color: #000000 !important;
+  transition: 0.2s;
 }
 
 .category:active {
@@ -66,11 +68,13 @@ body {
   text-decoration: none !important;
   color: #a0a0a0 !important; /* Lighter color than black for links */
   font-weight: normal;
+  opacity: 0;
 }
 
 .subcategory:hover {
   color: #000000 !important;
   font-weight: bold;
+  transition: 0.2s;
 }
 
 .subcategory:active {
@@ -88,6 +92,10 @@ body {
   width: 100px;
 }
 
+h1 {
+  margin-bottom: 20px !important;
+}
+
 @keyframes fadeInAnimation {
   0% {
     opacity: 0;
@@ -98,7 +106,7 @@ body {
 }
 
 .fade-in {
-  animation: fadeInAnimation ease 1s forwards;
+  animation: fadeInAnimation ease 0.5s forwards;
 }
 
 @keyframes fadeOutEffect {
