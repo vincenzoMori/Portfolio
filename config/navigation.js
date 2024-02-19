@@ -6,7 +6,7 @@ const routes = [
           { 
               href: 'video_art', 
               text: 'video art', 
-              file: '../pages/wawa.html'
+              file: null
           },
           { 
               href: 'installations', 

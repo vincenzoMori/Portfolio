@@ -1,3 +1,5 @@
+document.body.classList.add('fade-in');
+
 document.addEventListener('DOMContentLoaded', (event) => {
     console.log('DOM fully loaded and parsed');
 
@@ -8,7 +10,12 @@ document.addEventListener('DOMContentLoaded', (event) => {
         e.preventDefault(); // Prevent default navigation action
         let newLocation = target.href; // Get the new URL to visit
 
-        document.body.classList.add('fade-out'); // Add the class that triggers the animation
+        console.log('handleClick', newLocation);
+        console.log('body', document.body.classList);
+
+        if (document.body.classList.contains('fade-in'))
+            document.body.classList.remove('fade-in');
+        document.body.classList.add('fade-out');
 
         // Wait for the animation to complete before changing the page
         document.body.addEventListener('animationend', () => {
@@ -27,4 +34,15 @@ document.addEventListener('DOMContentLoaded', (event) => {
             handleClick(e, image);
         });
     }
+
+    fadeInCascade();
 });
+
+function fadeInCascade() {
+    console.log('fadeInCascade');
+    let elements = document.querySelectorAll('.fade-in-cascade');
+    elements.forEach((element, index) => {
+        element.style.animation = `fadeInAnimation 1s ease forwards ${index / 7 + 0.5}s`;
+    });
+}
+
