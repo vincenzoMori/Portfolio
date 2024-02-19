@@ -1,4 +1,3 @@
-
 var currentImageIdx = 0;
 var images = [];
 var imageOpened = false;

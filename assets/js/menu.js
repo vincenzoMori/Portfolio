@@ -30,13 +30,12 @@ if (menuContainer) {
     });
 }
 
-// funzione per aggiungere la classe active al link selezionato
 function setActive(...elements) {
     var links = document.querySelectorAll('.category, .subcategory');
     links.forEach(link => {
         link.classList.remove('active');
         elements.forEach(element => {
-            if (link.href === element.href) {
+            if (element && link.href === element.href) {
                 link.classList.add('active');
             }
         });

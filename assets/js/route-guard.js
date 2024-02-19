@@ -19,14 +19,14 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // Get the current pathname and query string of the URL
-    const currentPathname = window.location.pathname;
+    const currentPathname = window.location.pathname.toLowerCase();
     const currentSearchParams = new URLSearchParams(window.location.search);
 
     // Check if the user is on one of the allowed pages
-    let isAllowed = allowedPaths.includes(currentPathname.toLowerCase());
+    let isAllowed = allowedPaths.includes(currentPathname);
 
     // Set the PROD flag based on the current hostname
-    PROD = currentPathname.toLowerCase().includes('portfolio');
+    PROD = currentPathname.includes('portfolio');
 
     // Set the prefix path based on the PROD flag
     const prefixPath = PROD ? '/Portfolio' : '';
