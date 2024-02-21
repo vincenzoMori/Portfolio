@@ -12,6 +12,22 @@ body {
   /* border: solid 12px #cebd78; */
 }
 
+*::-webkit-scrollbar {
+  width: 10px;
+}
+
+*::-webkit-scrollbar-thumb {
+  border-radius: 20px; /* roundness of the scroll thumb */
+  background-color: #a5a4a2;
+}
+
+.scroll {
+  height: 100%;
+  overflow: auto;
+  overflow-x: hidden;
+  padding-right: 50px;
+}
+
 .header {
   width: 100%;
   height: fit-content;

@@ -7,11 +7,13 @@ form {
 label {
   display: block;
   margin-bottom: 5px;
+  font-weight: bold;
 }
 
 span {
   color: rgb(49, 49, 49);
   font-size: 12px;
+  font-weight: normal;
 }
 
 input,
@@ -34,10 +36,26 @@ button {
   padding: 10px 20px;
   border: none;
   transition: 0.3s;
+  margin-top: 10px;
 }
 
 button:hover {
   background-color: #2e2e2e;
+}
+
+button:disabled {
+  background-color: #696868;
+  color: #fff;
+}
+
+.sent {
+  background-color: rgb(25, 90, 25);
+  color: #fff;
+}
+
+.error {
+  background-color: rgb(90, 25, 25);
+  color: #fff;
 }
 
 .contact-btns {
@@ -54,7 +72,7 @@ a {
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: row;
+  flex-direction: column;
   gap: 5px;
   color: #333;
   text-decoration: none;
@@ -79,4 +97,13 @@ a:hover {
 i {
   font-size: 30px;
   display: inline-block;
+}
+
+.social-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 100%;
 }

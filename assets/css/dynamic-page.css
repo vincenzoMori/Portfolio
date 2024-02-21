@@ -197,6 +197,13 @@
   cursor: pointer;
 }
 
+.toast-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1050;
+}
+
 @keyframes pulseIn {
   0% {
     transform: scale(1);

@@ -1,18 +1,24 @@
 var socialContainer = document.getElementById('social-container');
 
 if (socialContainer) {
-    usefulLinks.forEach(link => {
-        if (link.type === linkType.SOCIAL) {
+    usefulLinks
+        .filter(link => link.type === linkType.SOCIAL)
+        .forEach(link => {
             var a = document.createElement('a');
+            a.target = '_blank';
+            a.classList.add('social-btn', 'fade-in-cascade');
             a.href = link.url;
-            a.classList.add('fade-in-cascade');
             a.innerHTML = `<i class="${link.icon}"></i> ${link.title}`;
             socialContainer.appendChild(a);
-        }
-    });
+        });
 }
 
 function sendForm() {
+    var sendButton = document.getElementById('send-btn');
+    sendButton.disabled = true;
+    sendButton.innerHTML = 'Sending...';
+    sendButton.classList.remove('sent', 'error');
+
     var form = document.getElementById('contact-form');
     var formData = new FormData(form);
 
@@ -21,7 +27,6 @@ function sendForm() {
         body: JSON.stringify(Object.fromEntries(formData)),
     })
         .then(response => {
-            // Gestisci le risposte che non hanno uno status HTTP di 200 OK
             if (!response.ok) {
                 throw new Error('Network response was not ok ' + response.statusText);
             }
@@ -29,12 +34,17 @@ function sendForm() {
         })
         .then(result => {
             console.log(result);
-            alert('Messaggio inviato con successo!');
             form.reset();
+            sendButton.innerHTML = 'Sent! Thank you :)';
+            sendButton.disabled = false;
+            sendButton.classList.add('sent');
+
         })
         .catch(error => {
+            sendButton.innerHTML = 'Error! Please try again';
+            sendButton.disabled = false;
+            sendButton.classList.add('error');
             console.error('Errore nella fetch:', error);
-            alert('C\'è stato un errore nell\'invio del messaggio. Ti preghiamo di riprovare.');
         });
 
 }
