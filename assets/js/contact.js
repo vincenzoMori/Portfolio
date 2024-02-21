@@ -20,10 +20,6 @@ function sendForm() {
         method: 'POST',
         body: formData,
         mode: 'cors',
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': '*/*'
-        },
     })
 
 
