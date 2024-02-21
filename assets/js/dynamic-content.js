@@ -18,9 +18,7 @@ function getFileFromParams(categoryToLoad, subcategoryToLoad = null) {
             ? subcategories.find(subcategory => subcategory.href === subcategoryToLoad).file
             : category.file;
 
-        const details = document.getElementById('details');
-        details.style.display = contentUrl && contentUrl.includes('slideshow.html') ? 'block' : 'none';
-        details.style.animationDelay = '0s';
+        showDetails(contentUrl && contentUrl.includes('slideshow.html'))
 
         return {
             url: contentUrl,
@@ -70,8 +68,15 @@ function loadPage() {
     if (contentUrl) {
         loadContent(contentUrl.url, { category: contentUrl.category, subcategory: contentUrl.subcategory });
     } else {
+        showDetails(false);
         $('#main-content').load('../pages/404.html');
     }
+}
+
+function showDetails(show) {
+    const details = document.getElementById('details');
+    details.style.display = show ? 'block' : 'none';
+    details.style.animationDelay = '0s';
 }
 
 document.addEventListener('DOMContentLoaded', function () {

@@ -32,6 +32,7 @@
 }
 
 #details {
+  /* display: none; */
   opacity: 0;
 }
 
@@ -81,7 +82,6 @@
 
 #share-btn {
   position: relative;
-  top: -2.5px;
 }
 
 .main-content {

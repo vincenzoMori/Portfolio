@@ -96,6 +96,11 @@ h1 {
   margin-bottom: 20px !important;
 }
 
+h2 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
 @keyframes fadeInAnimation {
   0% {
     opacity: 0;
