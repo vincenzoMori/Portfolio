@@ -18,11 +18,8 @@ function sendForm() {
 
     fetch('https://script.google.com/macros/s/AKfycbziqrcmvUjG4LgAYZCF5aUI8G5oL8zBB_QCsnW0vRXC7Ry91dPrzmfSKtQ7KkSEHJYo/exec', {
         method: 'POST',
-        body: formData,
-        mode: 'cors',
+        body: JSON.stringify(Object.fromEntries(formData)),
     })
-
-
         .then(response => {
             // Gestisci le risposte che non hanno uno status HTTP di 200 OK
             if (!response.ok) {
