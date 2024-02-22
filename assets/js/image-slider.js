@@ -199,12 +199,10 @@ window.shareImage = function () {
 
 function isLiked(id) {
     const likedImages = JSON.parse(localStorage.getItem('likedImages')) || [];
-    console.log(likedImages.some(item => item.id === id))
     return likedImages.some(item => item.id === id);
 }
 
 function updateLikeButton(isLiked) {
-    console.log('isLiked', isLiked)
     const likeBtn = document.getElementById('like-btn');
 
     likeBtn.style.color = isLiked ? 'darkred' : 'black';
