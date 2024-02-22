@@ -167,9 +167,9 @@
   display: none;
 }
 
-.already-liked {
-  cursor: default !important;
-  animation: none !important;
+.disabled {
+  pointer-events: none; /* Impedisce click, hover, ecc. */
+  opacity: 0.5; /* Rendi l'icona semi-trasparente o usa altri stili per indicare che è disabilitata */
 }
 
 /* Fullscreen overlay*/

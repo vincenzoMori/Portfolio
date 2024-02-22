@@ -6,6 +6,8 @@ var prevBlobUrl = '';
 var currBlobUrl = '';
 var nextBlobUrl = '';
 
+var urlGoogleSheet = 'https://script.google.com/macros/s/AKfycbziqrcmvUjG4LgAYZCF5aUI8G5oL8zBB_QCsnW0vRXC7Ry91dPrzmfSKtQ7KkSEHJYo/exec'
+
 init();
 
 function init() {
@@ -127,37 +129,60 @@ async function loadImageBlob(index) {
     return URL.createObjectURL(blob);
 }
 
-// Function to like an image
-window.likeImage = function () {
+window.toggleLike = function () {
+    const likeBtn = document.getElementById('like-btn');
     const currentImage = images[currentImageIdx];
+    const likedImages = JSON.parse(localStorage.getItem('likedImages')) || [];
+    const imageEntry = likedImages.find(item => item.id === currentImage.id);
 
-    // Early exit if the image is already liked
-    if (isLiked(currentImage.id)) return;
+    likeBtn.classList.add('disabled');
 
-    updateLikeButton(true);
+    let action;
+    let token;
 
-    // Assuming success, optimistically add the image to the local storage
-    updateLikedImages(currentImage.id, true);
+    if (imageEntry) {
+        action = 'remove';
+        token = imageEntry.token;
+    } else {
+        action = 'add';
+        token = generateUniqueToken();
+    }
 
-    // Construct fetch URL
-    const urlToFetch = `https://script.google.com/macros/s/AKfycbziqrcmvUjG4LgAYZCF5aUI8G5oL8zBB_QCsnW0vRXC7Ry91dPrzmfSKtQ7KkSEHJYo/exec?id=${currentImage.id}&titolo=${currentImage.title}`;
+    updateLikeButton(action === 'add');
+    updateLocalStorage(currentImage.id, token, action === 'add');
 
-    // Fetch request to the server for liking the image
+    const urlToFetch = `${urlGoogleSheet}/exec?id=${currentImage.id}&title=${encodeURIComponent(currentImage.title)}&token=${token}&action=${action}`;
+
     fetch(urlToFetch)
-        .then(response => {
-            if (!response.ok) {
-                // If the request failed, remove the image from local storage
-                updateLikedImages(currentImage.id, false);
-                updateLikeButton(false); // Revert the like button to its original state
-                throw new Error(`Server responded with status: ${response.status}`);
+        .then(response => response.json())
+        .then(result => {
+            if (result.status !== 'success') {
+                console.error('Error while toggling the like:', result);
+                updateLocalStorage(currentImage.id, token, action === 'remove');
+                updateLikeButton(action === 'remove');
             }
         })
         .catch(error => {
-            // Log the error for debugging purposes
-            updateLikedImages(currentImage.id, false);
-            updateLikeButton(false); // Revert the like button to its original state
-            console.error('Error while liking the image:', error);
+            console.error('Error while toggling the like:', error);
+            updateLocalStorage(currentImage.id, token, action === 'remove');
+            updateLikeButton(action === 'remove');
+        })
+        .finally(() => {
+            likeBtn.classList.remove('disabled')
         });
+}
+
+function updateLocalStorage(id, token, add) {
+    const likedImages = JSON.parse(localStorage.getItem('likedImages')) || [];
+    if (add) {
+        likedImages.push({ id: id, token: token });
+    } else {
+        const index = likedImages.findIndex(item => item.id === id);
+        if (index !== -1) {
+            likedImages.splice(index, 1);
+        }
+    }
+    localStorage.setItem('likedImages', JSON.stringify(likedImages));
 }
 
 window.shareImage = function () {
@@ -174,16 +199,17 @@ window.shareImage = function () {
 
 function isLiked(id) {
     const likedImages = JSON.parse(localStorage.getItem('likedImages')) || [];
-    return likedImages.includes(id);
+    console.log(likedImages.some(item => item.id === id))
+    return likedImages.some(item => item.id === id);
 }
 
 function updateLikeButton(isLiked) {
+    console.log('isLiked', isLiked)
     const likeBtn = document.getElementById('like-btn');
 
     likeBtn.style.color = isLiked ? 'darkred' : 'black';
     likeBtn.classList.toggle('fa-regular', !isLiked);
     likeBtn.classList.toggle('fa-solid', isLiked);
-    likeBtn.classList.toggle('already-liked', isLiked);
 }
 
 function checkLikeBtn() {
@@ -192,17 +218,17 @@ function checkLikeBtn() {
 
 // Helper function to update local storage with liked images
 function updateLikedImages(id, add) {
-    const storageKey = 'likedImages';
-    const likedImages = JSON.parse(localStorage.getItem(storageKey)) || [];
+    const likedImages = JSON.parse(localStorage.getItem('likedImages')) || [];
+
     if (add) {
-        likedImages.push(id);
+        const token = generateUniqueToken();
+        likedImages.push({ id, token });
     } else {
-        const index = likedImages.indexOf(id);
-        if (index > -1) {
-            likedImages.splice(index, 1);
-        }
+        const index = likedImages.findIndex(item => item.id === id);
+        if (index !== -1) likedImages.splice(index, 1);
     }
-    localStorage.setItem(storageKey, JSON.stringify(likedImages));
+
+    localStorage.setItem('likedImages', JSON.stringify(likedImages));
 }
 
 // Function to display the image in full screen
@@ -233,3 +259,7 @@ document.getElementById('overlay').addEventListener('click', function (event) {
         closeImageFullScreen();
     }
 });
+
+window.generateUniqueToken = function () {
+    return Math.random().toString(36).substr(2, 9) + new Date().getTime() + Math.random().toString(36).substr(2, 9)
+}
