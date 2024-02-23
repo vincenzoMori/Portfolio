@@ -17,10 +17,18 @@ body {
   display: flex;
 }
 
+.scroll {
+  height: 100%;
+  overflow: auto;
+  overflow-x: hidden;
+  padding-right: 50px;
+}
+
 .header {
   width: 100%;
   height: fit-content;
   margin-bottom: 40px;
+  text-align: center;
 }
 
 
@@ -115,6 +123,10 @@ h1 {
   ::-webkit-scrollbar {
     width: 5px;
   }
+
+h2 {
+  font-size: 18px;
+  margin-bottom: 10px;
 }
 
 @keyframes fadeInAnimation {

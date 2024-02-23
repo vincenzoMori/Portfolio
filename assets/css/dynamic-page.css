@@ -273,7 +273,6 @@
 
 #share-btn {
   position: relative;
-  top: -2.5px;
 }
 
 .main-content {
@@ -361,9 +360,9 @@
   display: none;
 }
 
-.already-liked {
-  cursor: default !important;
-  animation: none !important;
+.disabled {
+  pointer-events: none; /* Impedisce click, hover, ecc. */
+  opacity: 0.5; /* Rendi l'icona semi-trasparente o usa altri stili per indicare che è disabilitata */
 }
 
 /* Fullscreen overlay*/
@@ -391,6 +390,17 @@
   cursor: pointer;
 }
 
+.toast-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1050;
+}
+
+.hide {
+  display: none !important;
+}
+
 @keyframes pulseIn {
   0% {
     transform: scale(1);
@@ -412,5 +422,14 @@
   }
   100% {
     transform: scale(1);
+  }
+}
+
+@keyframes opacityIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
   }
 }

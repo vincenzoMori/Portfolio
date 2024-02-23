@@ -31,28 +31,30 @@ document.addEventListener('DOMContentLoaded', () => {
     // Set the prefix path based on the PROD flag
     const prefixPath = PROD ? '/Portfolio' : '';
 
+    const prefixPathLower = prefixPath.toLowerCase();
+
     // Redirect to the appropriate page based on the current pathname
     switch (currentPathname) {
-        case prefixPath + '/':
+        case prefixPathLower:
             redirectTo(prefixPath + '/index.html');
             break;
-        case prefixPath + '/pages/about.html':
+        case prefixPathLower + '/':
+            redirectTo(prefixPath + '/index.html');
+            break;
+        case prefixPathLower + '/pages/about.html':
             redirectTo(prefixPath + '/pages/dynamic-page.html?category=about');
             break;
-        case prefixPath + '/pages/dynamic-page.html':
-            const allowedCategories = ['works', 'press', 'about', 'exhibitions', 'contacts'];
+        case prefixPathLower + '/pages/dynamic-page.html':
+            const allowedCategories = ['works', 'about', 'press', 'contacts'];
             const allowedSubcategories = ['video_art', 'installations', 'paintings'];
             const currentCategory = currentSearchParams.get('category');
             const currentSubcategory = currentSearchParams.get('subcategory');
             isAllowed = allowedCategories.includes(currentCategory) || allowedSubcategories.includes(currentSubcategory);
             break;
-        case prefixPath + '/pages/contact.html':
+        case prefixPathLower + '/pages/contact.html':
             redirectTo(prefixPath + '/pages/dynamic-page.html?category=contacts');
             break;
-        case prefixPath + '/pages/exhibitions.html':
-            redirectTo(prefixPath + '/pages/dynamic-page.html?category=exhibitions');
-            break;
-        case prefixPath + '/pages/press.html':
+        case prefixPathLower + '/pages/press.html':
             redirectTo(prefixPath + '/pages/dynamic-page.html?category=press');
             break;
     }

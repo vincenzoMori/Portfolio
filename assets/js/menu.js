@@ -1,12 +1,11 @@
-const currentPathname = window.location.pathname;
-let basePath = currentPathname === '/Portfolio/index.html' ? './pages/dynamic-page.html?' : '../pages/dynamic-page.html?'
-let activeObjects = null;
+var menuContainer = document.getElementById('menu-container');
+let searchParams = new URLSearchParams(window.location.search);
+let category = searchParams.get('category');
+let subcategory = searchParams.get('subcategory');
 
 function createMenu() {
-    var menuContainer = document.getElementById('menu-container');
-    console.log("MENU: ", menuContainer);
     if (menuContainer) {
-        routes.forEach(route => {
+        routes.forEach((route, index) => {
             if (route.href === 'spacer') {
                 var spacer = document.createElement('div');
                 spacer.classList.add('spacer');
@@ -17,10 +16,21 @@ function createMenu() {
             a.href = basePath + 'category=' + route.href;
             a.classList.add('category', 'fade-in-cascade');
             a.innerHTML = route.text;
+            a.dataset.index = index; // Assegniamo un indice come attributo personalizzato per identificare la categoria
             menuContainer.appendChild(a);
-            if (route.subcategories && currentPathname.includes('dynamic-page.html')) {
+    
+            // Aggiunta del listener per il click sulla categoria
+            a.addEventListener('click', function (event) {
+                event.preventDefault();
+                setActive(this);
+                handleCategorySelection(this.dataset.index);
+            });
+    
+            if (route.subcategories && route.href === category) {
                 var subMenu = document.createElement('div');
                 subMenu.classList.add('subMenu');
+                subMenu.id = 'subMenu-' + index; // ID unico
+    
                 route.subcategories.forEach(subcategory => {
                     var subA = document.createElement('a');
                     subA.classList.add('subcategory', 'fade-in-cascade');
@@ -32,6 +42,20 @@ function createMenu() {
             }
         });
     }    
+}
+
+function handleCategorySelection(index) {
+    // Seleziona tutte le sottocategorie e le nasconde
+    var subMenus = menuContainer.querySelectorAll('.subMenu');
+    subMenus.forEach(function (subMenuEl) {
+        subMenuEl.classList.add('hide');
+    });
+
+    // Mostra le sottocategorie della categoria selezionata
+    var selectedSubMenu = menuContainer.querySelector('#subMenu-' + index);
+    if (selectedSubMenu) {
+        selectedSubMenu.classList.remove('hide');
+    }
 }
 
 function setActive(...elements) {
