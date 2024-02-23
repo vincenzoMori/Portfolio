@@ -38,6 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Redirect to the appropriate page based on the current pathname
     switch (currentPathname) {
         case prefixPath + '/':
+            console.log("Caso 1, redirect to index.html");
             redirectTo(prefixPath + '/index.html');
             break;
         case prefixPath + '/pages/about.html':

@@ -4,9 +4,9 @@ const routes = [
         text: 'works',
         subcategories: [
             {
-                href: 'video_art',
-                text: 'video art',
-                file: null
+                href: 'paintings',
+                text: 'paintings',
+                file: '../pages/slideshow.html'
             },
             {
                 href: 'installations',
@@ -14,9 +14,9 @@ const routes = [
                 file: null
             },
             {
-                href: 'paintings',
-                text: 'paintings',
-                file: '../pages/slideshow.html'
+                href: 'video_art',
+                text: 'video art',
+                file: null
             }
         ]
     },

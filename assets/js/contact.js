@@ -35,13 +35,13 @@ function sendForm() {
         .then(result => {
             console.log(result);
             form.reset();
-            sendButton.innerHTML = 'Sent! Thank you :)';
+            sendButton.innerHTML = 'Sent, thank you!';
             sendButton.disabled = false;
             sendButton.classList.add('sent');
 
         })
         .catch(error => {
-            sendButton.innerHTML = 'Error! Please try again';
+            sendButton.innerHTML = 'Error! Please try again later';
             sendButton.disabled = false;
             sendButton.classList.add('error');
             console.error('Errore nella fetch:', error);
