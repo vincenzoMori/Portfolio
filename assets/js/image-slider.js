@@ -105,7 +105,7 @@ function setImageInfo() {
         const imageinfo = document.getElementsByClassName('opera-info').item(0);
         imageinfo.innerHTML = images[currentImageIdx].info;
         history.pushState({}, null, `?category=${getQueryParam('category')}&subcategory=${getQueryParam('subcategory')}&opera=${images[currentImageIdx].title.replace(/ /g, '_')}`);
-        checkLikeBtn();
+        // checkLikeBtn();
     } catch {
         console.log('Error while setting image info')
         $('#main-content').load('../pages/404.html');
