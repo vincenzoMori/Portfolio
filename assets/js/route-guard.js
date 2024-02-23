@@ -25,18 +25,15 @@ document.addEventListener('DOMContentLoaded', () => {
     // Check if the user is on one of the allowed pages
     let isAllowed = allowedPaths.includes(currentPathname);
 
-    console.log(currentPathname, isAllowed);
     // Set the PROD flag based on the current hostname
     PROD = currentPathname.includes('portfolio');
-    console.log(PROD)
 
     // Set the prefix path based on the PROD flag
     const prefixPath = PROD ? '/Portfolio' : '';
 
-    console.log(prefixPath)
-
     // Redirect to the appropriate page based on the current pathname
     switch (currentPathname) {
+        case prefixPath:
         case prefixPath + '/':
             console.log("Caso 1, redirect to index.html");
             redirectTo(prefixPath + '/index.html');
