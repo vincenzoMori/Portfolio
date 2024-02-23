@@ -25,11 +25,15 @@ document.addEventListener('DOMContentLoaded', () => {
     // Check if the user is on one of the allowed pages
     let isAllowed = allowedPaths.includes(currentPathname);
 
+    console.log(currentPathname, isAllowed);
     // Set the PROD flag based on the current hostname
     PROD = currentPathname.includes('portfolio');
+    console.log(PROD)
 
     // Set the prefix path based on the PROD flag
     const prefixPath = PROD ? '/Portfolio' : '';
+
+    console.log(prefixPath)
 
     // Redirect to the appropriate page based on the current pathname
     switch (currentPathname) {
@@ -40,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
             redirectTo(prefixPath + '/pages/dynamic-page.html?category=about');
             break;
         case prefixPath + '/pages/dynamic-page.html':
-            const allowedCategories = ['works', 'press', 'about', 'exhibitions', 'contacts'];
+            const allowedCategories = ['works', 'about', 'press', 'contacts'];
             const allowedSubcategories = ['video_art', 'installations', 'paintings'];
             const currentCategory = currentSearchParams.get('category');
             const currentSubcategory = currentSearchParams.get('subcategory');
@@ -48,9 +52,6 @@ document.addEventListener('DOMContentLoaded', () => {
             break;
         case prefixPath + '/pages/contact.html':
             redirectTo(prefixPath + '/pages/dynamic-page.html?category=contacts');
-            break;
-        case prefixPath + '/pages/exhibitions.html':
-            redirectTo(prefixPath + '/pages/dynamic-page.html?category=exhibitions');
             break;
         case prefixPath + '/pages/press.html':
             redirectTo(prefixPath + '/pages/dynamic-page.html?category=press');
