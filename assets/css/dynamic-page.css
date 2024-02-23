@@ -107,8 +107,9 @@
   background-position: center; /* Center the image in the background */
   width: 90%; /* 100% of the parent container */
   height: 100%; /* Occupies the entire available height */
-  transition: background-image 0.3s ease-in-out; /* Optional: smooth transition for image change */
-  animation: pulseIn 1.2s forwards ease-in-out;
+  transition: background-image 240ms; /* Optional: smooth transition for image change */
+  /* animation: pulseIn 1.2s forwards ease-in-out; */
+  animation: opacityIn 0.5s forwards ease-in-out;
 }
 
 .image-slider .arrow {
@@ -204,6 +205,10 @@
   z-index: 1050;
 }
 
+.hide {
+  display: none !important;
+}
+
 @keyframes pulseIn {
   0% {
     transform: scale(1);
@@ -225,5 +230,14 @@
   }
   100% {
     transform: scale(1);
+  }
+}
+
+@keyframes opacityIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
   }
 }
