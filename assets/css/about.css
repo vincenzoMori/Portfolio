@@ -4,12 +4,3 @@
   overflow-x: hidden;
   padding-right: 50px;
 }
-
-#about::-webkit-scrollbar {
-  width: 10px;
-}
-
-#about::-webkit-scrollbar-thumb {
-  border-radius: 20px; /* roundness of the scroll thumb */
-  background-color: #a5a4a2;
-}

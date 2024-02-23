@@ -42,3 +42,7 @@ function fadeInCascade() {
     });
 }
 
+onMobileChange(() => {
+    fadeInCascade();
+});
+

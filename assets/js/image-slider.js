@@ -6,8 +6,6 @@ var prevBlobUrl = '';
 var currBlobUrl = '';
 var nextBlobUrl = '';
 
-init();
-
 function init() {
     if (getQueryParam('subcategory') !== 'paintings') {
         return;
@@ -92,6 +90,7 @@ async function loadImages(index, direction = 0) {
 
 function setImageInfo() {
     try {
+        console.log('Setting image info');
         const slide_show = document.getElementById('slide-show');
         slide_show.style.backgroundImage = `url('${currBlobUrl}')`;
         const operaNumber = document.getElementsByClassName('opera-number').item(0);
@@ -104,8 +103,8 @@ function setImageInfo() {
         imageinfo.innerHTML = images[currentImageIdx].info;
         history.pushState({}, null, `?category=${getQueryParam('category')}&subcategory=${getQueryParam('subcategory')}&opera=${images[currentImageIdx].title.replace(/ /g, '_')}`);
         checkLikeBtn();
-    } catch {
-        console.log('Error while setting image info')
+    } catch (error) {
+        console.log('Error while setting image info' + error)
         $('#main-content').load('../pages/404.html');
     }
 }
@@ -178,6 +177,7 @@ function isLiked(id) {
 }
 
 function updateLikeButton(isLiked) {
+
     const likeBtn = document.getElementById('like-btn');
 
     likeBtn.style.color = isLiked ? 'darkred' : 'black';
@@ -232,4 +232,59 @@ document.getElementById('overlay').addEventListener('click', function (event) {
     if (event.target.id === 'overlay') {
         closeImageFullScreen();
     }
+});
+
+
+
+var detailsPanel = ' \
+    <div id="details" class="fade-in-cascade"> \
+        <div> \
+            <div id="details-title"> \
+                <h4 class="opera-title">Test image</h4> \
+                <p class="opera-number">1/3</p> \
+            </div> \
+            <p class="opera-description"></p> \
+            <p class="opera-info"></p> \
+        </div> \
+        <div id="icons"> \
+        <div class="img-change-btn" style="transform: rotate(180deg );" onclick="changeImage(-1)"> \
+        <i class="fa-solid fa-arrow-right"></i> \
+    </div> \
+            <i id="fullscreen-btn" class="fa-solid fa-expand" onclick="displayImageFullScreen()"></i> \
+            <i id="like-btn" class="fa-regular fa-heart" onclick="likeImage()"></i> \
+            <i id="share-btn" class="fa-regular fa-share-from-square" onclick="shareImage()"></i> \
+            <div class="img-change-btn" onclick="changeImage(1)"> \
+            <i class="fa-solid fa-arrow-right"></i>  \
+        </div> \
+        </div> \
+    </div> \
+'
+
+
+var infoPanelRendered = false;
+function createInfoPanel() {
+    const infoPanel = document.createElement('div');
+    infoPanel.style.height = '100%';
+    if (window.isMobile) {
+        if (infoPanelRendered)
+            document.getElementById('opera-info-container').innerHTML = '';
+        infoPanel.innerHTML = detailsPanel;
+        console.log('appending info panel');
+        document.getElementById('opera-info-container-mobile').appendChild(infoPanel);
+        infoPanelRendered = true;
+    } else {
+        if (infoPanelRendered)
+            document.getElementById('opera-info-container-mobile').innerHTML = '';
+        infoPanel.innerHTML = detailsPanel;
+        document.getElementById('opera-info-container').appendChild(infoPanel);
+        infoPanelRendered = true;
+    }
+}
+
+init();
+createInfoPanel();
+onMobileChange(() => {
+    console.log('creating info panel');
+    createInfoPanel();
+    setImageInfo();
 });
