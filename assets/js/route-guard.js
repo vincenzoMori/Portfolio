@@ -25,40 +25,38 @@ document.addEventListener('DOMContentLoaded', () => {
     // Check if the user is on one of the allowed pages
     let isAllowed = allowedPaths.includes(currentPathname);
 
-    console.log(currentPathname, isAllowed);
     // Set the PROD flag based on the current hostname
     PROD = currentPathname.includes('portfolio');
-    console.log(PROD)
 
     // Set the prefix path based on the PROD flag
     const prefixPath = PROD ? '/Portfolio' : '';
 
-    console.log(prefixPath)
+    const prefixPathLower = prefixPath.toLowerCase();
 
     // Redirect to the appropriate page based on the current pathname
     switch (currentPathname) {
-        case prefixPath:
+        case prefixPathLower:
             console.log("Caso 1, redirect to index.html");
             redirectTo(prefixPath + '/index.html');
             break;
-        case prefixPath + '/':
+        case prefixPathLower + '/':
             console.log("Caso 1, redirect to index.html");
             redirectTo(prefixPath + '/index.html');
             break;
-        case prefixPath + '/pages/about.html':
+        case prefixPathLower + '/pages/about.html':
             redirectTo(prefixPath + '/pages/dynamic-page.html?category=about');
             break;
-        case prefixPath + '/pages/dynamic-page.html':
+        case prefixPathLower + '/pages/dynamic-page.html':
             const allowedCategories = ['works', 'about', 'press', 'contacts'];
             const allowedSubcategories = ['video_art', 'installations', 'paintings'];
             const currentCategory = currentSearchParams.get('category');
             const currentSubcategory = currentSearchParams.get('subcategory');
             isAllowed = allowedCategories.includes(currentCategory) || allowedSubcategories.includes(currentSubcategory);
             break;
-        case prefixPath + '/pages/contact.html':
+        case prefixPathLower + '/pages/contact.html':
             redirectTo(prefixPath + '/pages/dynamic-page.html?category=contacts');
             break;
-        case prefixPath + '/pages/press.html':
+        case prefixPathLower + '/pages/press.html':
             redirectTo(prefixPath + '/pages/dynamic-page.html?category=press');
             break;
     }
