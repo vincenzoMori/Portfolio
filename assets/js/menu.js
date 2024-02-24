@@ -5,10 +5,10 @@ let activeObjects = [];
 const currentPathname = window.location.pathname;
 let basePath = currentPathname === '/Portfolio/index.html' ? './pages/dynamic-page.html?' : '../pages/dynamic-page.html?'
 
-
 var menuContainer;
 
 function createMenu() {
+    console.log('createMenu')
     menuContainer = document.getElementById('menu-container');
     if (menuContainer) {
         routes.forEach((route, index) => {
@@ -22,25 +22,24 @@ function createMenu() {
             a.href = basePath + 'category=' + route.href;
             a.classList.add('category', 'fade-in-cascade');
             a.innerHTML = route.text;
-            a.id = route.text;
+            a.id = route.href; // ID univoco per la categoria
             a.dataset.index = index; // Assegniamo un indice come attributo personalizzato per identificare la categoria
             menuContainer.appendChild(a);
 
             // Aggiunta del listener per il click sulla categoria
             a.addEventListener('click', function (event) {
-                console.log('click')
                 event.preventDefault();
-                handleCategorySelection(this.dataset.index);
+                handleCategorySelection(route.href);
             });
 
             if (route.subcategories) {
                 var subMenu = document.createElement('div');
                 subMenu.classList.add('subMenu');
-                subMenu.id = 'subMenu-' + index; // ID unico
+                subMenu.id = 'subMenu-' + route.href; // ID univoco per il sottomenu
                 route.subcategories.forEach(subcategory => {
                     var subA = document.createElement('a');
                     subA.classList.add('subcategory', 'fade-in-cascade');
-                    subA.id = route.text + '-child';
+                    subA.id = route.href + '-child'; // ID univoco per la sottocategoria
                     subA.href = basePath + 'category=' + route.href + '&subcategory=' + subcategory.href;
                     subA.innerHTML = subcategory.text;
                     subMenu.appendChild(subA);
@@ -59,10 +58,12 @@ function handleCategorySelection(index) {
         subMenuEl.classList.add('hide');
     });
 
-    // Mostra le sottocategorie della categoria selezionata
-    var selectedSubMenu = menuContainer.querySelector('#subMenu-' + index);
-    if (selectedSubMenu) {
-        selectedSubMenu.classList.remove('hide');
+    // Mostra le sottocategorie della categoria selezionata se il path non contiene index.html
+    if (!currentPathname.includes('index.html')) {
+        var selectedSubMenu = menuContainer.querySelector('#subMenu-' + index);
+        if (selectedSubMenu) {
+            selectedSubMenu.classList.remove('hide');
+        }
     }
 }
 
@@ -130,9 +131,16 @@ onMobileChange(() => {
 
 function hideAll() {
     var subMenus = menuContainer.querySelectorAll('.subMenu');
-    console.log(subMenus)
     subMenus.forEach(function (subMenuEl) {
         console.log(subMenuEl)
         subMenuEl.classList.add('hide');
     });
+    showOnCategorySelected();
+}
+
+function showOnCategorySelected() {
+    var selectedSubMenu = menuContainer.querySelector('#subMenu-' + category);
+    if (selectedSubMenu) {
+        selectedSubMenu.classList.remove('hide');
+    }
 }
