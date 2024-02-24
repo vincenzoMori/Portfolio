@@ -18,6 +18,8 @@ function getFileFromParams(categoryToLoad, subcategoryToLoad = null) {
             ? subcategories.find(subcategory => subcategory.href === subcategoryToLoad).file
             : category.file;
 
+        showDetails(contentUrl && contentUrl.includes('slideshow.html'))
+
         return {
             url: contentUrl,
             category: categoryToLoad,
@@ -73,11 +75,12 @@ function loadPage() {
     }
 }
 
-//function showDetails(show) {
-//    const details = document.getElementById('details');
-//    details.style.display = show ? 'block' : 'none';
-//    details.style.animationDelay = '0s';
-//}
+function showDetails(show) {
+   const details = document.getElementById('details');
+   if (!details) return;
+   details.style.display = show ? 'block' : 'none';
+   details.style.animationDelay = '0s';
+}
 
 $("#openBtnNav").on("click", function () {
     openNavbar();
@@ -103,7 +106,6 @@ onMobileChange(() => {
     if (!window.isMobile)
         closeNavbar();
 });
-
 
 callMobileCallbacks();
 loadPage();

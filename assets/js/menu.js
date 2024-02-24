@@ -1,9 +1,14 @@
-var menuContainer = document.getElementById('menu-container');
 let searchParams = new URLSearchParams(window.location.search);
 let category = searchParams.get('category');
 let subcategory = searchParams.get('subcategory');
+let activeObjects = [];
+const currentPathname = window.location.pathname;
+let basePath = currentPathname === '/Portfolio/index.html' ? './pages/dynamic-page.html?' : '../pages/dynamic-page.html?'
+
+var menuContainer;
 
 function createMenu() {
+    menuContainer = document.getElementById('menu-container');
     if (menuContainer) {
         routes.forEach((route, index) => {
             if (route.href === 'spacer') {
@@ -91,6 +96,8 @@ function setListeners() {
     });
 }
 
+// called when the page is loaded
+// and when the mode is changed
 onMobileChange(() => {
     const menuContainer = document.createElement('div');
     menuContainer.id = 'menu-container';

@@ -66,6 +66,10 @@
   height: 100%;
 }
 
+#opera-info-container{
+  opacity: 0;
+}
+
 #details-title{
   display: flex; 
   margin-bottom: 16px;

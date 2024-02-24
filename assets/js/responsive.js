@@ -20,13 +20,15 @@ if (mql.matches) {
 }
 
 function onMobileChange(callback) {
+    if (mobileCallbacks.includes(callback))
+        return;
     mobileCallbacks.push(callback);
-    console.log("registering callback " + callback);
 }
 
 function callMobileCallbacks() {
     mobileCallbacks.forEach(callback => {
-        console.log("calling callback " + callback);
         callback();
     });
 }
+
+window.isPanelRendered = false;

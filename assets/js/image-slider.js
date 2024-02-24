@@ -87,12 +87,12 @@ async function loadImages(index, direction = 0) {
         currBlobUrl = prevBlobUrl;
         prevBlobUrl = await loadImageBlob(index - 1 < 0 ? images.length - 1 : index - 1);
     }
+    createInfoPanel();
     setImageInfo();
 }
 
 function setImageInfo() {
     try {
-        console.log('Setting image info');
         const slide_show = document.getElementById('slide-show');
         slide_show.style.backgroundImage = `url('${currBlobUrl}')`;
         const operaNumber = document.getElementsByClassName('opera-number').item(0);
@@ -112,6 +112,8 @@ function setImageInfo() {
 }
 
 async function changeImage(direction) {
+    if (navigator.vibrate)
+        navigator.vibrate(100);
     setCurrentIndex(direction);
     await loadImages(currentImageIdx, direction);
 }
@@ -273,12 +275,12 @@ var detailsPanel = ' \
             <p class="opera-info"></p> \
         </div> \
         <div id="icons"> \
-        <div class="img-change-btn" style="transform: rotate(180deg );" onclick="changeImage(-1)"> \
+            <div class="img-change-btn" style="transform: rotate(180deg );" onclick="changeImage(-1)"> \
         <i class="fa-solid fa-arrow-right"></i> \
     </div> \
             <i id="fullscreen-btn" class="fa-solid fa-expand" onclick="displayImageFullScreen()"></i> \
             <i id="share-btn" class="fa-regular fa-share-from-square" onclick="shareImage()"></i> \
-            <div class="img-change-btn" onclick="changeImage(1)"> \
+        <div class="img-change-btn" onclick="changeImage(1)"> \
             <i class="fa-solid fa-arrow-right"></i>  \
         </div> \
         </div> \
@@ -288,30 +290,36 @@ var detailsPanel = ' \
 
 var infoPanelRendered = false;
 function createInfoPanel() {
+
+    if (document.getElementById('info-panel'))
+        document.getElementById('info-panel').remove();
+
     const infoPanel = document.createElement('div');
+    infoPanel.id = 'info-panel';
     infoPanel.style.height = '100%';
-    if (window.isMobile) {
-        if (infoPanelRendered)
-            document.getElementById('opera-info-container').innerHTML = '';
-        infoPanel.innerHTML = detailsPanel;
-        console.log('appending info panel');
-        document.getElementById('opera-info-container-mobile').appendChild(infoPanel);
-        infoPanelRendered = true;
-    } else {
-        if (infoPanelRendered)
-            document.getElementById('opera-info-container-mobile').innerHTML = '';
-        infoPanel.innerHTML = detailsPanel;
-        document.getElementById('opera-info-container').appendChild(infoPanel);
-        infoPanelRendered = true;
+
+    const operaInfoContainer = window.isMobile ? 'opera-info-container-mobile' : 'opera-info-container';
+    const otherOperaInfoContainer = window.isMobile ? 'opera-info-container' : 'opera-info-container-mobile';
+
+    if (infoPanelRendered) {
+        document.getElementById(otherOperaInfoContainer).innerHTML = '';
     }
+
+    infoPanel.innerHTML = detailsPanel;
+    document.getElementById(operaInfoContainer).appendChild(infoPanel);
+    infoPanelRendered = true;
+}
+
+if (!window.isPanelRendered) {
+    onMobileChange(() => {
+        createInfoPanel();
+        setImageInfo();
+    });
+    window.isPanelRendered = true;
 }
 
 init();
-createInfoPanel();
-onMobileChange(() => {
-    console.log('creating info panel');
-    createInfoPanel();
-    setImageInfo();
-});
+
+
 
 

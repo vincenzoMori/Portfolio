@@ -21,7 +21,6 @@ body {
   height: 100%;
   overflow: auto;
   overflow-x: hidden;
-  padding-right: 50px;
 }
 
 .header {
@@ -123,6 +122,7 @@ h1 {
   ::-webkit-scrollbar {
     width: 5px;
   }
+}
 
 h2 {
   font-size: 18px;

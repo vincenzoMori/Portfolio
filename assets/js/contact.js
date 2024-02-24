@@ -33,7 +33,6 @@ function sendForm() {
             return response.json();
         })
         .then(result => {
-            console.log(result);
             form.reset();
             sendButton.innerHTML = 'Sent, thank you!';
             sendButton.disabled = false;
