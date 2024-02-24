@@ -11,45 +11,46 @@ var menuContainer;
 function createMenu() {
     menuContainer = document.getElementById('menu-container');
     if (menuContainer) {
-    routes.forEach((route, index) => {
-        if (route.href === 'spacer') {
-            var spacer = document.createElement('div');
-            spacer.classList.add('spacer');
-            menuContainer.appendChild(spacer);
-            return;
-        }
-        var a = document.createElement('a');
-        a.href = basePath + 'category=' + route.href;
-        a.classList.add('category', 'fade-in-cascade');
-        a.innerHTML = route.text;
-        a.id = route.text;
-        a.dataset.index = index; // Assegniamo un indice come attributo personalizzato per identificare la categoria
-        menuContainer.appendChild(a);
+        routes.forEach((route, index) => {
+            if (route.href === 'spacer') {
+                var spacer = document.createElement('div');
+                spacer.classList.add('spacer');
+                menuContainer.appendChild(spacer);
+                return;
+            }
+            var a = document.createElement('a');
+            a.href = basePath + 'category=' + route.href;
+            a.classList.add('category', 'fade-in-cascade');
+            a.innerHTML = route.text;
+            a.id = route.text;
+            a.dataset.index = index; // Assegniamo un indice come attributo personalizzato per identificare la categoria
+            menuContainer.appendChild(a);
 
-        // Aggiunta del listener per il click sulla categoria
-        a.addEventListener('click', function (event) {
-            console.log('click')
-            event.preventDefault();
-            handleCategorySelection(this.dataset.index);
-        });
-
-        if (route.subcategories) {
-            var subMenu = document.createElement('div');
-            subMenu.classList.add('subMenu');
-            subMenu.id = 'subMenu-' + index; // ID unico
-            route.subcategories.forEach(subcategory => {
-                var subA = document.createElement('a');
-                subA.classList.add('subcategory', 'fade-in-cascade');
-                subA.id = route.text + '-child';
-                subA.href = basePath + 'category=' + route.href + '&subcategory=' + subcategory.href;
-                subA.innerHTML = subcategory.text;
-                subMenu.appendChild(subA);
+            // Aggiunta del listener per il click sulla categoria
+            a.addEventListener('click', function (event) {
+                console.log('click')
+                event.preventDefault();
+                handleCategorySelection(this.dataset.index);
             });
-            menuContainer.appendChild(subMenu);
-        }
-    });
-          hideAll()
-    }    
+
+            if (route.subcategories) {
+                var subMenu = document.createElement('div');
+                subMenu.classList.add('subMenu');
+                subMenu.id = 'subMenu-' + index; // ID unico
+                route.subcategories.forEach(subcategory => {
+                    var subA = document.createElement('a');
+                    subA.classList.add('subcategory', 'fade-in-cascade');
+                    subA.id = route.text + '-child';
+                    subA.href = basePath + 'category=' + route.href + '&subcategory=' + subcategory.href;
+                    subA.innerHTML = subcategory.text;
+                    subMenu.appendChild(subA);
+                });
+                menuContainer.appendChild(subMenu);
+            }
+        });
+        hideAll()
+    }
+}
 
 function handleCategorySelection(index) {
     // Seleziona tutte le sottocategorie e le nasconde
@@ -124,9 +125,9 @@ onMobileChange(() => {
     setListeners();
     if (activeObjects)
         setActive(...activeObjects);
-    
+
 });
-  
+
 function hideAll() {
     var subMenus = menuContainer.querySelectorAll('.subMenu');
     console.log(subMenus)
