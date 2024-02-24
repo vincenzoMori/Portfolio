@@ -277,6 +277,7 @@
 
 #share-btn {
   position: relative;
+  font-size: 21px;
 }
 
 .main-content {
@@ -399,10 +400,6 @@
   top: 20px;
   right: 20px;
   z-index: 1050;
-}
-
-.hide {
-  display: none !important;
 }
 
 @keyframes pulseIn {
