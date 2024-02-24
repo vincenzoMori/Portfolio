@@ -1,12 +1,16 @@
-const currentPathname = window.location.pathname;
-let basePath = currentPathname === '/Portfolio/index.html' ? './pages/dynamic-page.html?' : '../pages/dynamic-page.html?'
-
-var menuContainer = document.getElementById('menu-container');
 let searchParams = new URLSearchParams(window.location.search);
 let category = searchParams.get('category');
 let subcategory = searchParams.get('subcategory');
+let activeObjects = [];
+const currentPathname = window.location.pathname;
+let basePath = currentPathname === '/Portfolio/index.html' ? './pages/dynamic-page.html?' : '../pages/dynamic-page.html?'
 
-if (menuContainer) {
+
+var menuContainer;
+
+function createMenu() {
+    menuContainer = document.getElementById('menu-container');
+    if (menuContainer) {
     routes.forEach((route, index) => {
         if (route.href === 'spacer') {
             var spacer = document.createElement('div');
@@ -44,8 +48,8 @@ if (menuContainer) {
             menuContainer.appendChild(subMenu);
         }
     });
-    hideAll()
-}
+          hideAll()
+    }    
 
 function handleCategorySelection(index) {
     // Seleziona tutte le sottocategorie e le nasconde
@@ -64,6 +68,7 @@ function handleCategorySelection(index) {
 function setActive(...elements) {
     console.log(elements)
     var links = document.querySelectorAll('.category, .subcategory');
+    activeObjects = elements;
     links.forEach(link => {
         link.classList.remove('active');
         elements.forEach(element => {
@@ -74,6 +79,54 @@ function setActive(...elements) {
     });
 }
 
+function setListeners() {
+    const menuLinks = document.querySelectorAll('.category, .subcategory');
+
+    menuLinks.forEach(link => {
+        link.addEventListener('click', function (event) {
+            event.preventDefault();
+            var linkClicked = event.target.href;
+            var category = getQueryParam('category', linkClicked);
+            var subcategory = getQueryParam('subcategory', linkClicked);
+            var contentUrl = getFileFromParams(category, subcategory);
+            category = contentUrl.category;
+            subcategory = contentUrl.subcategory;
+            loadContent(contentUrl.url, { category, subcategory });
+            if (window.isMobile) {
+                closeNavbar();
+            }
+        });
+    });
+}
+
+// called when the page is loaded
+// and when the mode is changed
+onMobileChange(() => {
+    const menuContainer = document.createElement('div');
+    menuContainer.id = 'menu-container';
+
+    const sidebarContent = document.getElementsByClassName('sidebar-content')[0];
+    const sidebarMobileContent = document.getElementsByClassName('sidebar-mobile-content')[0];
+
+    if (window.isMobile) {
+        try {
+            sidebarContent.removeChild(document.getElementById('menu-container'));
+        } catch (e) { }
+        sidebarMobileContent.appendChild(menuContainer);
+    } else {
+        try {
+            sidebarMobileContent.removeChild(document.getElementById('menu-container'));
+        } catch (e) { }
+        sidebarContent.insertBefore(menuContainer, sidebarContent.firstChild);
+    }
+
+    createMenu();
+    setListeners();
+    if (activeObjects)
+        setActive(...activeObjects);
+    
+});
+  
 function hideAll() {
     var subMenus = menuContainer.querySelectorAll('.subMenu');
     console.log(subMenus)

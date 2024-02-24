@@ -66,6 +66,8 @@ function loadContent(contentToLoad, params) {
 
     window.opera = getQueryParam('opera');
     window.history.pushState({}, '', newUrl);
+
+    document.getElementById("breadcrums").innerHTML = (params.category + (params.subcategory ? ' / ' + params.subcategory : '')).toUpperCase();
 }
 
 function loadPage() {
@@ -83,26 +85,36 @@ function loadPage() {
 }
 
 function showDetails(show) {
-    const details = document.getElementById('details');
-    details.style.display = show ? 'block' : 'none';
-    details.style.animationDelay = '0s';
+   const details = document.getElementById('details');
+   if (!details) return;
+   details.style.display = show ? 'block' : 'none';
+   details.style.animationDelay = '0s';
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-    const menuLinks = document.querySelectorAll('.category, .subcategory');
-
-    menuLinks.forEach(link => {
-        link.addEventListener('click', function (event) {
-            event.preventDefault();
-            var linkClicked = event.target.href;
-            var category = getQueryParam('category', linkClicked);
-            var subcategory = getQueryParam('subcategory', linkClicked);
-            var contentToLoad = getFileFromParams(category, subcategory);
-            category = contentToLoad.category;
-            subcategory = contentToLoad.subcategory;
-            loadContent(contentToLoad.url, { category, subcategory });
-        });
-    });
+$("#openBtnNav").on("click", function () {
+    openNavbar();
 });
 
+$("#closeBtnNav").on("click", function () {
+    closeNavbar();
+});
+
+function openNavbar() {
+    $(".sidebar-mobile").fadeIn();
+    $(".sidebar-mobile-container").removeClass("closed").animate({ right: 0 }, 500);
+}
+
+function closeNavbar() {
+    $(".sidebar-mobile-container").animate({ right: -300 }, 500, function () {
+        $(this).addClass("closed");
+        $(".sidebar-mobile").fadeOut();
+    });
+}
+
+onMobileChange(() => {
+    if (!window.isMobile)
+        closeNavbar();
+});
+
+callMobileCallbacks();
 loadPage();
