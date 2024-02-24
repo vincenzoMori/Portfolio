@@ -18,24 +18,25 @@ if (menuContainer) {
         a.href = basePath + 'category=' + route.href;
         a.classList.add('category', 'fade-in-cascade');
         a.innerHTML = route.text;
+        a.id = route.text;
         a.dataset.index = index; // Assegniamo un indice come attributo personalizzato per identificare la categoria
         menuContainer.appendChild(a);
 
         // Aggiunta del listener per il click sulla categoria
         a.addEventListener('click', function (event) {
+            console.log('click')
             event.preventDefault();
-            setActive(this);
             handleCategorySelection(this.dataset.index);
         });
 
-        if (route.subcategories && route.href === category) {
+        if (route.subcategories) {
             var subMenu = document.createElement('div');
             subMenu.classList.add('subMenu');
             subMenu.id = 'subMenu-' + index; // ID unico
-
             route.subcategories.forEach(subcategory => {
                 var subA = document.createElement('a');
                 subA.classList.add('subcategory', 'fade-in-cascade');
+                subA.id = route.text + '-child';
                 subA.href = basePath + 'category=' + route.href + '&subcategory=' + subcategory.href;
                 subA.innerHTML = subcategory.text;
                 subMenu.appendChild(subA);
@@ -43,6 +44,7 @@ if (menuContainer) {
             menuContainer.appendChild(subMenu);
         }
     });
+    hideAll()
 }
 
 function handleCategorySelection(index) {
@@ -60,6 +62,7 @@ function handleCategorySelection(index) {
 }
 
 function setActive(...elements) {
+    console.log(elements)
     var links = document.querySelectorAll('.category, .subcategory');
     links.forEach(link => {
         link.classList.remove('active');
@@ -68,5 +71,14 @@ function setActive(...elements) {
                 link.classList.add('active');
             }
         });
+    });
+}
+
+function hideAll() {
+    var subMenus = menuContainer.querySelectorAll('.subMenu');
+    console.log(subMenus)
+    subMenus.forEach(function (subMenuEl) {
+        console.log(subMenuEl)
+        subMenuEl.classList.add('hide');
     });
 }

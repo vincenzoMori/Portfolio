@@ -14,14 +14,14 @@ function getFileFromParams(categoryToLoad, subcategoryToLoad = null) {
             subcategoryToLoad = subcategories[0].href;
         }
 
-        const contentUrl = subcategories && subcategoryToLoad
+        const contentToLoad = subcategories && subcategoryToLoad
             ? subcategories.find(subcategory => subcategory.href === subcategoryToLoad).file
             : category.file;
 
-        showDetails(contentUrl && contentUrl.includes('slideshow.html'))
+        showDetails(contentToLoad && contentToLoad.includes('slideshow.html'))
 
         return {
-            url: contentUrl,
+            url: contentToLoad,
             category: categoryToLoad,
             subcategory: subcategoryToLoad
         };
@@ -30,14 +30,17 @@ function getFileFromParams(categoryToLoad, subcategoryToLoad = null) {
     return null;
 }
 
-function loadContent(contentUrl, params) {
+function loadContent(contentToLoad, params) {
+    console.log(contentToLoad)
     const mainContent = $('#main-content');
+
     const errorCallback = (xhr, status, error) => {
         console.log("Something went wrong while loading the category: ", status, error);
+        mainContent.load('../pages/404.html');
     };
 
-    if (contentUrl) {
-        mainContent.load(contentUrl, function (response, status, xhr) {
+    if (contentToLoad) {
+        mainContent.load(contentToLoad, function (response, status, xhr) {
             if (status === "error") {
                 errorCallback(xhr, status, xhr.statusText);
             }
@@ -46,10 +49,15 @@ function loadContent(contentUrl, params) {
         mainContent.load('../pages/404.html');
     }
 
+
+    console.log(params)
     const categoryLink = document.querySelector('.category[href*="' + params.category + '"]');
+
     const subcategoryLink = params.subcategory
-        ? document.querySelector('.subcategory[href*="' + params.subcategory + '"]')
+        ? document.querySelector('.subcategory[id*="' + params.category + '-child"][href*="' + params.subcategory + '"]')
         : null;
+
+    console.log(categoryLink, subcategoryLink);
 
     setActive(categoryLink, subcategoryLink);
 
@@ -63,10 +71,11 @@ function loadContent(contentUrl, params) {
 function loadPage() {
     const categoryToLoad = getQueryParam('category');
     const subcategoryToLoad = getQueryParam('subcategory');
-    const contentUrl = getFileFromParams(categoryToLoad, subcategoryToLoad);
+    const contentToLoad = getFileFromParams(categoryToLoad, subcategoryToLoad);
+    console.log(contentToLoad)
 
-    if (contentUrl) {
-        loadContent(contentUrl.url, { category: contentUrl.category, subcategory: contentUrl.subcategory });
+    if (contentToLoad) {
+        loadContent(contentToLoad.url, { category: contentToLoad.category, subcategory: contentToLoad.subcategory });
     } else {
         showDetails(false);
         $('#main-content').load('../pages/404.html');
@@ -88,10 +97,10 @@ document.addEventListener('DOMContentLoaded', function () {
             var linkClicked = event.target.href;
             var category = getQueryParam('category', linkClicked);
             var subcategory = getQueryParam('subcategory', linkClicked);
-            var contentUrl = getFileFromParams(category, subcategory);
-            category = contentUrl.category;
-            subcategory = contentUrl.subcategory;
-            loadContent(contentUrl.url, { category, subcategory });
+            var contentToLoad = getFileFromParams(category, subcategory);
+            category = contentToLoad.category;
+            subcategory = contentToLoad.subcategory;
+            loadContent(contentToLoad.url, { category, subcategory });
         });
     });
 });

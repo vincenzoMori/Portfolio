@@ -118,6 +118,10 @@ h2 {
   margin-bottom: 10px;
 }
 
+.hide {
+  display: none !important;
+}
+
 @keyframes fadeInAnimation {
   0% {
     opacity: 0;
