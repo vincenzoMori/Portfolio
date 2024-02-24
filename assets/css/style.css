@@ -2,30 +2,25 @@
 @import url("https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400&family=Dosis:wght@200;400&family=Heebo:wght@100;400&family=Playfair+Display:ital@0;1&display=swap");
 
 body {
-  text-align: center; /* Center the text on the page */
   background-color: #f2f1ed !important;
   overflow: hidden;
   height: 100svh;
   margin: 0;
   padding: 0;
-  display: flex;
   /* border: solid 12px #cebd78; */
 }
 
-*::-webkit-scrollbar {
-  width: 10px;
-}
-
-*::-webkit-scrollbar-thumb {
-  border-radius: 20px; /* roundness of the scroll thumb */
-  background-color: #a5a4a2;
+.app{
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
 }
 
 .scroll {
   height: 100%;
   overflow: auto;
   overflow-x: hidden;
-  padding-right: 50px;
 }
 
 .header {
@@ -34,6 +29,7 @@ body {
   margin-bottom: 40px;
   text-align: center;
 }
+
 
 .spacer {
   height: 20px;
@@ -111,6 +107,21 @@ body {
 
 h1 {
   margin-bottom: 20px !important;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 20px; /* roundness of the scroll thumb */
+  background-color: #a5a4a2;
+}  
+
+@media (max-width: 768px) {
+  ::-webkit-scrollbar {
+    width: 5px;
+  }
 }
 
 h2 {

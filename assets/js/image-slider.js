@@ -8,8 +8,6 @@ var nextBlobUrl = '';
 
 var urlGoogleSheet = 'https://script.google.com/macros/s/AKfycbziqrcmvUjG4LgAYZCF5aUI8G5oL8zBB_QCsnW0vRXC7Ry91dPrzmfSKtQ7KkSEHJYo/exec'
 
-init();
-
 function init() {
     if (getQueryParam('subcategory') !== 'paintings') {
         return;
@@ -89,6 +87,7 @@ async function loadImages(index, direction = 0) {
         currBlobUrl = prevBlobUrl;
         prevBlobUrl = await loadImageBlob(index - 1 < 0 ? images.length - 1 : index - 1);
     }
+    createInfoPanel();
     setImageInfo();
 }
 
@@ -113,6 +112,8 @@ function setImageInfo() {
 }
 
 async function changeImage(direction) {
+    if (navigator.vibrate)
+        navigator.vibrate(100);
     setCurrentIndex(direction);
     await loadImages(currentImageIdx, direction);
 }
@@ -203,6 +204,7 @@ function isLiked(id) {
 }
 
 function updateLikeButton(isLiked) {
+
     const likeBtn = document.getElementById('like-btn');
 
     likeBtn.style.color = isLiked ? 'darkred' : 'black';
@@ -261,3 +263,63 @@ document.getElementById('overlay').addEventListener('click', function (event) {
 window.generateUniqueToken = function () {
     return Math.random().toString(36).substr(2, 9) + new Date().getTime() + Math.random().toString(36).substr(2, 9)
 }
+
+var detailsPanel = ' \
+    <div id="details" class="fade-in-cascade"> \
+        <div> \
+            <div id="details-title"> \
+                <h4 class="opera-title">Test image</h4> \
+                <p class="opera-number">1/3</p> \
+            </div> \
+            <p class="opera-description"></p> \
+            <p class="opera-info"></p> \
+        </div> \
+        <div id="icons"> \
+            <div class="img-change-btn" style="transform: rotate(180deg );" onclick="changeImage(-1)"> \
+        <i class="fa-solid fa-arrow-right"></i> \
+    </div> \
+            <i id="fullscreen-btn" class="fa-solid fa-expand" onclick="displayImageFullScreen()"></i> \
+            <i id="share-btn" class="fa-regular fa-share-from-square" onclick="shareImage()"></i> \
+        <div class="img-change-btn" onclick="changeImage(1)"> \
+            <i class="fa-solid fa-arrow-right"></i>  \
+        </div> \
+        </div> \
+    </div> \
+'
+
+
+var infoPanelRendered = false;
+function createInfoPanel() {
+
+    if (document.getElementById('info-panel'))
+        document.getElementById('info-panel').remove();
+
+    const infoPanel = document.createElement('div');
+    infoPanel.id = 'info-panel';
+    infoPanel.style.height = '100%';
+
+    const operaInfoContainer = window.isMobile ? 'opera-info-container-mobile' : 'opera-info-container';
+    const otherOperaInfoContainer = window.isMobile ? 'opera-info-container' : 'opera-info-container-mobile';
+
+    if (infoPanelRendered) {
+        document.getElementById(otherOperaInfoContainer).innerHTML = '';
+    }
+
+    infoPanel.innerHTML = detailsPanel;
+    document.getElementById(operaInfoContainer).appendChild(infoPanel);
+    infoPanelRendered = true;
+}
+
+if (!window.isPanelRendered) {
+    onMobileChange(() => {
+        createInfoPanel();
+        setImageInfo();
+    });
+    window.isPanelRendered = true;
+}
+
+init();
+
+
+
+

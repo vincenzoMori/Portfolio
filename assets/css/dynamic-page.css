@@ -11,6 +11,211 @@
   max-width: 350px;
 }
 
+
+/* ----------------- MOBILE ----------------- */
+
+.navbar-mobile {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.6rem 1.5rem;
+  z-index: 98;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.sidebar-mobile {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100svh;
+  background-color: #000000cc;
+  z-index: 1000;
+}
+
+.sidebar-mobile-container{
+  position: absolute;
+  padding: 30px 40px 40px 40px;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  right: 0;
+  width: 80%;
+  height: 100svh;
+  z-index: 100;
+  background-color: #f2f1ed;
+  transition: right 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.closed {
+  right: -400px !important; /* Assicura che la navbar sia nascosta inizialmente */
+}
+
+.container-info{
+  position: absolute;
+  bottom: 0px;
+  background-color: white;
+  top: 60%;
+  box-shadow: 0px -8px 20px 6px #dfded8;
+  width: 100%;
+  padding: 2rem 2rem 2rem 2rem;
+}
+
+#opera-info-container-mobile{
+  height: 100%;
+}
+
+#opera-info-container{
+  opacity: 0;
+}
+
+#details-title{
+  display: flex; 
+  margin-bottom: 16px;
+  flex-direction: column-reverse;
+}
+
+.img-change-btn{
+  padding: 26px;
+  background-color: #222222;
+  color: white;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#openBtnNav{
+  color: #726d58;
+}
+
+#closeBtnNav{
+  font-size: 40px; 
+  align-self: end;
+  right: 34px; 
+  top: 20px
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    display: none;
+  }
+  .navbar-mobile {
+    display: flex;
+  }
+  #slide-show {
+    height: 49% !important;
+  }
+  .image-slider{
+    width: 100% !important;
+  }
+
+  #details{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+  }
+
+  #details-title{
+    flex-direction: row;
+    justify-content: space-between; 
+    align-items: center; 
+  }
+
+  .main-content {
+    padding: 25px 0 60px 0 !important;
+  }
+
+  .sidebar-mobile-content{
+    display: flex;
+    flex-direction: column;
+  }
+
+  .arrow {
+    display: none !important;
+  }
+
+  .logo {
+    width: 60px !important;
+  }
+
+  .category {
+    font-size: 26px !important;
+    margin-bottom: 4px !important;
+  }
+  .subcategory {
+    font-size: 22px !important;
+    margin-bottom: 4px !important;
+  }
+
+
+  .opera-number {
+    font-size: 16px !important;
+    margin-bottom: 0;
+  }
+  
+  /* Art title */
+  .opera-title {
+    font-size: 20px !important;
+    margin-bottom: 0 !important;
+  }
+  
+  /* Art description */
+  .opera-description {
+    font-size: 16px !important;
+    margin-bottom: 10px !important;
+  }
+  
+  /* Art info */
+  .opera-info {
+    font-size: 14px !important;
+  }
+
+  #icons{
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  #icons *:active {
+    scale: 0.9;
+  }
+
+  .container-lg{
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+  
+}
+
+@media (min-width: 768px) {
+  .navbar-mobile {
+    display: none;
+  }
+  .container-info{
+    display: none;
+  }
+  .image-slider{
+    width: 90% !important;
+  }
+  .img-change-btn{
+    display: none;
+  }
+  #icons *:hover {
+    animation: pulseOut 0.5s forwards ease-in-out;
+  }
+}
+
+
+/* ----------------- MOBILE ----------------- */
+
+
+#icons *:hover {
+  cursor: pointer;
+}
+
+
 .sidebar-header {
   padding: 2rem;
   height: fit-content;
@@ -31,11 +236,6 @@
   height: 100%;
 }
 
-#details {
-  /* display: none; */
-  opacity: 0;
-}
-
 .opera-number {
   font-size: 12px;
   font-weight: 100;
@@ -46,7 +246,7 @@
 /* Art title */
 .opera-title {
   font-size: 16px;
-  margin-bottom: 5px !important;
+  margin-bottom: 5px ;
 }
 
 /* Art description */
@@ -67,11 +267,6 @@
   width: 100%;
   font-size: 22px;
   margin-top: 20px;
-}
-
-#icons *:hover {
-  cursor: pointer;
-  animation: pulseOut 0.5s forwards ease-in-out;
 }
 
 #fullscreen-btn {
@@ -107,9 +302,10 @@
   background-position: center; /* Center the image in the background */
   width: 90%; /* 100% of the parent container */
   height: 100%; /* Occupies the entire available height */
-  transition: background-image 240ms; /* Optional: smooth transition for image change */
-  /* animation: pulseIn 1.2s forwards ease-in-out; */
-  animation: opacityIn 0.5s forwards ease-in-out;
+  transition: background-image 0.3s ease-in-out; /* Optional: smooth transition for image change */
+  animation: pulseIn 1.2s forwards ease-in-out;
+  -webkit-transform: translate3D(0, 0, 0);
+  -webkit-backface-visibility: hidden;
 }
 
 .image-slider .arrow {
