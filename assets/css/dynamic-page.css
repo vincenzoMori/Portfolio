@@ -178,7 +178,6 @@
 
   #icons *:active {
     scale: 0.9;
-    -webkit-transform: scale(0.9);
   }
 
   .container-lg {
