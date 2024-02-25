@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // Get the current pathname and query string of the URL
-    const currentPathname = window.location.pathname.toLowerCase();
+    const currentPathname = getPathname().toLowerCase();
     const currentSearchParams = new URLSearchParams(window.location.search);
 
     // Check if the user is on one of the allowed pages

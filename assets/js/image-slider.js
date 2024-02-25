@@ -103,7 +103,7 @@ function setImageInfo() {
         imageDescription.innerHTML = images[currentImageIdx].description;
         const imageinfo = document.getElementsByClassName('opera-info').item(0);
         imageinfo.innerHTML = images[currentImageIdx].info;
-        history.pushState({}, null, `?category=${getQueryParam('category')}&subcategory=${getQueryParam('subcategory')}&opera=${images[currentImageIdx].title.replace(/ /g, '_')}`);
+        history.pushState({}, null, `?category=${getCategoryUrl()}&subcategory=${getSubcategoryUrl()}&opera=${images[currentImageIdx].title.replace(/ /g, '_')}`);
         // checkLikeBtn();
     } catch {
         console.log('Error while setting image info')
@@ -113,7 +113,7 @@ function setImageInfo() {
 
 async function changeImage(direction) {
     if (navigator.vibrate)
-        navigator.vibrate(100);
+        navigator.vibrate(50);
     setCurrentIndex(direction);
     await loadImages(currentImageIdx, direction);
 }
@@ -275,14 +275,14 @@ var detailsPanel = ' \
             <p class="opera-info"></p> \
         </div> \
         <div id="icons"> \
-            <div class="img-change-btn" style="transform: rotate(180deg );" onclick="changeImage(-1)"> \
-        <i class="fa-solid fa-arrow-right"></i> \
-    </div> \
+            <div class="img-change-btn" style="transform: rotate(180deg);" onclick="changeImage(-1)"> \
+                <i class="fa-solid fa-arrow-right"></i> \
+            </div> \
             <i id="fullscreen-btn" class="fa-solid fa-expand" onclick="displayImageFullScreen()"></i> \
             <i id="share-btn" class="fa-regular fa-share-from-square" onclick="shareImage()"></i> \
-        <div class="img-change-btn" onclick="changeImage(1)"> \
-            <i class="fa-solid fa-arrow-right"></i>  \
-        </div> \
+            <div class="img-change-btn" onclick="changeImage(1)"> \
+                <i class="fa-solid fa-arrow-right"></i> \
+            </div> \
         </div> \
     </div> \
 '

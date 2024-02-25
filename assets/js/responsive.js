@@ -20,8 +20,6 @@ if (mql.matches) {
 }
 
 function onMobileChange(callback) {
-    if (mobileCallbacks.includes(callback))
-        return;
     mobileCallbacks.push(callback);
 }
 

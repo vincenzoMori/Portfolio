@@ -1,36 +1,18 @@
-let searchParams = new URLSearchParams(window.location.search);
-let category = searchParams.get('category');
-let subcategory = searchParams.get('subcategory');
 let activeObjects = [];
-const currentPathname = window.location.pathname;
-let basePath = currentPathname === '/Portfolio/index.html' ? './pages/dynamic-page.html?' : '../pages/dynamic-page.html?'
+let basePath = getPathname() === '/Portfolio/index.html' ? './pages/dynamic-page.html?' : '../pages/dynamic-page.html?'
 
 var menuContainer;
 
 function createMenu() {
-    console.log('createMenu')
     menuContainer = document.getElementById('menu-container');
     if (menuContainer) {
         routes.forEach((route, index) => {
-            if (route.href === 'spacer') {
-                var spacer = document.createElement('div');
-                spacer.classList.add('spacer');
-                menuContainer.appendChild(spacer);
-                return;
-            }
             var a = document.createElement('a');
             a.href = basePath + 'category=' + route.href;
             a.classList.add('category', 'fade-in-cascade');
             a.innerHTML = route.text;
             a.id = route.href; // ID univoco per la categoria
-            a.dataset.index = index; // Assegniamo un indice come attributo personalizzato per identificare la categoria
             menuContainer.appendChild(a);
-
-            // Aggiunta del listener per il click sulla categoria
-            a.addEventListener('click', function (event) {
-                event.preventDefault();
-                handleCategorySelection(route.href);
-            });
 
             if (route.subcategories) {
                 var subMenu = document.createElement('div');
@@ -46,8 +28,14 @@ function createMenu() {
                 });
                 menuContainer.appendChild(subMenu);
             }
+
+            // Aggiunta del listener per il click sulla categoria
+            a.addEventListener('click', function (event) {
+                event.preventDefault();
+                handleCategorySelection(route.href);
+            });
         });
-        hideAll()
+        resetSubmenusVisibility();
     }
 }
 
@@ -59,7 +47,7 @@ function handleCategorySelection(index) {
     });
 
     // Mostra le sottocategorie della categoria selezionata se il path non contiene index.html
-    if (!currentPathname.includes('index.html')) {
+    if (!getPathname().includes('index.html')) {
         var selectedSubMenu = menuContainer.querySelector('#subMenu-' + index);
         if (selectedSubMenu) {
             selectedSubMenu.classList.remove('hide');
@@ -68,7 +56,6 @@ function handleCategorySelection(index) {
 }
 
 function setActive(...elements) {
-    console.log(elements)
     var links = document.querySelectorAll('.category, .subcategory');
     activeObjects = elements;
     links.forEach(link => {
@@ -79,6 +66,14 @@ function setActive(...elements) {
             }
         });
     });
+}
+
+function removeActiveClass() {
+    var links = document.querySelectorAll('.category, .subcategory');
+    links.forEach(link => {
+        link.classList.remove('active');
+    });
+
 }
 
 function setListeners() {
@@ -93,8 +88,11 @@ function setListeners() {
             var contentUrl = getFileFromParams(category, subcategory);
             category = contentUrl.category;
             subcategory = contentUrl.subcategory;
-            loadContent(contentUrl.url, { category, subcategory });
-            if (window.isMobile) {
+            removeActiveClass()
+            if (!hasSubcategories(category) || subcategory) {
+                loadContent(contentUrl.url, { category, subcategory });
+            }
+            if (window.isMobile && !hasSubcategories(category)) {
                 closeNavbar();
             }
         });
@@ -129,17 +127,16 @@ onMobileChange(() => {
 
 });
 
-function hideAll() {
+function resetSubmenusVisibility() {
     var subMenus = menuContainer.querySelectorAll('.subMenu');
     subMenus.forEach(function (subMenuEl) {
-        console.log(subMenuEl)
         subMenuEl.classList.add('hide');
     });
     showOnCategorySelected();
 }
 
 function showOnCategorySelected() {
-    var selectedSubMenu = menuContainer.querySelector('#subMenu-' + category);
+    var selectedSubMenu = menuContainer.querySelector('#subMenu-' + getCategoryUrl());
     if (selectedSubMenu) {
         selectedSubMenu.classList.remove('hide');
     }

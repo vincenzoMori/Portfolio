@@ -1,16 +1,11 @@
-function getQueryParam(param, url = null) {
-    const searchParams = url ? new URL(url).searchParams : new URLSearchParams(window.location.search);
-    return searchParams.get(param);
-}
-
 function getFileFromParams(categoryToLoad, subcategoryToLoad = null) {
     const categoryIndex = routes.findIndex(item => item.href === categoryToLoad);
 
     if (categoryIndex !== -1) {
-        const category = routes[categoryIndex];
+        const category = getCategoryFromIndex(categoryIndex);
         const subcategories = category.subcategories;
 
-        if (subcategories && !subcategoryToLoad) {
+        if (subcategories && !subcategoryToLoad && !window.isMobile) {
             subcategoryToLoad = subcategories[0].href;
         }
 
@@ -18,7 +13,6 @@ function getFileFromParams(categoryToLoad, subcategoryToLoad = null) {
             ? subcategories.find(subcategory => subcategory.href === subcategoryToLoad).file
             : category.file;
 
-        showDetails(contentToLoad && contentToLoad.includes('slideshow.html'))
 
         return {
             url: contentToLoad,
@@ -31,7 +25,6 @@ function getFileFromParams(categoryToLoad, subcategoryToLoad = null) {
 }
 
 function loadContent(contentToLoad, params) {
-    console.log(contentToLoad)
     const mainContent = $('#main-content');
 
     const errorCallback = (xhr, status, error) => {
@@ -40,6 +33,7 @@ function loadContent(contentToLoad, params) {
     };
 
     if (contentToLoad) {
+        showDetails(contentToLoad.includes('slideshow.html'))
         mainContent.load(contentToLoad, function (response, status, xhr) {
             if (status === "error") {
                 errorCallback(xhr, status, xhr.statusText);
@@ -49,32 +43,30 @@ function loadContent(contentToLoad, params) {
         mainContent.load('../pages/404.html');
     }
 
-
-    console.log(params)
     const categoryLink = document.querySelector('.category[href*="' + params.category + '"]');
 
     const subcategoryLink = params.subcategory
         ? document.querySelector('.subcategory[id*="' + params.category + '-child"][href*="' + params.subcategory + '"]')
         : null;
 
-    console.log(categoryLink, subcategoryLink);
 
     setActive(categoryLink, subcategoryLink);
 
-    const newUrl = window.location.pathname + '?category=' + params.category +
+    const newUrl = getPathname() + '?category=' + params.category +
         (params.subcategory ? '&subcategory=' + params.subcategory : '');
 
     window.opera = getQueryParam('opera');
     window.history.pushState({}, '', newUrl);
 
-    document.getElementById("breadcrums").innerHTML = (params.category + (params.subcategory ? ' / ' + params.subcategory : '')).toUpperCase();
+    let category = getCategoryObject(params.category).text;
+    let subcategory = getSubcategoryObject(params.category, params.subcategory)?.text;
+    document.getElementById("breadcrums").innerHTML = (category + (subcategory ? ' / ' + subcategory : '')).toUpperCase();
 }
 
 function loadPage() {
-    const categoryToLoad = getQueryParam('category');
-    const subcategoryToLoad = getQueryParam('subcategory');
+    const categoryToLoad = getCategoryUrl();
+    const subcategoryToLoad = getSubcategoryUrl();
     const contentToLoad = getFileFromParams(categoryToLoad, subcategoryToLoad);
-    console.log(contentToLoad)
 
     if (contentToLoad) {
         loadContent(contentToLoad.url, { category: contentToLoad.category, subcategory: contentToLoad.subcategory });
@@ -85,10 +77,10 @@ function loadPage() {
 }
 
 function showDetails(show) {
-   const details = document.getElementById('details');
-   if (!details) return;
-   details.style.display = show ? 'block' : 'none';
-   details.style.animationDelay = '0s';
+    const details = document.getElementById('details');
+    if (!details) return;
+    details.style.display = show ? 'block' : 'none';
+    details.style.animationDelay = '0s';
 }
 
 $("#openBtnNav").on("click", function () {
@@ -105,16 +97,17 @@ function openNavbar() {
 }
 
 function closeNavbar() {
+    resetSubmenusVisibility();
     $(".sidebar-mobile-container").animate({ right: -300 }, 500, function () {
         $(this).addClass("closed");
         $(".sidebar-mobile").fadeOut();
     });
 }
 
-onMobileChange(() => {
-    if (!window.isMobile)
-        closeNavbar();
-});
+// onMobileChange(() => {
+//     if (!window.isMobile)
+//         closeNavbar();
+// });
 
 callMobileCallbacks();
 loadPage();
