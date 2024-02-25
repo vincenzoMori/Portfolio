@@ -6,8 +6,11 @@ function getFileFromParams(categoryToLoad, subcategoryToLoad = null) {
         const subcategories = category.subcategories;
 
         if (subcategories && !subcategoryToLoad) {
-            if (window.isMobile && getCategoryUrl()) return
-            subcategoryToLoad = subcategories[0].href;
+            if (window.isMobile && getCategoryUrl()) {
+                return;
+            } else {
+                subcategoryToLoad = subcategories[0]?.href || null;
+            }
         }
 
         const contentToLoad = subcategories && subcategoryToLoad
