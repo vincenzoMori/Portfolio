@@ -235,7 +235,7 @@ function updateLikedImages(id, add) {
 window.displayImageFullScreen = function () {
     imageOpened = true;
     document.getElementById('fullscreen-img').src = currBlobUrl;
-    document.getElementById('overlay').style.display = 'flex';
+    document.getElementById('overlay-fullscreen-img').style.display = 'flex';
 }
 
 // Function to close the full screen image overlay
@@ -244,8 +244,8 @@ window.closeImageFullScreen = function (event) {
     if (event) {
         event.stopPropagation();
     }
-    document.getElementById('overlay').style.display = 'none';
-    document.removeEventListener('overlay', handleArrowKeyPress);
+    document.getElementById('overlay-fullscreen-img').style.display = 'none';
+    document.removeEventListener('overlay-fullscreen-img', handleArrowKeyPress);
 }
 
 // Function to prevent click on the image from closing the overlay
@@ -254,8 +254,8 @@ window.stopPropagation = function (event) {
 }
 
 // Event listener for closing the overlay when clicking outside the image
-document.getElementById('overlay').addEventListener('click', function (event) {
-    if (event.target.id === 'overlay') {
+document.getElementById('overlay-fullscreen-img').addEventListener('click', function (event) {
+    if (event.target.id === 'overlay-fullscreen-img') {
         closeImageFullScreen();
     }
 });

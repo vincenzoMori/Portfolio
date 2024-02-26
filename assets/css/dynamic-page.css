@@ -97,6 +97,7 @@
 }
 
 @media (max-width: 768px) {
+
   .sidebar {
     display: none;
   }
@@ -124,7 +125,7 @@
   }
 
   .main-content {
-    padding: 25px 0 60px 0 !important;
+    padding: 0 !important;
   }
 
   .sidebar-mobile-content {
@@ -150,25 +151,25 @@
   }
 
   .opera-number {
-    font-size: 16px !important;
+    font-size: 0.8rem !important;
     margin-bottom: 0;
   }
 
   /* Art title */
   .opera-title {
-    font-size: 20px !important;
+    font-size: 1.2rem !important;
     margin-bottom: 0 !important;
   }
 
   /* Art description */
   .opera-description {
-    font-size: 16px !important;
+    font-size: 1rem !important;
     margin-bottom: 10px !important;
   }
 
   /* Art info */
   .opera-info {
-    font-size: 14px !important;
+    font-size: 0.9rem !important;
   }
 
   #icons {
@@ -181,8 +182,9 @@
   }
 
   .container-lg {
-    padding-left: 20px !important;
-    padding-right: 20px !important;
+    padding: 30px 10px 5px 20px !important;
+    display: flex;
+    flex-direction: column;
   }
 }
 
@@ -365,7 +367,7 @@
 }
 
 /* Fullscreen overlay*/
-#overlay {
+#overlay-fullscreen-img {
   position: fixed;
   top: 0;
   left: 0;
