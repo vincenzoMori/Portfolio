@@ -49,7 +49,6 @@ function loadContent(contentToLoad, params) {
         ? document.querySelector('.subcategory[id*="' + params.category + '-child"][href*="' + params.subcategory + '"]')
         : null;
 
-
     setActive(categoryLink, subcategoryLink);
 
     const newUrl = getPathname() + '?category=' + params.category +
@@ -104,10 +103,15 @@ function closeNavbar() {
     });
 }
 
-// onMobileChange(() => {
-//     if (!window.isMobile)
-//         closeNavbar();
-// });
+function isNavbarOpen() {
+    return !$(".sidebar-mobile-container").hasClass("closed");
+}
 
-callMobileCallbacks();
+onMobileChange(() => {
+    if (!window.isMobile && isNavbarOpen())
+        console.log('closing navbar');
+        closeNavbar();
+});
+
+createMenu();
 loadPage();

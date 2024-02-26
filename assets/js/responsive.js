@@ -23,10 +23,4 @@ function onMobileChange(callback) {
     mobileCallbacks.push(callback);
 }
 
-function callMobileCallbacks() {
-    mobileCallbacks.forEach(callback => {
-        callback();
-    });
-}
-
 window.isPanelRendered = false;

@@ -3,7 +3,7 @@ let basePath = getPathname() === '/Portfolio/index.html' ? './pages/dynamic-page
 
 var menuContainer;
 
-function createMenu() {
+function createMenuElements() {
     menuContainer = document.getElementById('menu-container');
     if (menuContainer) {
         routes.forEach((route, index) => {
@@ -76,7 +76,7 @@ function removeActiveClass() {
 
 }
 
-function setListeners() {
+function createMenuListeners() {
     const menuLinks = document.querySelectorAll('.category, .subcategory');
 
     menuLinks.forEach(link => {
@@ -99,9 +99,11 @@ function setListeners() {
     });
 }
 
-// called when the page is loaded
-// and when the mode is changed
-onMobileChange(() => {
+function createMenuContainer() {
+
+    if (getPathname().includes('index.html'))
+        return;
+
     const menuContainer = document.createElement('div');
     menuContainer.id = 'menu-container';
 
@@ -119,12 +121,20 @@ onMobileChange(() => {
         } catch (e) { }
         sidebarContent.insertBefore(menuContainer, sidebarContent.firstChild);
     }
+}
 
+function createMenu(){
+    createMenuContainer();
+    createMenuElements();
+    createMenuListeners();
+}
+
+// called when the page is loaded
+// and when the mode is changed
+onMobileChange(() => {
     createMenu();
-    setListeners();
     if (activeObjects)
         setActive(...activeObjects);
-
 });
 
 function resetSubmenusVisibility() {
@@ -140,4 +150,11 @@ function showOnCategorySelected() {
     if (selectedSubMenu) {
         selectedSubMenu.classList.remove('hide');
     }
+}
+
+//create the menu automatically only if the page
+//is the index.html
+
+if (getPathname().includes('index.html')) {
+    createMenu();
 }
