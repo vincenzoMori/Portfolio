@@ -32,6 +32,8 @@ function loadContent(contentToLoad, params) {
         mainContent.load('../pages/404.html');
     };
 
+    cleanUpMobileCallbacks();
+
     if (contentToLoad) {
         showDetails(contentToLoad.includes('slideshow.html'))
         mainContent.load(contentToLoad, function (response, status, xhr) {

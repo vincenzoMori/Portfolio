@@ -310,13 +310,10 @@ function createInfoPanel() {
     infoPanelRendered = true;
 }
 
-if (!window.isPanelRendered) {
-    onMobileChange(() => {
-        createInfoPanel();
-        setImageInfo();
-    });
-    window.isPanelRendered = true;
-}
+onMobileChange(() => {
+    createInfoPanel();
+    setImageInfo();
+}, true);
 
 init();
 
