@@ -20,8 +20,8 @@
     <body ontouchstart="">
 
 
-        <div class="sidebar-mobile" style="display: none;">
-            <div class="sidebar-mobile-container closed">
+        <div class="sidebar-mobile" style="display: none;" onclick="closeNavbar()">
+            <div class="sidebar-mobile-container closed" onclick="stopPropagation(event)">
                 <div class="sidebar-mobile-content">
                     <i class="fa-solid fa-xmark" id="closeBtnNav"></i>
                     <div class="header" style="margin-top: -32px; width: fit-content;">
