@@ -92,7 +92,7 @@ function createMenuListeners() {
             if (!hasSubcategories(category) || subcategory) {
                 loadContent(contentUrl.url, { category, subcategory });
             }
-            if (window.isMobile && !hasSubcategories(category)) {
+            if (window.isMobile && (!hasSubcategories(category) || (hasSubcategories(category) && subcategory))) {
                 closeNavbar();
             }
         });

@@ -5,14 +5,12 @@ function getFileFromParams(categoryToLoad, subcategoryToLoad = null) {
         const category = getCategoryFromIndex(categoryIndex);
         const subcategories = category.subcategories;
 
-        if (subcategories && !subcategoryToLoad && !window.isMobile) {
-            subcategoryToLoad = subcategories[0].href;
-        }
+        if (subcategories && !subcategoryToLoad && window.isMobile) return null;
+        subcategoryToLoad = subcategories && !subcategoryToLoad ? subcategories[0].href : subcategoryToLoad;
 
         const contentToLoad = subcategories && subcategoryToLoad
             ? subcategories.find(subcategory => subcategory.href === subcategoryToLoad).file
             : category.file;
-
 
         return {
             url: contentToLoad,
