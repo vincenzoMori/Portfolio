@@ -22,6 +22,10 @@ body {
   .app{
     flex-direction: column;
   }
+  .category {
+    font-size: 26px !important;
+    margin-bottom: 4px !important;
+  }
 }
 
 .scroll {

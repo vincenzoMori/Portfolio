@@ -90,9 +90,11 @@ function createMenuListeners() {
             subcategory = contentUrl.subcategory;
             removeActiveClass()
             if (!hasSubcategories(category) || subcategory) {
+                console.log("stage 1")
                 loadContent(contentUrl.url, { category, subcategory });
             }
             if (window.isMobile && (!hasSubcategories(category) || (hasSubcategories(category) && subcategory))) {
+                console.log("stage 2")
                 closeNavbar();
             }
         });
