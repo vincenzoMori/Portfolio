@@ -94,7 +94,13 @@ async function loadImages(index, direction = 0) {
 function setImageInfo() {
     try {
         const slide_show = document.getElementById('slide-show');
-        slide_show.style.backgroundImage = `url('${currBlobUrl}')`;
+        
+        // fade out the current image and fade in the next image with jQuery
+        $(slide_show).fadeOut(200, function () {
+            slide_show.style.backgroundImage = `url('${currBlobUrl}')`;
+            $(slide_show).fadeIn(200);
+        });
+
         const operaNumber = document.getElementsByClassName('opera-number').item(0);
         operaNumber.innerHTML = `${currentImageIdx + 1} / ${images.length}`;
         const imageTitle = document.getElementsByClassName('opera-title').item(0);
@@ -114,6 +120,7 @@ function setImageInfo() {
 async function changeImage(direction) {
     if (navigator.vibrate)
         navigator.vibrate(50);
+
     setCurrentIndex(direction);
     await loadImages(currentImageIdx, direction);
 }
