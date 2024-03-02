@@ -86,15 +86,17 @@ function createMenuListeners() {
             var category = getQueryParam('category', linkClicked);
             var subcategory = getQueryParam('subcategory', linkClicked);
             var contentUrl = getFileFromParams(category, subcategory);
+            
+            if (!contentUrl)
+                return;
+
             category = contentUrl.category;
             subcategory = contentUrl.subcategory;
             removeActiveClass()
             if (!hasSubcategories(category) || subcategory) {
-                console.log("stage 1")
                 loadContent(contentUrl.url, { category, subcategory });
             }
             if (window.isMobile && (!hasSubcategories(category) || (hasSubcategories(category) && subcategory))) {
-                console.log("stage 2")
                 closeNavbar();
             }
         });

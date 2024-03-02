@@ -96,9 +96,9 @@ function setImageInfo() {
         const slide_show = document.getElementById('slide-show');
         
         // fade out the current image and fade in the next image with jQuery
-        $(slide_show).fadeOut(200, function () {
+        $(slide_show).fadeOut(100, function () {
             slide_show.style.backgroundImage = `url('${currBlobUrl}')`;
-            $(slide_show).fadeIn(200);
+            $(slide_show).fadeIn(100);
         });
 
         const operaNumber = document.getElementsByClassName('opera-number').item(0);
