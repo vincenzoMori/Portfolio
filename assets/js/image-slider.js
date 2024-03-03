@@ -94,7 +94,13 @@ async function loadImages(index, direction = 0) {
 function setImageInfo() {
     try {
         const slide_show = document.getElementById('slide-show');
-        slide_show.style.backgroundImage = `url('${currBlobUrl}')`;
+        
+        // fade out the current image and fade in the next image with jQuery
+        $(slide_show).fadeOut(100, function () {
+            slide_show.style.backgroundImage = `url('${currBlobUrl}')`;
+            $(slide_show).fadeIn(100);
+        });
+
         const operaNumber = document.getElementsByClassName('opera-number').item(0);
         operaNumber.innerHTML = `${currentImageIdx + 1} / ${images.length}`;
         const imageTitle = document.getElementsByClassName('opera-title').item(0);
@@ -114,6 +120,7 @@ function setImageInfo() {
 async function changeImage(direction) {
     if (navigator.vibrate)
         navigator.vibrate(50);
+
     setCurrentIndex(direction);
     await loadImages(currentImageIdx, direction);
 }
@@ -235,7 +242,7 @@ function updateLikedImages(id, add) {
 window.displayImageFullScreen = function () {
     imageOpened = true;
     document.getElementById('fullscreen-img').src = currBlobUrl;
-    document.getElementById('overlay').style.display = 'flex';
+    document.getElementById('overlay-fullscreen-img').style.display = 'flex';
 }
 
 // Function to close the full screen image overlay
@@ -244,8 +251,8 @@ window.closeImageFullScreen = function (event) {
     if (event) {
         event.stopPropagation();
     }
-    document.getElementById('overlay').style.display = 'none';
-    document.removeEventListener('overlay', handleArrowKeyPress);
+    document.getElementById('overlay-fullscreen-img').style.display = 'none';
+    document.removeEventListener('overlay-fullscreen-img', handleArrowKeyPress);
 }
 
 // Function to prevent click on the image from closing the overlay
@@ -254,8 +261,8 @@ window.stopPropagation = function (event) {
 }
 
 // Event listener for closing the overlay when clicking outside the image
-document.getElementById('overlay').addEventListener('click', function (event) {
-    if (event.target.id === 'overlay') {
+document.getElementById('overlay-fullscreen-img').addEventListener('click', function (event) {
+    if (event.target.id === 'overlay-fullscreen-img') {
         closeImageFullScreen();
     }
 });
@@ -310,13 +317,10 @@ function createInfoPanel() {
     infoPanelRendered = true;
 }
 
-if (!window.isPanelRendered) {
-    onMobileChange(() => {
-        createInfoPanel();
-        setImageInfo();
-    });
-    window.isPanelRendered = true;
-}
+onMobileChange(() => {
+    createInfoPanel();
+    setImageInfo();
+}, true);
 
 init();
 

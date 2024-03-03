@@ -5,14 +5,12 @@ function getFileFromParams(categoryToLoad, subcategoryToLoad = null) {
         const category = getCategoryFromIndex(categoryIndex);
         const subcategories = category.subcategories;
 
-        if (subcategories && !subcategoryToLoad && !window.isMobile) {
-            subcategoryToLoad = subcategories[0].href;
-        }
+        if (subcategories && !subcategoryToLoad && window.isMobile && document.readyState == "complete") return null;
+        subcategoryToLoad = subcategories && !subcategoryToLoad ? subcategories[0].href : subcategoryToLoad;
 
         const contentToLoad = subcategories && subcategoryToLoad
             ? subcategories.find(subcategory => subcategory.href === subcategoryToLoad).file
             : category.file;
-
 
         return {
             url: contentToLoad,
@@ -32,6 +30,8 @@ function loadContent(contentToLoad, params) {
         mainContent.load('../pages/404.html');
     };
 
+    cleanUpMobileCallbacks();
+
     if (contentToLoad) {
         showDetails(contentToLoad.includes('slideshow.html'))
         mainContent.load(contentToLoad, function (response, status, xhr) {
@@ -48,7 +48,6 @@ function loadContent(contentToLoad, params) {
     const subcategoryLink = params.subcategory
         ? document.querySelector('.subcategory[id*="' + params.category + '-child"][href*="' + params.subcategory + '"]')
         : null;
-
 
     setActive(categoryLink, subcategoryLink);
 
@@ -104,10 +103,14 @@ function closeNavbar() {
     });
 }
 
-// onMobileChange(() => {
-//     if (!window.isMobile)
-//         closeNavbar();
-// });
+function isNavbarOpen() {
+    return !$(".sidebar-mobile-container").hasClass("closed");
+}
 
-callMobileCallbacks();
+onMobileChange(() => {
+    if (!window.isMobile && isNavbarOpen())
+        closeNavbar();
+});
+
+createMenu();
 loadPage();

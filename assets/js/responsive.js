@@ -8,10 +8,19 @@ mql.addEventListener("change", () => {
         window.isMobile = false;
     }
 
-    mobileCallbacks.forEach(callback => {
-        callback();
+    mobileCallbacks.forEach(obj => {
+        obj.callback();
     });
 });
+
+function cleanUpMobileCallbacks() {
+    mobileCallbacks = mobileCallbacks.filter(obj => {
+        if (obj.cleanUp) {
+            return false;
+        }
+        return true;
+    });
+}
 
 if (mql.matches) {
     window.isMobile = true;
@@ -19,14 +28,9 @@ if (mql.matches) {
     window.isMobile = false;
 }
 
-function onMobileChange(callback) {
-    mobileCallbacks.push(callback);
-}
-
-function callMobileCallbacks() {
-    mobileCallbacks.forEach(callback => {
-        callback();
+function onMobileChange(callback, cleanUp = false) {
+    mobileCallbacks.push({
+        callback,
+        cleanUp
     });
 }
-
-window.isPanelRendered = false;

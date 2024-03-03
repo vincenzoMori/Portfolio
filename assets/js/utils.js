@@ -5,6 +5,11 @@ function getQueryParam(param, url = null) {
     return searchParams.get(param);
 }
 
+function stopPropagation(event) {
+    event.stopPropagation();
+};
+
+
 function getPathname() {
     return window.location.pathname;
 }
