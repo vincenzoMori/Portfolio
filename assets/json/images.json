@@ -6,73 +6,73 @@
       "id": 0,
       "imgPath": "../assets/media/paintings/eighth.jpg",
       "author": "zelinda",
-      "title": "Titolo ottava immagine",
-      "description": "Descrizione ottava immagine",
-      "year": "2020",
-      "info": "Oil on canvas"
+      "titolo": "Titolo ottava immagine",
+      "descrizione": "Descrizione ottava immagine",
+      "anno": "2020",
+      "tecnica": "Oil on canvas"
     },
     {
       "id": 1,
       "imgPath": "../assets/media/paintings/fifth.webp",
       "author": "zelinda",
-      "title": "Titolo quinta immagine",
-      "description": "Descrizione quinta immagine",
-      "year": "2020",
-      "info": "Oil on canvas"
+      "titolo": "Titolo quinta immagine",
+      "descrizione": "Descrizione quinta immagine",
+      "anno": "2020",
+      "tecnica": "Oil on canvas"
     },
     {
       "id": 2,
       "imgPath": "../assets/media/paintings/first.webp",
       "author": "zelinda",
-      "title": "Titolo prima immagine",
-      "description": "Descrizione prima immagine",
-      "year": "2020",
-      "info": "Oil on canvas"
+      "titolo": "Titolo prima immagine",
+      "descrizione": "Descrizione prima immagine",
+      "anno": "2020",
+      "tecnica": "Oil on canvas"
     },
     {
       "id": 3,
       "imgPath": "../assets/media/paintings/seventh.webp",
       "author": "zelinda",
-      "title": "Titolo settima immagine",
-      "description": "Descrizione settima immagine",
-      "year": "2020",
-      "info": "Oil on canvas"
+      "titolo": "Titolo settima immagine",
+      "descrizione": "Descrizione settima immagine",
+      "anno": "2020",
+      "tecnica": "Oil on canvas"
     },
     {
       "id": 4,
       "imgPath": "../assets/media/paintings/fourth.webp",
       "author": "zelinda",
-      "title": "Titolo quarta immagine",
-      "description": "Descrizione quarta immagine",
-      "year": "2020",
-      "info": "Oil on canvas"
+      "titolo": "Titolo quarta immagine",
+      "descrizione": "Descrizione quarta immagine",
+      "anno": "2020",
+      "tecnica": "Oil on canvas"
     },
     {
       "id": 5,
       "imgPath": "../assets/media/paintings/sixth.webp",
       "author": "zelinda",
-      "title": "Titolo sesta immagine",
-      "description": "Descrizione sesta immagine",
-      "year": "2020",
-      "info": "Oil on canvas"
+      "titolo": "Titolo sesta immagine",
+      "descrizione": "Descrizione sesta immagine",
+      "anno": "2020",
+      "tecnica": "Oil on canvas"
     },
     {
       "id": 6,
       "imgPath": "../assets/media/paintings/second.webp",
       "author": "zelinda",
-      "title": "Titolo seconda immagine",
-      "description": "Descrizione seconda immagine",
-      "year": "2020",
-      "info": "Oil on canvas"
+      "titolo": "Titolo seconda immagine",
+      "descrizione": "Descrizione seconda immagine",
+      "anno": "2020",
+      "tecnica": "Oil on canvas"
     },
     {
       "id": 7,
       "imgPath": "../assets/media/paintings/third.webp",
       "author": "zelinda",
-      "title": "Titolo terza immagine",
-      "description": "Descrizione terza immagine",
-      "year": "2020",
-      "info": "Oil on canvas"
+      "titolo": "Titolo terza immagine",
+      "descrizione": "Descrizione terza immagine",
+      "anno": "2020",
+      "tecnica": "Oil on canvas"
     }
   ]
 }

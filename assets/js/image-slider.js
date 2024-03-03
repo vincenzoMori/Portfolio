@@ -42,13 +42,14 @@ function init() {
     }
 }
 
-
 function fetchImages() {
-    const categorySelected = getQueryParam('subcategory');
-    fetch('../assets/json/images.json')
+    const categorySelected = getCategoryUrl();
+    const subcategorySelected = getSubcategoryUrl();
+
+    fetch(`https://script.google.com/macros/s/AKfycbzlGrnhwyEe7Pa6Ra9B0QKoJVtkoZchk77n_bxLLmqMYYUf_SSZM9dcZpM6nBJ4jDVVtA/exec?category=${categorySelected}&subcategory=${subcategorySelected}`)
         .then(response => response.json())
         .then(data => {
-            images = data[categorySelected];; // Get the images based on the selected category
+            images = data // Get the images based on the selected category
             checkImage();  // Check if the image is selected from the URL
             loadImages(currentImageIdx, 0);
         });
@@ -58,7 +59,7 @@ function checkImage() {
     const operaQueryParam = getQueryParam('opera') || window.opera;
     if (operaQueryParam) {
         const operaTitle = operaQueryParam.replace(/_/g, ' ');
-        const operaIndex = images.findIndex(image => image.title.toLowerCase() === operaTitle.toLowerCase());
+        const operaIndex = images.findIndex(image => image.titolo.toLowerCase() === operaTitle.toLowerCase());
         if (operaIndex !== -1) currentImageIdx = operaIndex;
     }
 }
@@ -94,7 +95,7 @@ async function loadImages(index, direction = 0) {
 function setImageInfo() {
     try {
         const slide_show = document.getElementById('slide-show');
-        
+
         // fade out the current image and fade in the next image with jQuery
         $(slide_show).fadeOut(100, function () {
             slide_show.style.backgroundImage = `url('${currBlobUrl}')`;
@@ -104,12 +105,12 @@ function setImageInfo() {
         const operaNumber = document.getElementsByClassName('opera-number').item(0);
         operaNumber.innerHTML = `${currentImageIdx + 1} / ${images.length}`;
         const imageTitle = document.getElementsByClassName('opera-title').item(0);
-        imageTitle.innerHTML = images[currentImageIdx].title;
+        imageTitle.innerHTML = images[currentImageIdx].titolo;
         const imageDescription = document.getElementsByClassName('opera-description').item(0);
-        imageDescription.innerHTML = images[currentImageIdx].description;
+        imageDescription.innerHTML = images[currentImageIdx].descrizione;
         const imageinfo = document.getElementsByClassName('opera-info').item(0);
-        imageinfo.innerHTML = images[currentImageIdx].info;
-        history.pushState({}, null, `?category=${getCategoryUrl()}&subcategory=${getSubcategoryUrl()}&opera=${images[currentImageIdx].title.replace(/ /g, '_')}`);
+        imageinfo.innerHTML = images[currentImageIdx].tecnica;
+        history.pushState({}, null, `?category=${getCategoryUrl()}&subcategory=${getSubcategoryUrl()}&opera=${images[currentImageIdx].titolo.replace(/ /g, '_')}`);
         // checkLikeBtn();
     } catch {
         console.log('Error while setting image info')
@@ -132,7 +133,7 @@ function setCurrentIndex(index) {
 
 async function loadImageBlob(index) {
     const image = images[index];
-    const response = await fetch(image.imgPath);
+    const response = await fetch(image.immagini[0]);
     const blob = await response.blob();
     return URL.createObjectURL(blob);
 }
@@ -159,7 +160,7 @@ window.toggleLike = function () {
     updateLikeButton(action === 'add');
     updateLocalStorage(currentImage.id, token, action === 'add');
 
-    const urlToFetch = `${urlGoogleSheet}/exec?id=${currentImage.id}&title=${encodeURIComponent(currentImage.title)}&token=${token}&action=${action}`;
+    const urlToFetch = `${urlGoogleSheet}/exec?id=${currentImage.id}&title=${encodeURIComponent(currentImage.titolo)}&token=${token}&action=${action}`;
 
     fetch(urlToFetch)
         .then(response => response.json())
@@ -196,8 +197,8 @@ function updateLocalStorage(id, token, add) {
 window.shareImage = function () {
     const currentImage = images[currentImageIdx];
     const shareData = {
-        title: currentImage.title,
-        text: currentImage.description,
+        title: currentImage.titolo,
+        text: currentImage.descrizione,
         url: window.location.href,
     };
     navigator.share(shareData)
@@ -323,7 +324,3 @@ onMobileChange(() => {
 }, true);
 
 init();
-
-
-
-
