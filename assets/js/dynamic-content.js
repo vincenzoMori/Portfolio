@@ -109,7 +109,6 @@ function isNavbarOpen() {
 
 onMobileChange(() => {
     if (!window.isMobile && isNavbarOpen())
-        console.log('closing navbar');
         closeNavbar();
 });
 

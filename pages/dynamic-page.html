@@ -18,6 +18,8 @@
 
     <!-- ontouchstart for IOS animations -->
     <body ontouchstart="">
+    
+        <!-- navbar panel (mobile) -->
         <div class="sidebar-mobile" style="display: none;" onclick="closeNavbar()">
             <div class="sidebar-mobile-container closed" onclick="stopPropagation(event)">
                 <div class="sidebar-mobile-content">
@@ -37,10 +39,14 @@
         </div>
 
         <div class="app">
+
+            <!-- navbar (mobile on top) -->
             <div class="navbar-mobile">
                 <span id="breadcrums"></span>
                 <i class="fa-solid fa-bars" id="openBtnNav" style="font-size: 24px; padding: 10px; cursor: pointer;"></i>
             </div>
+
+            <!-- sidebar (desktop) -->
             <div class="sidebar">
                 <div class="sidebar-header">
                     <a href="../index.html">
@@ -48,16 +54,20 @@
                     </a>
                 </div>
                 <div class="sidebar-content">
-                    <div id="opera-info-container" class="fade-in-cascade">
-                    </div>
+                    <!-- CONTAINER FOR OPERA INFO (responsive) -->
+                    <div id="opera-info-container" class="fade-in-cascade"></div>
                 </div>
             </div>
 
+            <!-- dynamic page -->
             <div class="main-content" id="main-content"></div>
+
+            <!-- overlay photo details -->
             <div id="overlay-fullscreen-img" style="display:none;">
                 <span id="close-btn" class="fa-solid fa-xmark" onclick="closeImageFullScreen()"></span>
                 <img id="fullscreen-img" style="max-width:100%;max-height:100%;" onclick="stopPropagation(event)">
             </div>
+            
         </div>
 
         <script src="../assets/js/utils.js"></script>
