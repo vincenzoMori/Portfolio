@@ -14,6 +14,10 @@ function getPathname() {
     return window.location.pathname;
 }
 
+function isIndex() {
+    return getPathname().includes('index.html');
+}
+
 function getCategoryUrl() {
     return getQueryParam('category');
 }
@@ -50,4 +54,28 @@ function hasSubcategories(category) {
 
 function getCategoryFromIndex(index) {
     return routes[index];
+}
+
+function getFileFromParams(categoryToLoad, subcategoryToLoad = null) {
+    const categoryIndex = routes.findIndex(item => item.href === categoryToLoad);
+
+    if (categoryIndex !== -1) {
+        const category = getCategoryFromIndex(categoryIndex);
+        const subcategories = category.subcategories;
+
+        if (subcategories && !subcategoryToLoad && window.isMobile && document.readyState == "complete") return null;
+        subcategoryToLoad = subcategories && !subcategoryToLoad ? subcategories[0].href : subcategoryToLoad;
+
+        const contentToLoad = subcategories && subcategoryToLoad
+            ? subcategories.find(subcategory => subcategory.href === subcategoryToLoad).file
+            : category.file;
+
+        return {
+            url: contentToLoad,
+            category: categoryToLoad,
+            subcategory: subcategoryToLoad
+        };
+    }
+
+    return null;
 }

@@ -86,14 +86,16 @@ function createMenuListeners() {
             var category = getQueryParam('category', linkClicked);
             var subcategory = getQueryParam('subcategory', linkClicked);
             var contentUrl = getFileFromParams(category, subcategory);
-            
+
             if (!contentUrl)
                 return;
 
             category = contentUrl.category;
             subcategory = contentUrl.subcategory;
+
             removeActiveClass()
-            if (!hasSubcategories(category) || subcategory) {
+
+            if ((!hasSubcategories(category) || subcategory)) {
                 loadContent(contentUrl.url, { category, subcategory });
             }
             if (window.isMobile && (!hasSubcategories(category) || (hasSubcategories(category) && subcategory))) {
@@ -104,9 +106,6 @@ function createMenuListeners() {
 }
 
 function createMenuContainer() {
-
-    if (getPathname().includes('index.html'))
-        return;
 
     const menuContainer = document.createElement('div');
     menuContainer.id = 'menu-container';
@@ -127,18 +126,22 @@ function createMenuContainer() {
     }
 }
 
-function createMenu(){
-    createMenuContainer();
+function createMenu() {
+    if (!isIndex())
+        createMenuContainer();
     createMenuElements();
-    createMenuListeners();
+    if (!isIndex())
+        createMenuListeners();
 }
 
 // called when the page is loaded
 // and when the mode is changed
 onMobileChange(() => {
-    createMenu();
-    if (activeObjects)
-        setActive(...activeObjects);
+    if (!isIndex()) {
+        createMenu();
+        if (activeObjects)
+            setActive(...activeObjects);
+    }
 });
 
 function resetSubmenusVisibility() {

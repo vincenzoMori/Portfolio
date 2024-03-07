@@ -132,10 +132,14 @@ function setCurrentIndex(index) {
 }
 
 async function loadImageBlob(index) {
-    const image = images[index];
-    const response = await fetch(image.immagini[0]);
-    const blob = await response.blob();
-    return URL.createObjectURL(blob);
+    try {
+        const image = images[index];
+        const response = await fetch(image.immagini[0]);
+        const blob = await response.blob();
+        return URL.createObjectURL(blob);
+    } catch (error) {
+        console.error('Error while loading image:', error);
+    }
 }
 
 window.toggleLike = function () {
