@@ -26,6 +26,7 @@ function init() {
         // If the image is open and the user presses any key other than Escape, do nothing.
         if (imageOpened) return;
 
+        if (images.length <= 1) return;
         // Navigation between images if the image is not open (imageOpened is false)
         if (event.key === 'ArrowRight') {
             changeImage(1);
@@ -48,11 +49,23 @@ function fetchImages() {
 
     fetch(`https://script.google.com/macros/s/AKfycbzlGrnhwyEe7Pa6Ra9B0QKoJVtkoZchk77n_bxLLmqMYYUf_SSZM9dcZpM6nBJ4jDVVtA/exec?category=${categorySelected}&subcategory=${subcategorySelected}`)
         .then(response => response.json())
-        .then(data => {
+        .then(async data => {
             images = data // Get the images based on the selected category
             checkImage();  // Check if the image is selected from the URL
-            loadImages(currentImageIdx, 0);
+            await loadImages(currentImageIdx, 0);
+            decreaseBtnsOpacity();
         });
+}
+
+function decreaseBtnsOpacity() {
+    if (images.length === 1) {
+        let classe = window.isMobile ? 'img-change-btn' : 'arrow';
+        let btns = document.getElementsByClassName(classe);
+        for (let i = 0; i < btns.length; i++) {
+            if (!btns[i].classList.contains('disabled'))
+                btns[i].classList.add('disabled');
+        }
+    }
 }
 
 function checkImage() {
@@ -325,6 +338,7 @@ function createInfoPanel() {
 onMobileChange(() => {
     createInfoPanel();
     setImageInfo();
+    decreaseBtnsOpacity();
 }, true);
 
 init();

@@ -17,7 +17,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.6rem 1.5rem;
+  padding: 0.6rem 0.55rem 0.6rem 1.3rem;
   z-index: 98;
   border-bottom: 1px solid #e0e0e0;
 }
@@ -76,7 +76,7 @@
 }
 
 .img-change-btn {
-  padding: 22px;
+  padding: 28px;
   background-color: #222222;
   color: white;
   border-radius: 100%;
@@ -97,7 +97,6 @@
 }
 
 @media (max-width: 768px) {
-
   .sidebar {
     display: none;
   }
@@ -294,14 +293,13 @@
   height: 100%; /* Occupies the entire available height */
 }
 
-
-
 #slide-show {
   background-size: contain; /* Change 'cover' to 'contain' to display the entire image */
   background-repeat: no-repeat; /* Ensure the image does not repeat */
   background-position: center; /* Center the image in the background */
   width: 90%; /* 100% of the parent container */
-  height: 100%; /* Occupies the entire available height */  -webkit-transform: translate3D(0, 0, 0);
+  height: 100%; /* Occupies the entire available height */
+  -webkit-transform: translate3D(0, 0, 0);
   -webkit-backface-visibility: hidden;
   -webkit-transform: translate3D(0, 0, 0);
   -webkit-backface-visibility: hidden;

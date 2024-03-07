@@ -8,15 +8,17 @@ function loadContent(contentToLoad, params) {
 
     cleanUpMobileCallbacks();
 
-    if (contentToLoad) {
+    if (contentToLoad) { // Property file on navigation.js is present
         showDetails(contentToLoad.includes('slideshow.html'))
         mainContent.load(contentToLoad, function (response, status, xhr) {
             if (status === "error") {
                 errorCallback(xhr, status, xhr.statusText);
             }
         });
-    } else {
+    } else { // Property file on navigation.js is not present
+        showDetails(false);
         mainContent.load('../pages/404.html');
+        return;
     }
 
     const categoryLink = document.querySelector('.category[href*="' + params.category + '"]');
@@ -43,12 +45,7 @@ function loadPage() {
     const subcategoryToLoad = getSubcategoryUrl();
     const contentToLoad = getFileFromParams(categoryToLoad, subcategoryToLoad);
 
-    if (contentToLoad) {
-        loadContent(contentToLoad.url, { category: contentToLoad.category, subcategory: contentToLoad.subcategory });
-    } else {
-        showDetails(false);
-        $('#main-content').load('../pages/404.html');
-    }
+    loadContent(contentToLoad?.url, { category: contentToLoad?.category, subcategory: contentToLoad?.subcategory });
 }
 
 function showDetails(show) {

@@ -3,10 +3,7 @@ document.body.classList.add('fade-in');
 document.addEventListener('DOMContentLoaded', (event) => {
     console.log('DOM fully loaded and parsed');
 
-    const links = document.querySelectorAll('a'); // Select all links inside <li> elements
-    const image = document.querySelector('.sidebar-header a'); // Select the logo image
-
-    function handleClick(e, target) {
+    window.handleClick = function (e, target) {
         e.preventDefault(); // Prevent default navigation action
         let newLocation = target.href; // Get the new URL to visit
 
@@ -20,6 +17,22 @@ document.addEventListener('DOMContentLoaded', (event) => {
         }, { once: true }); // Use { once: true } to ensure the event listener is removed after use
     }
 
+    eventListeners();
+    fadeInCascade();
+});
+
+function fadeInCascade() {
+    let elements = document.querySelectorAll('.fade-in-cascade');
+    elements.forEach((element, index) => {
+        element.style.animation = `fadeInAnimation 1s ease forwards ${index / 7 + 0.5}s`;
+    });
+}
+
+function eventListeners() {
+    const links = document.querySelectorAll('a'); // Select all links inside <li> elements
+    var logoClassIdentifier = window.isMobile ? '.sidebar-mobile-content .header a' : '.sidebar-header a';
+    const image = document.querySelector(logoClassIdentifier); // Select the logo image
+
     if (!image) {
         links.forEach(link => {
             link.addEventListener('click', (e) => {
@@ -31,18 +44,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
             handleClick(e, image);
         });
     }
-
-    fadeInCascade();
-});
-
-function fadeInCascade() {
-    let elements = document.querySelectorAll('.fade-in-cascade');
-    elements.forEach((element, index) => {
-        element.style.animation = `fadeInAnimation 1s ease forwards ${index / 7 + 0.5}s`;
-    });
 }
 
 onMobileChange(() => {
+    eventListeners();
     fadeInCascade();
 });
 
