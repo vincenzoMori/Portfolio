@@ -32,7 +32,7 @@ function loadContent(contentToLoad, params) {
     const newUrl = getPathname() + '?category=' + params.category +
         (params.subcategory ? '&subcategory=' + params.subcategory : '');
 
-    window.opera = getQueryParam('opera');
+    window.operaId = getQueryParam('operaId');
     window.history.pushState({}, '', newUrl);
 
     let category = getCategoryObject(params.category).text;

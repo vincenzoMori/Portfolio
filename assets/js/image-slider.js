@@ -69,10 +69,9 @@ function decreaseBtnsOpacity() {
 }
 
 function checkImage() {
-    const operaQueryParam = getQueryParam('opera') || window.opera;
-    if (operaQueryParam) {
-        const operaTitle = operaQueryParam.replace(/_/g, ' ');
-        const operaIndex = images.findIndex(image => image.titolo.toLowerCase() === operaTitle.toLowerCase());
+    const operaId = getQueryParam('operaId') || window.operaId;
+    if (operaId) {
+        const operaIndex = images.findIndex(image => image.id == operaId);
         if (operaIndex !== -1) currentImageIdx = operaIndex;
     }
 }
@@ -123,7 +122,7 @@ function setImageInfo() {
         imageDescription.innerHTML = images[currentImageIdx].descrizione;
         const imageinfo = document.getElementsByClassName('opera-info').item(0);
         imageinfo.innerHTML = images[currentImageIdx].tecnica;
-        history.pushState({}, null, `?category=${getCategoryUrl()}&subcategory=${getSubcategoryUrl()}&opera=${images[currentImageIdx].titolo.replace(/ /g, '_')}`);
+        history.pushState({}, null, `?category=${getCategoryUrl()}&subcategory=${getSubcategoryUrl()}&operaId=${images[currentImageIdx].id}`);
         // checkLikeBtn();
     } catch {
         console.log('Error while setting image info')
@@ -147,7 +146,7 @@ function setCurrentIndex(index) {
 async function loadImageBlob(index) {
     try {
         const image = images[index];
-        const response = await fetch(image.immagini[0]);
+        const response = await fetch(image.immagini[0].url);
         const blob = await response.blob();
         return URL.createObjectURL(blob);
     } catch (error) {
