@@ -50,10 +50,15 @@ function fetchImages() {
     fetch(`https://script.google.com/macros/s/AKfycbzlGrnhwyEe7Pa6Ra9B0QKoJVtkoZchk77n_bxLLmqMYYUf_SSZM9dcZpM6nBJ4jDVVtA/exec?category=${categorySelected}&subcategory=${subcategorySelected}`)
         .then(response => response.json())
         .then(async data => {
-            images = data // Get the images based on the selected category
-            checkImage();  // Check if the image is selected from the URL
-            await loadImages(currentImageIdx, 0);
-            decreaseBtnsOpacity();
+            if (!data.length === 0) {
+                images = data // Get the images based on the selected category
+                checkImage();  // Check if the image is selected from the URL
+                await loadImages(currentImageIdx, 0);
+                decreaseBtnsOpacity();
+            } else {
+                $('#main-content').load('../pages/404.html');
+                return;
+            }
         });
 }
 
