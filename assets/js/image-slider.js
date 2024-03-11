@@ -125,8 +125,8 @@ function setImageInfo() {
         imageTitle.innerHTML = images[currentImageIdx].titolo;
         const imageDescription = document.getElementsByClassName('opera-description').item(0);
         imageDescription.innerHTML = images[currentImageIdx].descrizione;
-        const imageinfo = document.getElementsByClassName('opera-info').item(0);
-        imageinfo.innerHTML = images[currentImageIdx].tecnica;
+        const imageTechnique = document.getElementsByClassName('opera-technique').item(0);
+        imageTechnique.innerHTML = images[currentImageIdx].tecnica.replace(/,/g, "<br>");
         history.pushState({}, null, `?category=${getCategoryUrl()}&subcategory=${getSubcategoryUrl()}&operaId=${images[currentImageIdx].id}`);
         // checkLikeBtn();
     } catch {
@@ -301,7 +301,7 @@ var detailsPanel = ' \
                 <p class="opera-number">1/3</p> \
             </div> \
             <p class="opera-description"></p> \
-            <p class="opera-info"></p> \
+            <p class="opera-technique"></p> \
         </div> \
         <div id="icons"> \
             <div class="img-change-btn" style="transform: rotate(180deg);" onclick="changeImage(-1)"> \
