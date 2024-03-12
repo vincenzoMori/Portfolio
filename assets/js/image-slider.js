@@ -297,11 +297,11 @@ window.generateUniqueToken = function () {
 
 var detailsPanel = ' \
     <div id="details" class="fade-in-cascade"> \
-        <div> \
-            <div id="details-title"> \
-                <h4 class="opera-title">Test image</h4> \
-                <p class="opera-number">1/3</p> \
-            </div> \
+    <div id="details-title"> \
+        <h4 class="opera-title">Test image</h4> \
+        <p class="opera-number">1/3</p> \
+    </div> \
+        <div class="info-container"> \
             <p class="opera-description"></p> \
             <p class="opera-technique"></p> \
             <p class="opera-sizes-year"></p>\

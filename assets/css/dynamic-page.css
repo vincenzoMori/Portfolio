@@ -235,6 +235,11 @@
   height: 100%;
 }
 
+.info-container {
+  margin-bottom: auto;
+  overflow-y: scroll;
+}
+
 .opera-number {
   font-size: 12px;
   font-weight: 100;
@@ -250,6 +255,7 @@
 .opera-description {
   font-size: 12px;
   margin-bottom: 0px;
+  word-wrap: break-word;
 }
 
 .opera-technique {
