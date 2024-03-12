@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
 </head>
+
 <body>
     <div class="image-slider">
         <div class="arrow prev" onclick="changeImage(-1)">
@@ -12,6 +14,9 @@
                     <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L11.83 12z" />
                 </svg>
             </div>
+        </div>
+        <div class="spinner-grow" id="spinner" role="status">
+            <span class="visually-hidden">Loading...</span>
         </div>
         <div id="slide-show"></div>
         <div class="arrow next" onclick="changeImage(1)">
@@ -30,5 +35,5 @@
     </div>
     <script src="../assets/js/image-slider.js"></script>
 </body>
-</html>
 
+</html>

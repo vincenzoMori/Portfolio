@@ -55,11 +55,23 @@ function fetchImages() {
                 checkImage();  // Check if the image is selected from the URL
                 await loadImages(currentImageIdx, 0);
                 decreaseBtnsOpacity();
+                afterFetch();
             } else {
                 $('#main-content').load('../pages/404.html');
                 return;
             }
         });
+}
+
+function afterFetch() {
+    var spinner = document.getElementsByClassName('spinner-grow')[0];
+    spinner.style.display = 'none';
+    var slideShow = document.getElementById('slide-show');
+    slideShow.style.display = 'block';
+    var arrows = document.getElementsByClassName('arrow');
+    for (let i = 0; i < arrows.length; i++) {
+        arrows[i].style.display = 'flex';
+    }
 }
 
 function decreaseBtnsOpacity() {
