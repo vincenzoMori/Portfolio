@@ -153,10 +153,11 @@
   .opera-number {
     font-size: 0.8rem !important;
     margin-bottom: 0;
+    flex-shrink: 0;
   }
 
   .opera-title {
-    font-size: 2.2rem !important;
+    font-size: 1.5rem !important;
     margin-bottom: 0 !important;
     margin-left: -2.2px;
   }
