@@ -51,6 +51,7 @@ function loadPage() {
 function showDetails(show) {
     const details = document.getElementById('details');
     if (!details) return;
+    details.innerHTML = '';
     details.style.display = show ? 'block' : 'none';
     details.style.animationDelay = '0s';
 }
