@@ -71,7 +71,7 @@
 
 #details-title {
   display: flex;
-  margin-bottom: 16px;
+  margin-bottom: 10px;
   flex-direction: column-reverse;
 }
 
@@ -155,20 +155,22 @@
     margin-bottom: 0;
   }
 
-  /* Art title */
   .opera-title {
-    font-size: 1.2rem !important;
+    font-size: 2.2rem !important;
     margin-bottom: 0 !important;
+    margin-left: -2.2px;
   }
 
-  /* Art description */
   .opera-description {
     font-size: 1rem !important;
     margin-bottom: 10px !important;
   }
 
-  /* Art info */
   .opera-technique {
+    font-size: 0.9rem !important;
+  }
+
+  .opera-sizes-year {
     font-size: 0.9rem !important;
   }
 
@@ -239,20 +241,23 @@
   color: black;
 }
 
-/* Art title */
 .opera-title {
   font-size: 16px;
   margin-bottom: 5px;
 }
 
-/* Art description */
 .opera-description {
   font-size: 12px;
   margin-bottom: 0px;
 }
 
-/* Art info */
 .opera-technique {
+  font-size: 12px;
+  margin-top: 10px;
+  font-weight: 600;
+}
+
+.opera-sizes-year {
   font-size: 12px;
   margin-top: 0px;
 }

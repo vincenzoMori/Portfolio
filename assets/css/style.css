@@ -6,7 +6,6 @@ body {
   overflow: hidden;
   height: 100svh;
   margin: 0;
-  touch-action:none;
   padding: 0;
   /* border: solid 12px #cebd78; */
 }
@@ -19,7 +18,7 @@ body {
 }
 
 @media (max-width: 768px) {
-  .app{
+  .app {
     flex-direction: column;
   }
   .category {
@@ -169,7 +168,6 @@ h2 {
 .fade-out {
   animation: fadeOutEffect 1s forwards; /* 1 second duration and 'forwards' to keep the final state of the animation */
 }
-
 
 /* 404 */
 
