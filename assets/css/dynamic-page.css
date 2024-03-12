@@ -99,7 +99,6 @@
 #spinner {
   place-self: center;
   scale: 4;
-  filter: opacity(0.7);
 }
 
 .spinner-grow {
