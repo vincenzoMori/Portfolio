@@ -98,7 +98,8 @@
 
 #spinner {
   place-self: center;
-  scale: 4;
+  transform: scale(4);
+  -webkit-transform: scale(4);
 }
 
 .spinner-grow {
