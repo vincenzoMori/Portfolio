@@ -14,6 +14,8 @@ mql.addEventListener("change", () => {
 });
 
 function cleanUpMobileCallbacks() {
+    triggerAbortControllers();
+
     mobileCallbacks = mobileCallbacks.filter(obj => {
         if (obj.cleanUp) {
             return false;

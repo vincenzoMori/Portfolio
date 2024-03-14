@@ -80,3 +80,17 @@ function getFileFromParams(categoryToLoad, subcategoryToLoad = null) {
 
     return null;
 }
+
+// Abort controllers
+let abortControllers = [];
+
+function addAbortController(controller) {
+    abortControllers.push(controller);
+}
+
+function triggerAbortControllers() {
+    abortControllers.forEach(controller => {
+        controller.abort();
+    });
+    abortControllers = [];
+}
