@@ -1,3 +1,7 @@
+// CONSTANTS
+const GET_DATA = "https://script.google.com/macros/s/AKfycbzlGrnhwyEe7Pa6Ra9B0QKoJVtkoZchk77n_bxLLmqMYYUf_SSZM9dcZpM6nBJ4jDVVtA/exec"
+const CONTACT = "https://script.google.com/macros/s/AKfycbziqrcmvUjG4LgAYZCF5aUI8G5oL8zBB_QCsnW0vRXC7Ry91dPrzmfSKtQ7KkSEHJYo/exec";
+
 // getters and setters for all the variables used in the app
 
 function getQueryParam(param, url = null) {

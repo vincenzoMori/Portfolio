@@ -3,6 +3,7 @@
 
 body {
   background-color: #f2f1ed !important;
+  font-family: "Heebo", sans-serif !important;
   overflow: hidden;
   height: 100svh;
   margin: 0;

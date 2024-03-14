@@ -45,7 +45,7 @@ function fetchImages() {
     var abortController = new AbortController();
     addAbortController(abortController);
 
-    fetch(`https://script.google.com/macros/s/AKfycbzlGrnhwyEe7Pa6Ra9B0QKoJVtkoZchk77n_bxLLmqMYYUf_SSZM9dcZpM6nBJ4jDVVtA/exec?category=${categorySelected}&subcategory=${subcategorySelected}`,
+    fetch(`${GET_DATA}?category=${categorySelected}&subcategory=${subcategorySelected}`,
         { signal: abortController.signal })
         .then(response => response.json())
         .then(async data => {

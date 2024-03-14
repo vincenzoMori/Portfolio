@@ -22,7 +22,7 @@ function sendForm() {
     var form = document.getElementById('contact-form');
     var formData = new FormData(form);
 
-    fetch('https://script.google.com/macros/s/AKfycbziqrcmvUjG4LgAYZCF5aUI8G5oL8zBB_QCsnW0vRXC7Ry91dPrzmfSKtQ7KkSEHJYo/exec', {
+    fetch(CONTACT, {
         method: 'POST',
         body: JSON.stringify(Object.fromEntries(formData)),
     })
