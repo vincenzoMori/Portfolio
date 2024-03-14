@@ -70,7 +70,7 @@ function openNavbar() {
 }
 
 function closeNavbar() {
-    resetSubmenusVisibility();
+    handleCategorySelection(null);
     $(".sidebar-mobile-container").animate({ right: -300 }, 500, function () {
         $(this).addClass("closed");
         $(".sidebar-mobile").fadeOut();

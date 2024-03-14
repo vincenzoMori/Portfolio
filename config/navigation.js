@@ -11,12 +11,12 @@ const routes = [
             {
                 href: 'installations',
                 text: 'installations',
-                file: null
+                file: '../pages/slideshow.html'
             },
             {
                 href: 'video_art',
                 text: 'video art',
-                file: null
+                file: '../pages/slideshow.html'
             },
         ]
     },

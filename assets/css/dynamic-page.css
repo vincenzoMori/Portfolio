@@ -187,7 +187,11 @@
     font-size: 0.9rem !important;
   }
 
-  .opera-sizes-year {
+  .opera-sizes {
+    font-size: 0.9rem !important;
+  }
+
+  .opera-year {
     font-size: 0.9rem !important;
   }
 
@@ -280,9 +284,15 @@
   font-weight: 600;
 }
 
-.opera-sizes-year {
+.opera-sizes {
   font-size: 12px;
   margin-top: 0px;
+}
+
+.opera-year {
+  font-size: 12px;
+  margin-top: 0px;
+  font-weight: 600;
 }
 
 #icons {

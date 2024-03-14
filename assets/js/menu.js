@@ -29,13 +29,8 @@ function createMenuElements() {
                 menuContainer.appendChild(subMenu);
             }
 
-            // Aggiunta del listener per il click sulla categoria
-            a.addEventListener('click', function (event) {
-                event.preventDefault();
-                handleCategorySelection(route.href);
-            });
         });
-        resetSubmenusVisibility();
+        handleCategorySelection(null);
     }
 }
 
@@ -47,8 +42,8 @@ function handleCategorySelection(index) {
     });
 
     // Mostra le sottocategorie della categoria selezionata se il path non contiene index.html
-    if (!getPathname().includes('index.html')) {
-        var selectedSubMenu = menuContainer.querySelector('#subMenu-' + index);
+    if (!isIndex()) {
+        var selectedSubMenu = menuContainer.querySelector('#subMenu-' + (index ? index : getCategoryUrl()));
         if (selectedSubMenu) {
             selectedSubMenu.classList.remove('hide');
         }
@@ -87,7 +82,9 @@ function createMenuListeners() {
             var subcategory = getQueryParam('subcategory', linkClicked);
             var contentUrl = getFileFromParams(category, subcategory);
 
-            if (!contentUrl)
+            handleCategorySelection(category);
+
+            if (!contentUrl || category === getCategoryUrl() && subcategory === getSubcategoryUrl())
                 return;
 
             category = contentUrl.category;
@@ -144,24 +141,9 @@ onMobileChange(() => {
     }
 });
 
-function resetSubmenusVisibility() {
-    var subMenus = menuContainer.querySelectorAll('.subMenu');
-    subMenus.forEach(function (subMenuEl) {
-        subMenuEl.classList.add('hide');
-    });
-    showOnCategorySelected();
-}
-
-function showOnCategorySelected() {
-    var selectedSubMenu = menuContainer.querySelector('#subMenu-' + getCategoryUrl());
-    if (selectedSubMenu) {
-        selectedSubMenu.classList.remove('hide');
-    }
-}
-
 //create the menu automatically only if the page
 //is the index.html
 
-if (getPathname().includes('index.html')) {
+if (isIndex()) {
     createMenu();
 }

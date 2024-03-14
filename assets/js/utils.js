@@ -65,6 +65,7 @@ function getFileFromParams(categoryToLoad, subcategoryToLoad = null) {
 
         if (subcategories && !subcategoryToLoad && window.isMobile && document.readyState == "complete") return null;
         subcategoryToLoad = subcategories && !subcategoryToLoad ? subcategories[0].href : subcategoryToLoad;
+        if (categoryToLoad === getCategoryUrl() && subcategoryToLoad === getSubcategoryUrl() && document.readyState == 'complete') return null;
 
         const contentToLoad = subcategories && subcategoryToLoad
             ? subcategories.find(subcategory => subcategory.href === subcategoryToLoad).file
