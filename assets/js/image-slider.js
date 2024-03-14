@@ -6,15 +6,11 @@ var prevBlobUrl = '';
 var currBlobUrl = '';
 var nextBlobUrl = '';
 
-var urlGoogleSheet = 'https://script.google.com/macros/s/AKfycbziqrcmvUjG4LgAYZCF5aUI8G5oL8zBB_QCsnW0vRXC7Ry91dPrzmfSKtQ7KkSEHJYo/exec'
+var urlAppsScript = 'https://script.google.com/macros/s/AKfycbziqrcmvUjG4LgAYZCF5aUI8G5oL8zBB_QCsnW0vRXC7Ry91dPrzmfSKtQ7KkSEHJYo/exec'
 
 function init() {
-    if (getQueryParam('subcategory') !== 'paintings') {
-        return;
-    } else {
-        window.changeImage = changeImage;
-        fetchImages();
-    }
+    window.changeImage = changeImage;
+    fetchImages();
 
     window.handleArrowKeyPress = function (event) {
         // Use of guard clause to immediately return if the image is open or not
@@ -197,7 +193,7 @@ window.toggleLike = function () {
     updateLikeButton(action === 'add');
     updateLocalStorage(currentImage.id, token, action === 'add');
 
-    const urlToFetch = `${urlGoogleSheet}/exec?id=${currentImage.id}&title=${encodeURIComponent(currentImage.titolo)}&token=${token}&action=${action}`;
+    const urlToFetch = `${urlAppsScript}/exec?id=${currentImage.id}&title=${encodeURIComponent(currentImage.titolo)}&token=${token}&action=${action}`;
 
     fetch(urlToFetch)
         .then(response => response.json())

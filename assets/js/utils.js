@@ -68,7 +68,7 @@ function getFileFromParams(categoryToLoad, subcategoryToLoad = null) {
         if (categoryToLoad === getCategoryUrl() && subcategoryToLoad === getSubcategoryUrl() && document.readyState == 'complete') return null;
 
         const contentToLoad = subcategories && subcategoryToLoad
-            ? subcategories.find(subcategory => subcategory.href === subcategoryToLoad).file
+            ? subcategories.find(subcategory => subcategory.href === subcategoryToLoad)?.file
             : category.file;
 
         return {
