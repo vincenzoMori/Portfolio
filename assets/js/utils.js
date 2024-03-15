@@ -1,6 +1,6 @@
 // CONSTANTS
 const GET_DATA = "https://script.google.com/macros/s/AKfycbzlGrnhwyEe7Pa6Ra9B0QKoJVtkoZchk77n_bxLLmqMYYUf_SSZM9dcZpM6nBJ4jDVVtA/exec"
-const CONTACT = "https://script.google.com/macros/s/AKfycbziqrcmvUjG4LgAYZCF5aUI8G5oL8zBB_QCsnW0vRXC7Ry91dPrzmfSKtQ7KkSEHJYo/exec";
+const CONTACT = "https://script.google.com/macros/s/AKfycbxeLLHeW6GSaOeotRtsbO-uQJuR5bt5nhJGtn4Uy0xuAySQfJvNRWgaWtJWIcOJy73C/exec";
 
 // getters and setters for all the variables used in the app
 
@@ -92,9 +92,37 @@ function addAbortController(controller) {
     abortControllers.push(controller);
 }
 
+function removeAbortController(controller) {
+    abortControllers = abortControllers.filter(c => c !== controller);
+}
+
 function triggerAbortControllers() {
     abortControllers.forEach(controller => {
         controller.abort();
     });
+}
+
+function emptyAbortControllers() {
     abortControllers = [];
+}
+
+function isEmptyAbortControllers() {
+    return abortControllers.length === 0;
+}
+
+// Spinner
+function showSpinner() {
+    var spinner = document.getElementsByClassName('spinner-grow')[0];
+    if (!['about', 'contacts'].includes(getCategoryUrl())) { // Check if the category is about or contacts, otherwise show the spinner
+        spinner.style.display = 'block';
+    }
+    spinner.style.top = getCategoryUrl() === 'works' && window.isMobile ? '30%' : '50%';
+
+}
+
+function hideSpinner() {
+    if (isEmptyAbortControllers()) { // Check if there is a fetch in progress, otherwise hide the spinner
+        var spinner = document.getElementsByClassName('spinner-grow')[0];
+        spinner.style.display = 'none';
+    }
 }

@@ -14,7 +14,7 @@ mql.addEventListener("change", () => {
 });
 
 function cleanUpMobileCallbacks() {
-    triggerAbortControllers();
+    triggerAbortControllers(); // For each "page change" we need to abort the previous fetch
 
     mobileCallbacks = mobileCallbacks.filter(obj => {
         if (obj.cleanUp) {

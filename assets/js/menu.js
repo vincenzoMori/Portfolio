@@ -103,7 +103,6 @@ function createMenuListeners() {
 }
 
 function createMenuContainer() {
-
     const menuContainer = document.createElement('div');
     menuContainer.id = 'menu-container';
 

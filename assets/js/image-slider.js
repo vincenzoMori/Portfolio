@@ -45,6 +45,7 @@ function fetchImages() {
     var abortController = new AbortController();
     addAbortController(abortController);
 
+    showSpinner();
     fetch(`${GET_DATA}?category=${categorySelected}&subcategory=${subcategorySelected}`,
         { signal: abortController.signal })
         .then(response => response.json())
@@ -57,14 +58,18 @@ function fetchImages() {
                 afterFetch();
             } else {
                 $('#main-content').load('../pages/404.html');
-                return;
             }
+        }).catch(_ => {
+            if (isEmptyAbortControllers())  // Check if there is already a fetch in progress, otherwise load 404
+                $('#main-content').load('../pages/404.html');
+
+        }).finally(() => {
+            removeAbortController(abortController);
+            hideSpinner();
         });
 }
 
 function afterFetch() {
-    var spinner = document.getElementsByClassName('spinner-grow')[0];
-    spinner.style.display = 'none';
     var slideShow = document.getElementById('slide-show');
     slideShow.style.display = 'block';
     var arrows = document.getElementsByClassName('arrow');
@@ -132,16 +137,22 @@ function setImageInfo() {
 
         const operaNumber = document.getElementsByClassName('opera-number').item(0);
         operaNumber.innerHTML = `${currentImageIdx + 1} / ${images.length}`;
+
         const imageTitle = document.getElementsByClassName('opera-title').item(0);
         imageTitle.innerHTML = images[currentImageIdx].titolo;
+
         const imageDescription = document.getElementsByClassName('opera-description').item(0);
         imageDescription.innerHTML = images[currentImageIdx].descrizione;
+
         const imageTechnique = document.getElementsByClassName('opera-technique').item(0);
         imageTechnique.innerHTML = images[currentImageIdx].tecnica.replace(/,/g, "<br>");
+
         const imageSizes = document.getElementsByClassName('opera-sizes').item(0);
         imageSizes.innerHTML = images[currentImageIdx].misure;
+
         const imageYear = document.getElementsByClassName('opera-year').item(0);
         imageYear.innerHTML = images[currentImageIdx].anno;
+
         history.pushState({}, null, `?category=${getCategoryUrl()}&subcategory=${getSubcategoryUrl()}&operaId=${images[currentImageIdx].id}`);
         // checkLikeBtn();
     } catch {
@@ -357,9 +368,11 @@ function createInfoPanel() {
 }
 
 onMobileChange(() => {
-    createInfoPanel();
-    setImageInfo();
-    decreaseBtnsOpacity();
+    if (images.length > 0) {
+        createInfoPanel();
+        setImageInfo();
+        decreaseBtnsOpacity();
+    }
 }, true);
 
 init();

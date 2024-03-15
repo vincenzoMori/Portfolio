@@ -10,7 +10,7 @@ function init() {
     var abortController = new AbortController();
     addAbortController(abortController);
 
-
+    showSpinner();
     fetch(`${GET_DATA}?category=${categorySelected}`, { signal: abortController.signal })
         .then(response => response.json())
         .then(data => {
@@ -20,7 +20,13 @@ function init() {
             } else {
                 handleData(data, true);
             }
-        })
+        }).catch(_ => {
+            if (isEmptyAbortControllers())  // Check if there is a fetch in progress, otherwise load 404
+                $('#main-content').load('../pages/404.html');
+        }).finally(() => {
+            removeAbortController(abortController);
+            hideSpinner();
+        });
 }
 
 function handleData(data, voidData) {

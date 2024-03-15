@@ -1,4 +1,7 @@
 function loadContent(contentToLoad, params) {
+    if (isEmptyAbortControllers())  // For each "page change" the spinner should disappear
+        hideSpinner()
+
     const mainContent = $('#main-content');
 
     const errorCallback = (xhr, status, error) => {

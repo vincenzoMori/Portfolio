@@ -97,6 +97,9 @@
 }
 
 #spinner {
+  display: none;
+  position: absolute;
+  left: 50%;
   place-self: center;
   transform: scale(4);
   -webkit-transform: scale(4);
@@ -110,9 +113,11 @@
   .sidebar {
     display: none;
   }
+
   .navbar-mobile {
     display: flex;
   }
+
   #slide-show {
     height: 49% !important;
     margin-top: 25px;
@@ -120,7 +125,8 @@
 
   #spinner {
     position: absolute;
-    top: 25%;
+    top: 50%;
+    left: initial;
   }
 
   .image-slider {
