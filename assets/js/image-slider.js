@@ -332,13 +332,13 @@ var detailsPanel = ' \
             <p class="opera-year"></p>\
         </div> \
         <div id="icons"> \
-            <div class="img-change-btn" style="transform: rotate(180deg);" onclick="changeImage(-1)"> \
-                <i class="fa-solid fa-arrow-right"></i> \
+            <div class="img-change-btn" onclick="changeImage(-1)"> \
+                <img class="arrow-mobile" src="../assets/media/svg/arrow-left.svg" alt="left-arrow"> \
             </div> \
-            <i id="fullscreen-btn" class="fa-solid fa-expand" onclick="displayImageFullScreen()"></i> \
-            <i id="share-btn" class="fa-regular fa-share-from-square" onclick="shareImage()"></i> \
+            <img id="fullscreen-btn" src="../assets/media/svg/fullscreen.svg" alt="fullscreen-btn" onclick="displayImageFullScreen()"> \
+            <img id="share-btn" src="../assets/media/svg/share.svg" alt="fullscreen-btn" onclick="shareImage()"> \
             <div class="img-change-btn" onclick="changeImage(1)"> \
-                <i class="fa-solid fa-arrow-right"></i> \
+                <img class="arrow-mobile" src="../assets/media/svg/arrow-right.svg" alt="right-arrow"> \
             </div> \
         </div> \
     </div> \
