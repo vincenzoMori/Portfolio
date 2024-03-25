@@ -24,7 +24,7 @@ function init() {
         // If the image is open and the user presses any key other than Escape, do nothing.
         if (imageOpened) return;
 
-        if (media.length <= 1) return;
+        if (media.length <= 1 || mediaType != "image") return;
         // Navigation between images if the image is not open (imageOpened is false)
         if (event.key === 'ArrowRight') {
             changeImage(1);
