@@ -142,7 +142,6 @@ function setImageInfo() {
                 sourceVideo.src = media[currentImageIdx].media[0].url;
                 tagVideo.load();
             } else {
-                console.log('Setting image:', currBlobUrl);
                 toShow.style.backgroundImage = `url('${currBlobUrl}')`;
             }
             $(toShow).fadeIn(100);
