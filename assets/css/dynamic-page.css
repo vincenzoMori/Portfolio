@@ -71,7 +71,6 @@
 
 #details-title {
   display: flex;
-  margin-bottom: 10px;
   flex-direction: column-reverse;
 }
 
@@ -110,6 +109,17 @@
 
 .arrow-mobile {
   width: 22px;
+}
+
+#video-container {
+  width: 95%;
+  justify-content: center;
+}
+
+video {
+  width: 100%;
+  height: 100%;
+  background-color: black;
 }
 
 @media (max-width: 768px) {
@@ -184,7 +194,6 @@
   .opera-title {
     font-size: 1.5rem !important;
     margin-bottom: 0 !important;
-    margin-left: -2.2px;
   }
 
   .opera-description {
@@ -217,6 +226,11 @@
     padding: 30px 10px 5px 20px !important;
     display: flex;
     flex-direction: column;
+  }
+
+  #video-container {
+    height: 50%;
+    margin-top: 20px;
   }
 }
 
@@ -266,7 +280,7 @@
 
 .info-container {
   margin-bottom: auto;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 .opera-number {
@@ -278,11 +292,12 @@
 
 .opera-title {
   font-size: 16px;
-  margin-bottom: 5px;
+  margin-bottom: 0px;
 }
 
 .opera-description {
   font-size: 12px;
+  margin-top: 15px;
   margin-bottom: 0px;
   word-wrap: break-word;
 }
@@ -290,18 +305,22 @@
 .opera-technique {
   font-size: 12px;
   margin-top: 10px;
-  font-weight: 600;
+  margin-bottom: 5px;
+  opacity: 0.6;
 }
 
 .opera-sizes {
   font-size: 12px;
   margin-top: 0px;
+  margin-bottom: 5px;
+  opacity: 0.6;
 }
 
 .opera-year {
   font-size: 12px;
   margin-top: 0px;
-  font-weight: 600;
+  margin-bottom: 0px;
+  opacity: 0.6;
 }
 
 #icons {

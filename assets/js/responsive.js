@@ -2,6 +2,9 @@ let mobileCallbacks = [];
 
 const mql = window.matchMedia("(max-width: 768px)");
 mql.addEventListener("change", () => {
+    if (mql.matches == window.isMobile)
+        return;
+
     if (mql.matches) {
         window.isMobile = true;
     } else {

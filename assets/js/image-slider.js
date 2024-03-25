@@ -1,5 +1,7 @@
 var currentImageIdx = 0;
-var images = [];
+var media = [];
+var mediaType = '';
+
 var imageOpened = false;
 
 var prevBlobUrl = '';
@@ -22,7 +24,7 @@ function init() {
         // If the image is open and the user presses any key other than Escape, do nothing.
         if (imageOpened) return;
 
-        if (images.length <= 1) return;
+        if (media.length <= 1) return;
         // Navigation between images if the image is not open (imageOpened is false)
         if (event.key === 'ArrowRight') {
             changeImage(1);
@@ -49,9 +51,10 @@ function fetchImages() {
     fetch(`${GET_DATA}?category=${categorySelected}&subcategory=${subcategorySelected}`,
         { signal: abortController.signal })
         .then(response => response.json())
-        .then(async data => {
-            if (!data.length == 0) {
-                images = data // Get the images based on the selected category
+        .then(async response => {
+            if (!response.data.length == 0) {
+                media = response.data // Get the images based on the selected category
+                mediaType = response.responseType;
                 checkImage();  // Check if the image is selected from the URL
                 await loadImages(currentImageIdx, 0);
                 decreaseBtnsOpacity();
@@ -70,8 +73,8 @@ function fetchImages() {
 }
 
 function afterFetch() {
-    var slideShow = document.getElementById('slide-show');
-    slideShow.style.display = 'block';
+    var toShow = document.getElementById(mediaType == 'video' ? 'video-container' : 'slide-show');
+    toShow.style.display = 'flex';
     var arrows = document.getElementsByClassName('arrow');
     for (let i = 0; i < arrows.length; i++) {
         arrows[i].style.display = 'flex';
@@ -79,7 +82,7 @@ function afterFetch() {
 }
 
 function decreaseBtnsOpacity() {
-    if (images.length === 1) {
+    if (media.length === 1) {
         let classe = window.isMobile ? 'img-change-btn' : 'arrow';
         let btns = document.getElementsByClassName(classe);
         for (let i = 0; i < btns.length; i++) {
@@ -92,68 +95,78 @@ function decreaseBtnsOpacity() {
 function checkImage() {
     const operaId = getQueryParam('operaId') || window.operaId;
     if (operaId) {
-        const operaIndex = images.findIndex(image => image.id == operaId);
+        const operaIndex = media.findIndex(image => image.id == operaId);
         if (operaIndex !== -1) currentImageIdx = operaIndex;
     }
 }
 
 async function loadImages(index, direction = 0) {
     window.currentImageIdx = index;
-    if (direction === 0) {
-        const [currBlobUrlInternal, nextBlobUrlInternal, prevBlobUrlInternal] = await Promise.all([
-            loadImageBlob(index),
-            loadImageBlob(index + 1 > images.length - 1 ? 0 : index + 1),
-            loadImageBlob(index === 0 ? images.length - 1 : index - 1)
-        ]);
-        currBlobUrl = currBlobUrlInternal;
-        nextBlobUrl = nextBlobUrlInternal;
-        prevBlobUrl = prevBlobUrlInternal;
+    if (mediaType != 'video') {
+        if (direction === 0) {
+            const [currBlobUrlInternal, nextBlobUrlInternal, prevBlobUrlInternal] = await Promise.all([
+                loadImageBlob(index),
+                loadImageBlob(index + 1 > media.length - 1 ? 0 : index + 1),
+                loadImageBlob(index === 0 ? media.length - 1 : index - 1)
+            ]);
+            currBlobUrl = currBlobUrlInternal;
+            nextBlobUrl = nextBlobUrlInternal;
+            prevBlobUrl = prevBlobUrlInternal;
+        }
+        if (direction === 1) {
+            URL.revokeObjectURL(prevBlobUrl);
+            prevBlobUrl = currBlobUrl;
+            currBlobUrl = nextBlobUrl;
+            nextBlobUrl = await loadImageBlob(index + 1 > media.length - 1 ? 0 : index + 1);
+        }
+        if (direction === -1) {
+            URL.revokeObjectURL(nextBlobUrl);
+            nextBlobUrl = currBlobUrl;
+            currBlobUrl = prevBlobUrl;
+            prevBlobUrl = await loadImageBlob(index - 1 < 0 ? media.length - 1 : index - 1);
+        }
     }
-    if (direction === 1) {
-        URL.revokeObjectURL(prevBlobUrl);
-        prevBlobUrl = currBlobUrl;
-        currBlobUrl = nextBlobUrl;
-        nextBlobUrl = await loadImageBlob(index + 1 > images.length - 1 ? 0 : index + 1);
-    }
-    if (direction === -1) {
-        URL.revokeObjectURL(nextBlobUrl);
-        nextBlobUrl = currBlobUrl;
-        currBlobUrl = prevBlobUrl;
-        prevBlobUrl = await loadImageBlob(index - 1 < 0 ? images.length - 1 : index - 1);
-    }
+
     createInfoPanel();
     setImageInfo();
 }
 
 function setImageInfo() {
     try {
-        const slide_show = document.getElementById('slide-show');
-
+        var toShow = document.getElementById(mediaType == 'video' ? 'video-container' : 'slide-show');
         // fade out the current image and fade in the next image with jQuery
-        $(slide_show).fadeOut(100, function () {
-            slide_show.style.backgroundImage = `url('${currBlobUrl}')`;
-            $(slide_show).fadeIn(100);
+        $(toShow).fadeOut(100, function () {
+            if (mediaType === 'video') {
+                let sourceVideo = document.getElementById('my-video');
+                let tagVideo = document.getElementById('video-tag');
+                sourceVideo.src = media[currentImageIdx].media[0].url;
+                tagVideo.load();
+            } else {
+                console.log('Setting image:', currBlobUrl);
+                toShow.style.backgroundImage = `url('${currBlobUrl}')`;
+            }
+            $(toShow).fadeIn(100);
         });
 
         const operaNumber = document.getElementsByClassName('opera-number').item(0);
-        operaNumber.innerHTML = `${currentImageIdx + 1} / ${images.length}`;
+        operaNumber.innerHTML = `${currentImageIdx + 1} / ${media.length}`;
 
         const imageTitle = document.getElementsByClassName('opera-title').item(0);
-        imageTitle.innerHTML = images[currentImageIdx].titolo;
+        imageTitle.innerHTML = media[currentImageIdx].titolo;
 
         const imageDescription = document.getElementsByClassName('opera-description').item(0);
-        imageDescription.innerHTML = images[currentImageIdx].descrizione;
+        imageDescription.innerHTML = media[currentImageIdx].descrizione;
 
         const imageTechnique = document.getElementsByClassName('opera-technique').item(0);
-        imageTechnique.innerHTML = images[currentImageIdx].tecnica.replace(/,/g, "<br>");
+        imageTechnique.innerHTML = media[currentImageIdx].tecnica.replace(/,/g, "<br>");
 
         const imageSizes = document.getElementsByClassName('opera-sizes').item(0);
-        imageSizes.innerHTML = images[currentImageIdx].misure;
+        imageSizes.innerHTML = media[currentImageIdx].misure;
 
         const imageYear = document.getElementsByClassName('opera-year').item(0);
-        imageYear.innerHTML = images[currentImageIdx].anno;
+        imageYear.innerHTML = media[currentImageIdx].anno;
 
-        history.pushState({}, null, `?category=${getCategoryUrl()}&subcategory=${getSubcategoryUrl()}&operaId=${images[currentImageIdx].id}`);
+        history.pushState({}, null, `?category=${getCategoryUrl()}&subcategory=${getSubcategoryUrl()}&operaId=${media[currentImageIdx].id}`);
         // checkLikeBtn();
     } catch {
         console.log('Error while setting image info')
@@ -171,13 +184,13 @@ async function changeImage(direction) {
 
 
 function setCurrentIndex(index) {
-    currentImageIdx = (currentImageIdx + index + images.length) % images.length;
+    currentImageIdx = (currentImageIdx + index + media.length) % media.length;
 }
 
 async function loadImageBlob(index) {
     try {
-        const image = images[index];
-        const response = await fetch(image.immagini[0].url);
+        const image = media[index];
+        const response = await fetch(image.media[0].url);
         const blob = await response.blob();
         return URL.createObjectURL(blob);
     } catch (error) {
@@ -187,7 +200,7 @@ async function loadImageBlob(index) {
 
 window.toggleLike = function () {
     const likeBtn = document.getElementById('like-btn');
-    const currentImage = images[currentImageIdx];
+    const currentImage = media[currentImageIdx];
     const likedImages = JSON.parse(localStorage.getItem('likedImages')) || [];
     const imageEntry = likedImages.find(item => item.id === currentImage.id);
 
@@ -242,7 +255,7 @@ function updateLocalStorage(id, token, add) {
 }
 
 window.shareImage = function () {
-    const currentImage = images[currentImageIdx];
+    const currentImage = media[currentImageIdx];
     const shareData = {
         title: currentImage.titolo,
         text: currentImage.descrizione,
@@ -268,7 +281,7 @@ function updateLikeButton(isLiked) {
 }
 
 function checkLikeBtn() {
-    updateLikeButton(isLiked(images[currentImageIdx].id));
+    updateLikeButton(isLiked(media[currentImageIdx].id));
 }
 
 // Helper function to update local storage with liked images
@@ -327,6 +340,7 @@ var detailsPanel = ' \
     </div> \
         <div class="info-container"> \
             <p class="opera-description"></p> \
+            <hr> \
             <p class="opera-technique"></p> \
             <p class="opera-sizes"></p>\
             <p class="opera-year"></p>\
@@ -363,12 +377,18 @@ function createInfoPanel() {
     }
 
     infoPanel.innerHTML = detailsPanel;
+
     document.getElementById(operaInfoContainer).appendChild(infoPanel);
+
+    if (mediaType === 'video') {
+        document.getElementById('fullscreen-btn').style.display = 'none';
+    }
+
     infoPanelRendered = true;
 }
 
 onMobileChange(() => {
-    if (images.length > 0) {
+    if (media.length > 0) {
         createInfoPanel();
         setImageInfo();
         decreaseBtnsOpacity();

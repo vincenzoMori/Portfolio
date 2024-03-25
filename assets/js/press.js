@@ -13,12 +13,11 @@ function init() {
     showSpinner();
     fetch(`${GET_DATA}?category=${categorySelected}`, { signal: abortController.signal })
         .then(response => response.json())
-        .then(data => {
-            if (!data.length == 0) {
-                handleData(data);
-                console.log(data);
+        .then(response => {
+            if (!response.data.length == 0) {
+                handleData(response.data);
             } else {
-                handleData(data, true);
+                handleData(response.data, true);
             }
         }).catch(_ => {
             if (isEmptyAbortControllers())  // Check if there is a fetch in progress, otherwise load 404
