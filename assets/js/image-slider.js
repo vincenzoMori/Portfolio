@@ -138,6 +138,7 @@ function setImageInfo() {
             if (window.mediaType === 'video') {
                 let sourceVideo = document.getElementById('my-video');
                 let tagVideo = document.getElementById('video-tag');
+                tagVideo.poster = media[currentImageIdx].thumbnail.url || "";
                 sourceVideo.src = media[currentImageIdx].media[0].url;
                 tagVideo.load();
             } else {
