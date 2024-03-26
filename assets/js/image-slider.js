@@ -1,6 +1,5 @@
 var currentImageIdx = 0;
 var media = [];
-var mediaType = '';
 
 var imageOpened = false;
 
@@ -24,7 +23,7 @@ function init() {
         // If the image is open and the user presses any key other than Escape, do nothing.
         if (imageOpened) return;
 
-        if (media.length <= 1 || mediaType != "image") return;
+        if (media.length <= 1 || window.mediaType != "image" || !isEmptyAbortControllers()) return;
         // Navigation between images if the image is not open (imageOpened is false)
         if (event.key === 'ArrowRight') {
             changeImage(1);
@@ -54,7 +53,7 @@ function fetchImages() {
         .then(async response => {
             if (!response.data.length == 0) {
                 media = response.data // Get the images based on the selected category
-                mediaType = response.responseType;
+                window.mediaType = response.responseType;
                 checkImage();  // Check if the image is selected from the URL
                 await loadImages(currentImageIdx, 0);
                 decreaseBtnsOpacity();
@@ -73,7 +72,7 @@ function fetchImages() {
 }
 
 function afterFetch() {
-    var toShow = document.getElementById(mediaType == 'video' ? 'video-container' : 'slide-show');
+    var toShow = document.getElementById(window.mediaType == 'video' ? 'video-container' : 'slide-show');
     toShow.style.display = 'flex';
     var arrows = document.getElementsByClassName('arrow');
     for (let i = 0; i < arrows.length; i++) {
@@ -102,7 +101,7 @@ function checkImage() {
 
 async function loadImages(index, direction = 0) {
     window.currentImageIdx = index;
-    if (mediaType != 'video') {
+    if (window.mediaType != 'video') {
         if (direction === 0) {
             const [currBlobUrlInternal, nextBlobUrlInternal, prevBlobUrlInternal] = await Promise.all([
                 loadImageBlob(index),
@@ -133,10 +132,10 @@ async function loadImages(index, direction = 0) {
 
 function setImageInfo() {
     try {
-        var toShow = document.getElementById(mediaType == 'video' ? 'video-container' : 'slide-show');
+        var toShow = document.getElementById(window.mediaType == 'video' ? 'video-container' : 'slide-show');
         // fade out the current image and fade in the next image with jQuery
         $(toShow).fadeOut(100, function () {
-            if (mediaType === 'video') {
+            if (window.mediaType === 'video') {
                 let sourceVideo = document.getElementById('my-video');
                 let tagVideo = document.getElementById('video-tag');
                 sourceVideo.src = media[currentImageIdx].media[0].url;
@@ -379,7 +378,7 @@ function createInfoPanel() {
 
     document.getElementById(operaInfoContainer).appendChild(infoPanel);
 
-    if (mediaType === 'video') {
+    if (window.mediaType === 'video') {
         document.getElementById('fullscreen-btn').style.display = 'none';
     }
 

@@ -14,6 +14,7 @@ function init() {
     fetch(`${GET_DATA}?category=${categorySelected}`, { signal: abortController.signal })
         .then(response => response.json())
         .then(response => {
+            window.mediaType = response.responseType;
             if (!response.data.length == 0) {
                 handleData(response.data);
             } else {
