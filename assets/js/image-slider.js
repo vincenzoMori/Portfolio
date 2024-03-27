@@ -157,7 +157,7 @@ function setImageInfo() {
         imageDescription.innerHTML = media[currentImageIdx].descrizione;
 
         const imageTechnique = document.getElementsByClassName('opera-technique').item(0);
-        imageTechnique.innerHTML = media[currentImageIdx].tecnica.replace(/,/g, "<br>");
+        imageTechnique.innerHTML = media[currentImageIdx].tecnica.toString().replace(/,/g, "<br>");
 
         const imageSizes = document.getElementsByClassName('opera-sizes').item(0);
         imageSizes.innerHTML = media[currentImageIdx].misure;
@@ -167,8 +167,8 @@ function setImageInfo() {
 
         history.pushState({}, null, `?category=${getCategoryUrl()}&subcategory=${getSubcategoryUrl()}&operaId=${media[currentImageIdx].id}`);
         // checkLikeBtn();
-    } catch {
-        console.log('Error while setting image info')
+    } catch (e) {
+        console.error('Error while setting image info', e)
         $('#main-content').load('../pages/404.html');
     }
 }
