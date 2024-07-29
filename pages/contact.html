@@ -8,22 +8,22 @@
 
 <body>
     <div class="container-lg">
-        <h1>Contacts</h1>
-        <p>Do you have any questions? Feel free to contact me!</p>
-        <div class="scroll">
-            <form id="contact-form">
-                <label for="name">Name:</label>
-                <input type="text" id="name" name="name">
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email">
-                <label for="message">Message: <span>(Required)</span></label>
-                <textarea id="message" name="message" maxlength="512" required></textarea>
-                <button id="send-btn" type="submit">Send</button>
-            </form>
-            <div class="contact-btns">
-                <h2>I'm also on</h2>
-                <div id="social-container"></div>
-            </div>
+        <div class="container-lg-header">
+            <h1>Contacts</h1>
+            <p>Do you have any questions? Feel free to contact me!</p>
+        </div>
+        <form id="contact-form">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email">
+            <label for="message">Message: <span>(Required)</span></label>
+            <textarea id="message" name="message" maxlength="512" required></textarea>
+            <button id="send-btn" type="submit">Send</button>
+        </form>
+        <div class="contact-btns">
+            <h2>I'm also on</h2>
+            <div id="social-container"></div>
         </div>
     </div>
     <script src="../assets/js/route-guard.js"></script>
